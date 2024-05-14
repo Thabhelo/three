@@ -151,7 +151,7 @@ import {
         "Great progress man! I am proud of the work you have been doing and your zeal to learn new languages and technologies over the past couple of years! Proud mentor.",
       name: "Andile Mbele",
       designation: "Co-Founder",
-      company: "Qu Stack, Rooibos Radar",
+      company: "Qu Stack | Co-founder of  Rooibos Radar",
       image: "https://assets.reactbricks.com/7RGlvboX1CS42u-/images/src_set/snSZpakDutuywOF-800/andilejadenmbele.webp",
     },
     {
@@ -159,12 +159,12 @@ import {
         "Your dedication and awesome work ethic has a great impact and progressive effect to the Emzini we Code community. Thank you for your continued willingness to support.",
       name: "Eric Khumalo",
       designation: "Data Scientist & Privacy Engineer",
-      company: "Good Research, Emzini we Code",
+      company: "Good Research | Founder & Head Instructor at Emzini we Code",
       image: "https://assets.reactbricks.com/7RGlvboX1CS42u-/images/src_set/dfHtNR0PAMYu6Sk-123/eric-1x.webp",
     },
     {
       testimonial:
-        "I am impressed by the brilliant work you are doing in such a short period of time since you arrived, I am optimistic that we will cover a lot of ground and be ahead of our goals for this quarter 1 and 2.",
+        "I am impressed by the brilliant work you are doing in such a short period of time since you arrived, I am optimistic that we will cover a lot of ground and be ahead of our goals for this year's quarter 1 and 2.",
       name: "Temba Ngwenya",
       designation: "Client Relations Associate",
       company: "TelOne",

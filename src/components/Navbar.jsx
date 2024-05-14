@@ -30,7 +30,7 @@ const Navbar = () => {
           <img src={thabs} alt='logo-thabhelos face' className='w-9 h-9 object-contain' />
           <p className='text-white text-[18px] font-bold cursor-pointer flex '>
             Thabhelo&nbsp;
-            <span className='sm:block hidden'> | Talladega, AL</span>
+            <span className='sm:block hidden'> | 3x Hackathon Winner</span>
           </p>
         </Link>
 
