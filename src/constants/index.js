@@ -175,6 +175,24 @@ import {
   
   const projects = [
     {
+      name: "DegaMate",
+      description:
+        "Your ultimate companion for navigating around College campus with ease and confidence. Explore our detailed 3D interactive map, take virtual tours, get real-time navigation, and learn about campus locations including facilities, operating hours, and special features.",
+      tags: [
+        {
+          name: "Swift",
+          color: "orange-text-gradient"
+        },
+        {
+          name: "Xcode",
+          color: "purple-text-gradient"
+        },
+        
+      ],
+      image: degamate,
+      source_code_link: "https://github.com/Thabhelo/DegaMate",
+    },
+    {
       name: "Ta' Chat",
       description:
         "A realtime web chat application built using Django, Django Channels, WebSocket technology, and styled with TailwindCSS.",
@@ -237,26 +255,6 @@ import {
       image: tripguide,
       source_code_link: "https://github.com/Thabhelo/GravitySim",
     },
-    {
-      name: "DegaMate",
-      description:
-        "Your ultimate companion for navigating around College campus with ease and confidence. Explore our detailed 3D interactive map, take virtual tours, get real-time navigation, and learn about campus locations including facilities, operating hours, and special features.",
-      tags: [
-        {
-          name: "Swift",
-          color: "orange-text-gradient"
-        },
-        {
-          name: "Xcode",
-          color: "purple-text-gradient"
-        },
-        "Campus Guide",
-        "Navigation",
-        "Talladega College"
-      ],
-      image: degamate,
-      source_code_link: "https://github.com/Thabhelo/DegaMate",
-    }
     
   ];
   
