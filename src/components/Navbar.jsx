@@ -41,7 +41,7 @@ const Navbar = () => {
             window.scrollTo(0, 0);
           }}
         >
-          <img src={thabs} alt='thabhelos face' className='w-9 h-9 object-contain' />
+          <img src={thabs} alt='thabhelos face' className='w-12 h-12 object-contain rounded-xl' />
           <p className='text-white text-[18px] font-bold cursor-pointer flex '>
             Thabhelo&nbsp;
             <span className='sm:block hidden'> | 3x Hackathon Winner</span>
