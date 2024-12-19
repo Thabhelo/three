@@ -39,7 +39,7 @@ const Contact = () => {
           from_name: form.name,
           to_name: "Thabhelo",
           from_email: form.email,
-          to_email: "thabhelo.duve@talladega.edu",
+          to_email: "thabhelo.duve+portfolio@talladega.edu",
           message: form.message,
         },
         '_JDd2_-oFPAXuoAI5'
