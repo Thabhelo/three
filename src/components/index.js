@@ -21,6 +21,5 @@ export {
   Contact,
   EarthCanvas, 
   BallCanvas, 
-  ComputersCanvas, 
   StarsCanvas
 };
