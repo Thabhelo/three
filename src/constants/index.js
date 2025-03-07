@@ -51,11 +51,11 @@ import {
       icon: web,
     },
     {
-      title: "Data Analyst",
+      title: "Data Science/ML Engineer",
       icon: mobile,
     },
     {
-      title: "Frontend Developer",
+      title: "Cloud Engineer",
       icon: backend,
     },
     {
