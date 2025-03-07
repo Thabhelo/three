@@ -6,9 +6,10 @@ import Experience from './Experience';
 import Works from './Works';
 import Feedbacks from './Feedbacks';
 import Contact from './Contact';
-import BallCanvas from './BallCanvas';
-import EarthCanvas from './EarthCanvas';
-import StarsCanvas from './StarsCanvas';
+import BallCanvas from './canvas/Ball';
+import EarthCanvas from './canvas/Earth';
+import ComputersCanvas from './canvas/Computers';
+import StarsCanvas from './canvas/Stars';
 
 export {
   Hero,
@@ -21,5 +22,6 @@ export {
   Contact,
   EarthCanvas, 
   BallCanvas, 
+  ComputersCanvas,
   StarsCanvas
 };
