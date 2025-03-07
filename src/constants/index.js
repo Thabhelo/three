@@ -40,7 +40,7 @@ import {
     {
       id: "resume",
       title: "Resume",
-      url: "../src/assets/Thabhelo-Duve-Resume.pdf",
+      url: "/src/assets/Thabhelo-Duve-Resume.pdf",
       download: true,
     },
   ];
@@ -106,7 +106,7 @@ import {
       icon: threejs,
     },
     {
-      name: "git",
+      name: "Git",
       icon: git,
     },
     {
@@ -186,11 +186,11 @@ import {
         "Your ultimate companion for navigating around College campus with ease and confidence. Explore our detailed 3D interactive map, take virtual tours, get real-time navigation, and learn about campus locations including facilities, operating hours, and special features.",
       tags: [
         {
-          name: "Swift",
+          name: "swift",
           color: "orange-text-gradient"
         },
         {
-          name: "Xcode",
+          name: "xcode",
           color: "purple-text-gradient"
         },
         
@@ -246,15 +246,15 @@ import {
         "A simple yet captivating Unity 3D simulations of the mesmerizing effects of gravity on spheres and cubes falling, colliding, and interacting in a controlled environment.",
       tags: [
         {
-          name: "C#",
+          name: "c#",
           color: "blue-text-gradient",
         },
         {
-          name: "Unity",
+          name: "unity",
           color: "green-text-gradient",
         },
         {
-          name: "OpenGL",
+          name: "opengl",
           color: "pink-text-gradient",
         },
       ],
