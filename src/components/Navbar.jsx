@@ -44,7 +44,7 @@ const Navbar = () => {
           <img src={thabs} alt='thabhelos face' className='w-12 h-12 object-contain rounded-xl' />
           <p className='text-white text-[18px] font-bold cursor-pointer flex '>
             Thabhelo&nbsp;
-            <span className='sm:block hidden'> | 8x Hackathon Champion/Runner Up</span>
+            <span className='sm:block hidden'> | 8x Hackathon Winner</span>
           </p>
         </Link>
 
