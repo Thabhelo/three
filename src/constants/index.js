@@ -21,8 +21,8 @@ import {
     jobit,
     tripguide,
     threejs,
-    degamate,
-  } from "../assets";
+    degamate
+} from "../assets";
   
   export const navLinks = [
     {
@@ -40,7 +40,7 @@ import {
     {
       id: "resume",
       title: "Resume",
-      url: "/src/assets/Thabhelo-Duve-Resume.pdf",
+      url: "/src/assets/Thabhelo_Duve_Resume.pdf",
       download: true,
     },
   ];
@@ -110,11 +110,11 @@ import {
       icon: git,
     },
     {
-      name: "figma",
+      name: "Figma",
       icon: figma,
     },
     {
-      name: "docker",
+      name: "Docker",
       icon: docker,
     },
   ];
@@ -122,7 +122,7 @@ import {
   const experiences = [
     {
       title: "Data Analyst",
-      company_name: "Telone",
+      company_name: "TelOne",
       location: "Bulawayo, Zimbabwe",
       iconBg: "#E6DEDD",
       icon: telone,
