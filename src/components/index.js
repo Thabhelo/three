@@ -5,9 +5,11 @@ import Tech from './Tech';
 import Experience from './Experience';
 import Works from './Works';
 import Feedbacks from './Feedbacks';
-import Feedbacks from './Feedbacks';
 import Contact from './Contact';
-export {
+import BallCanvas from './BallCanvas';
+import EarthCanvas from './EarthCanvas';
+import StarsCanvas from './StarsCanvas';
+import EarthCanvas from './EarthCanvas';
   Hero,
   Navbar,
   About,

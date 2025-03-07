@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import thabs from '../assets/thabs.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { styles } from '../styles';
 import { navLinks } from '../constants';
@@ -69,10 +71,9 @@ const Navbar = () => {
         </ul>
 
         <div className='sm:hidden flex flex-1 justify-end items-center'>
-          <img
-            src={toggle ? close : menu}
-            alt='menu'
-            className='w-[28px] h-[28px] object-contain'
+          <FontAwesomeIcon
+            icon={toggle ? faTimes : faBars}
+            className='w-[28px] h-[28px] text-white cursor-pointer'
             onClick={() => setToggle(!toggle)}
           />
 
