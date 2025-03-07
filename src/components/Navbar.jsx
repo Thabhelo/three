@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import thabs from '../assets/thabs.png';
 
 import { styles } from '../styles';
 import { navLinks } from '../constants';
