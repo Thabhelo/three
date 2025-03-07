@@ -9,7 +9,8 @@ import Contact from './Contact';
 import BallCanvas from './BallCanvas';
 import EarthCanvas from './EarthCanvas';
 import StarsCanvas from './StarsCanvas';
-import EarthCanvas from './EarthCanvas';
+
+export {
   Hero,
   Navbar,
   About,
