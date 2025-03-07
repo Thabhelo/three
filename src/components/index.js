@@ -10,6 +10,7 @@ import BallCanvas from './canvas/Ball';
 import EarthCanvas from './canvas/Earth';
 import ComputersCanvas from './canvas/Computers';
 import StarsCanvas from './canvas/Stars';
+import SocialMediaCard from './SocialMediaCard';
 
 export {
   Hero,
@@ -23,5 +24,6 @@ export {
   EarthCanvas, 
   BallCanvas, 
   ComputersCanvas,
-  StarsCanvas
+  StarsCanvas, 
+  SocialMediaCard
 };
