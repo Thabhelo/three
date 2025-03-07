@@ -40,7 +40,7 @@ import {
     {
       id: "resume",
       title: "Resume",
-      url: "../src/assets/Thabhelo-DUve-Resume.pdf",
+      url: "../src/assets/Thabhelo-Duve-Resume.pdf",
       download: true,
     },
   ];
