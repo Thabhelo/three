@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import { styles } from '../styles';
 import { navLinks } from '../constants';
-import { thabs, menu, close } from '../assets'
 
 const Navbar = () => {
   const [active, setActive] = useState("");
@@ -49,21 +48,25 @@ const Navbar = () => {
         </Link>
 
         <ul className='list-none hidden sm:flex flex-row gap-10'>
-          {navLinks.map((Link) => (
+          {navLinks.map((link) => (
             <li
-              key={Link.id}
+              key={link.id}
               className={`${
-                active === Link.title 
+                active === link.title 
                   ? "text-white" 
                   : "text-secondary"
               } hover:text-white text-[18px] font-medium cursor-pointer`}
-              onClick={() => setActive(Link.title)}
+              onClick={() => setActive(link.title)}
             >
-              <a href={`#${Link.id}`}>{Link.title}</a>
+              {link.download ? (
+                <a href={link.url} download>{link.title}</a>
+              ) : (
+                <a href={`#${link.id}`}>{link.title}</a>
+              )}
             </li>
           ))}
         </ul>
-{/* For small devices, we may need to change the nav behaviour */}
+
         <div className='sm:hidden flex flex-1 justify-end items-center'>
           <img
             src={toggle ? close : menu}
@@ -78,21 +81,25 @@ const Navbar = () => {
             } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
           >
             <ul className='list-none flex justify-end items-start flex-1 flex-col gap-4'>
-              {navLinks.map((Link) => (
+              {navLinks.map((link) => (
                 <li
-                  key={Link.id}
+                  key={link.id}
                   className={`font-poppins font-medium cursor-pointer text-[16px] ${
-                    active === Link.title ? "text-white" : "text-secondary"
+                    active === link.title ? "text-white" : "text-secondary"
                   }`}
                   onClick={() => {
                     setToggle(!toggle);
-                    setActive(Link.title);
+                    setActive(link.title);
                   }}
                 >
-                  <a href={`#${Link.id}`}>{Link.title}</a>
+                  {link.download ? (
+                    <a href={link.url} download>{link.title}</a>
+                  ) : (
+                    <a href={`#${link.id}`}>{link.title}</a>
+                  )}
                 </li>
               ))}
-              </ul>
+            </ul>
           </div>
         </div>
       </div>
@@ -100,4 +107,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar
+export default Navbar;
