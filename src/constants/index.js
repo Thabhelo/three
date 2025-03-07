@@ -37,6 +37,12 @@ import {
       id: "contact",
       title: "Contact",
     },
+    {
+      id: "resume",
+      title: "Resume",
+      url: "../src/assets/Thabhelo-DUve-Resume.pdf",
+      download: true,
+    },
   ];
   
   const services = [
