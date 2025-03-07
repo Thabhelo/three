@@ -1,4 +1,4 @@
-import thabs from "./thabs.svg";
+import thabs from "./thabs.png";
 import backend from "./backend.png";
 import creator from "./creator.png";
 import mobile from "./mobile.png";
