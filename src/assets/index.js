@@ -24,9 +24,9 @@ import threejs from "./tech/threejs.svg";
 import telone from "./company/telone.png";
 import ewc from "./company/ewc.png";
 
-import carrent from "./carrent.png";
-import jobit from "./jobit.png";
-import tripguide from "./tripguide.png";
+import homenergy from "./homenergy.png";
+import sos from "./sos.png";
+import heatexchange from "./heatexchange.png";
 import skillcon from "./skillcon.png";
 
 export {
@@ -53,8 +53,8 @@ export {
   typescript,
   threejs,
   telone,
-  carrent,
-  jobit,
-  tripguide,
+  homenergy,
+  sos,
+  heatexchange,
   skillcon,
 };

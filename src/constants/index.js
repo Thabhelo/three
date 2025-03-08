@@ -17,9 +17,9 @@ import {
     docker,
     telone,
     ewc,
-    carrent,
-    jobit,
-    tripguide,
+    homenergy,
+    sos,
+    heatexchange,
     threejs,
     skillcon
 } from "../assets";
@@ -207,51 +207,61 @@ import {
       source_code_link: "https://github.com/Thabhelo/skillcon",
     },
     {
-      name: "Ta' Chat",
+      name: "Homenergy",
       description:
-        "A realtime web chat application built using Django, Django Channels, WebSocket technology, and styled with TailwindCSS.",
+        "Homenergy is a smart home management application built with Next.js, React, and TailwindCSS. It allows users to manage their smart home devices, monitor energy usage, and receive AI-powered recommendations for energy savings.",
       tags: [
         {
-          name: "django",
+          name: "TypeScript",
           color: "green-text-gradient",
         },
         {
-          name: "mongodb",
+          name: "TailwindCSS",
           color: "green-text-gradient",
         },
         {
-          name: "tailwind",
-          color: "pink-text-gradient",
+          name: "React",
+          color: "blue-text-gradient",
         },
+
       ],
-      image: carrent,
-      source_code_link: "https://github.com/Thabhelo/web-chatapp",
+      image: homenergy,
+      source_code_link: "https://github.com/Thabhelo/homenergy",
     },
     {
-      name: "AAFlight Tracker",
+      name: "SOS/Emergency App",
       description:
-        "A web app for tracking flights and provide real-time updates to parents about the whereabouts of their unaccompanied minor children. The app utilizes the OpenSky API to retrieve flight data in JSON, Pandas for data manipulation and Bokeh for visualization.",
+        "SOS/Emergency App: An application designed to provide immediate assistance during emergencies. Features include one-tap SOS activation, real-time location sharing, emergency contact management, health monitoring integration, and notification functionality.",
       tags: [
         {
           name: "react",
           color: "blue-text-gradient",
         },
         {
-          name: "restapi",
+          name: "nextjs",
           color: "green-text-gradient",
         },
         {
-          name: "pandas",
+          name: "TailwindCSS",
           color: "pink-text-gradient",
         },
+        {
+          name: "twilio",
+          color: "blue-text-gradient",
+        },
+        
+        {
+          name: "firebase",
+          color: "green-text-gradient",
+        }
       ],
-      image: jobit,
-      source_code_link: "https://github.com/Thabhelo/talladega-besmart/",
+      image: sos,
+      source_code_link: "https://github.com/Thabhelo/sos/",
     },
     {
-      name: "GravitySim",
+      name: "Heat Exchange Reactor",
       description:
-        "A simple yet captivating Unity 3D simulations of the mesmerizing effects of gravity on spheres and cubes falling, colliding, and interacting in a controlled environment.",
+        "This project aims to optimize the production of benzenesulphonic acid in a chemical plant by analyzing data collected from a double-pipe heat exchanger reactor. The goal is to maximize the composition of benzenesulphonic acid while minimizing production costs, using operational data from one month. The project focuses on understanding the process, pre-processing the data, developing models for prediction, and providing recommendations for cost-efficient production.",
       tags: [
         {
           name: "c#",
@@ -266,8 +276,8 @@ import {
           color: "pink-text-gradient",
         },
       ],
-      image: tripguide,
-      source_code_link: "https://github.com/Thabhelo/GravitySim",
+      image: heatexchange,
+      source_code_link: "https://github.com/Thabhelo/heat-exchanger-reactor",
     },
     
   ];
