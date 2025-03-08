@@ -22,7 +22,8 @@ import {
     heatexchange,
     threejs,
     skillcon, 
-    carpriceprediction
+    carpriceprediction, 
+    trafficdensity
 } from "../assets";
   
   export const navLinks = [
@@ -325,7 +326,35 @@ import {
       image: heatexchange,
       source_code_link: "https://github.com/Thabhelo/heat-exchanger-reactor",
     },
-    
+    {
+      name: "Traffic Density Classification",
+      description:
+        "This deep learning model focuses on classifying traffic density levels using a dataset of images collected from Singapore's Land Transport Authority (LTA) open-source API. The dataset includes images categorized into five traffic density levels: Empty, Low, Medium, High, and Traffic Jam. A total of 4,054 images were manually labeled and divided into training (80%), validation (10%), and testing (10%) subsets. The model aims to accurately classify traffic density levels to enhance traffic management and monitoring systems.",
+      tags: [
+        {
+          name: "Python",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "TensorFlow",
+          color: "green-text-gradient",
+        },
+        {
+          name: "Keras",
+          color: "pink-text-gradient",
+        },
+        {
+          name: "OpenCV",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "NumPy",
+          color: "green-text-gradient",
+        }, 
+      ],
+      image: trafficdensity,
+      source_code_link: "https://www.github.com/Thabhelo/traffic-density-classification",
+    }
   ];
   
   export { services, technologies, experiences, testimonials, projects };
