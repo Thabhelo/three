@@ -264,17 +264,29 @@ import {
         "This project aims to optimize the production of benzenesulphonic acid in a chemical plant by analyzing data collected from a double-pipe heat exchanger reactor. The goal is to maximize the composition of benzenesulphonic acid while minimizing production costs, using operational data from one month. The project focuses on understanding the process, pre-processing the data, developing models for prediction, and providing recommendations for cost-efficient production.",
       tags: [
         {
-          name: "c#",
+          name: "Python",
           color: "blue-text-gradient",
         },
         {
-          name: "unity",
+          name: "Pandas",
           color: "green-text-gradient",
         },
         {
-          name: "opengl",
+          name: "NumPy",
           color: "pink-text-gradient",
         },
+        {
+          name: "Seaborn",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "Matplotlib",
+          color: "green-text-gradient",
+        }, 
+        {
+          name: "SciKit-Learn",
+          color: "pink-text-gradient",
+        }
       ],
       image: heatexchange,
       source_code_link: "https://github.com/Thabhelo/heat-exchanger-reactor",
