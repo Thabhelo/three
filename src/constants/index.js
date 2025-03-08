@@ -232,7 +232,7 @@ import {
     {
       name: "SOS/Emergency App",
       description:
-        "SOS/Emergency App: An application designed to provide immediate assistance during emergencies. Features include one-tap SOS activation, real-time location sharing, emergency contact management, health monitoring integration, and notification functionality.",
+        "SOS is designed to provide immediate assistance during emergencies. Features include one-tap SOS activation, real-time location sharing, emergency contact management, health monitoring integration, and notification functionality.",
       tags: [
         {
           name: "react",
