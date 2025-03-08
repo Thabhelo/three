@@ -27,7 +27,7 @@ import ewc from "./company/ewc.png";
 import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
-import degamate from "./degamate.png";
+import skillcon from "./skillcon.png";
 
 export {
   ewc, 
@@ -56,5 +56,5 @@ export {
   carrent,
   jobit,
   tripguide,
-  degamate,
+  skillcon,
 };

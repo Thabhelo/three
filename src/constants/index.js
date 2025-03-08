@@ -21,7 +21,7 @@ import {
     jobit,
     tripguide,
     threejs,
-    degamate
+    skillcon
 } from "../assets";
   
   export const navLinks = [
@@ -181,22 +181,30 @@ import {
   
   const projects = [
     {
-      name: "DegaMate",
+      name: "SkillConnect",
       description:
-        "Your ultimate companion for navigating around College campus with ease and confidence. Explore our detailed 3D interactive map, take virtual tours, get real-time navigation, and learn about campus locations including facilities, operating hours, and special features.",
+        "SkillCon connects skilled volunteers with nonprofits, leveraging artificial intelligence to create meaningful and impactful partnerships. Our mission is to bridge the gap between talented individuals who want to make a difference and organizations that need their expertise.",
       tags: [
         {
-          name: "swift",
+          name: "TypeScript",
           color: "orange-text-gradient"
         },
         {
-          name: "xcode",
+          name: "React",
           color: "purple-text-gradient"
+        },
+        {
+          name: "NodeJS",
+          color: "blue-text-gradient"
+        },
+        {
+          name: "Tailwind",
+          color: "pink-text-gradient"
         },
         
       ],
-      image: degamate,
-      source_code_link: "https://github.com/Thabhelo/DegaMate",
+      image: skillcon,
+      source_code_link: "https://github.com/Thabhelo/skillcon",
     },
     {
       name: "Ta' Chat",
