@@ -21,7 +21,8 @@ import {
     sos,
     heatexchange,
     threejs,
-    skillcon
+    skillcon, 
+    carpriceprediction
 } from "../assets";
   
   export const navLinks = [
@@ -257,6 +258,39 @@ import {
       ],
       image: sos,
       source_code_link: "https://github.com/Thabhelo/sos/",
+    },
+    {
+      name: "Car Price Prediction Model",
+      description:
+        "This project involves analyzing a car price dataset using Python libraries such as NumPy, Pandas, Matplotlib, Seaborn, and sklearn. The goal is to pre-process the dataset by applying feature engineering, feature selection, and exploratory data analysis. Note that actual model building is not part of this project.",
+      tags: [
+        {
+          name: "Python",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "Pandas",
+          color: "green-text-gradient",
+        },
+        {
+          name: "NumPy",
+          color: "pink-text-gradient",
+        },
+        {
+          name: "Seaborn",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "Matplotlib",
+          color: "green-text-gradient",
+        }, 
+        {
+          name: "SciKit-Learn",
+          color: "pink-text-gradient",
+        }
+      ],
+      image: carpriceprediction,
+      source_code_link: "https://www.github.com/Thabhelo/car-price-prediction",
     },
     {
       name: "Heat Exchange Reactor",

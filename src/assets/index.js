@@ -28,6 +28,7 @@ import homenergy from "./homenergy.png";
 import sos from "./sos.png";
 import heatexchange from "./heatexchange.png";
 import skillcon from "./skillcon.png";
+import carpriceprediction from "./carpriceprediction.png";
 
 export {
   ewc, 
@@ -57,4 +58,5 @@ export {
   sos,
   heatexchange,
   skillcon,
+  carpriceprediction
 };
