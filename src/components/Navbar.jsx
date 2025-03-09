@@ -26,6 +26,14 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavLinkClick = (id) => {
+    setActive(id);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <nav
       className={`${
@@ -59,7 +67,7 @@ const Navbar = () => {
                   ? "text-white" 
                   : "text-secondary"
               } hover:text-white text-[18px] font-medium cursor-pointer`}
-              onClick={() => setActive(link.title)}
+              onClick={() => handleNavLinkClick(link.id)}
             >
               {link.download ? (
                 <a href={link.url} download>{link.title}</a>
@@ -91,7 +99,7 @@ const Navbar = () => {
                   }`}
                   onClick={() => {
                     setToggle(!toggle);
-                    setActive(link.title);
+                    handleNavLinkClick(link.id);
                   }}
                 >
                   {link.download ? (

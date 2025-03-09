@@ -10,13 +10,25 @@ const App = () => {
           <Hero />
           <SocialMediaCard />
         </div>
-        <About />
-        <Experience />
-        <Tech />
-        <Projects />
-        <Feedbacks />
+        <section id="about">
+          <About />
+        </section>
+        <section id="work">
+          <Experience />
+        </section>
+        <section id="tech">
+          <Tech />
+        </section>
+        <section id="projects">
+          <Projects />
+        </section>
+        <section id="feedbacks">
+          <Feedbacks />
+        </section>
         <div className="relative z-0">
-          <Contact />
+          <section id="contact">
+            <Contact />
+          </section>
           <StarsCanvas />
         </div>
       </div>
