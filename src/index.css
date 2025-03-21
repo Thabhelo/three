@@ -11,6 +11,43 @@
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
   color-scheme: dark;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 768px) {
+  * {
+    touch-action: manipulation;
+  }
+  
+  .canvas-container {
+    height: 200px !important;
+    width: 100% !important;
+  }
+  
+  .section-padding {
+    padding: 2rem 1rem !important;
+  }
+  
+  .section-head-text {
+    font-size: 2rem !important;
+  }
+  
+  .section-sub-text {
+    font-size: 0.875rem !important;
+  }
+
+  .project-card {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .tech-stack-container {
+    padding: 1rem;
+  }
+
+  .tech-stack-item {
+    margin: 0.5rem;
+  }
 }
 
 .hash-span {
