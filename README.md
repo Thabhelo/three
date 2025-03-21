@@ -88,8 +88,4 @@ Replace the placeholder values with your actual EmailJS credentials. You can obt
 ```bash
 npm run dev
 ```
-**Known bugs:**
-- On Android mobile devices, some 3D ball elements and frontpage animations do not render properly, possibly due to WebGL limitations or performance constraints; I will consider using simplified animations or fallback images for these elements.
-- On mobile devices across all operating systems, the projects page fails to render correctly, potentially because of heavy resource usage or unsupported CSS features; I will consider optimizing the page, implementing lazy loading, or revising media queries for better compatibility.
-
 <h3>Be sure to drop me a message in the contact page of my website</h3>
