@@ -7,12 +7,12 @@
   
 <hr />
 
-  <h3 align="center"> This is my Developer Portfolio made with ReactJS and threeJS</h3>
+  <h3 align="center"> This is my Developer Portfolio made with ReactJS and ThreeJS</h3>
 </div>
 
 ## <a name="introduction">🤖 Introduction</a>
 
-I developed this project on my journey to learn threeJS to boost my frontend development arsenal. It has been a great experience to craft immersive web experiences, mastering 3D libraries, and implementing engaging animations. The combination of creativity and technical skills showcased in this project may help you too to enhance your future projects and captivate users with awesome 3d designs.
+I developed this project on my journey to learn threeJS to boost my frontend dev skills. It has been a great experience to craft immersive web experiences, mastering 3D libraries, and implementing engaging animations. The combination of creativity and technical skills showcased in this project may help you too to enhance your future projects and captivate users with awesome 3d designs.
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
