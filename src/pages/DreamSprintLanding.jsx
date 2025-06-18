@@ -217,7 +217,7 @@ const DreamSprintLanding = () => {
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1.5, duration: 1 }}
-              className="text-sm md:text-lg lg:text-xl mb-16 text-gray-700 max-w-5xl mx-auto leading-relaxed font-medium space-y-4"
+              className="text-xs md:text-base lg:text-lg mb-16 text-gray-700 max-w-5xl mx-auto leading-relaxed font-medium space-y-4"
             >
               <p>
                 Hey, I&apos;m organizing a 10-day deep work sprint in Miami from August 1 to August 11, and I&apos;m looking for up to 9 other highly motivated people to join. The goal is simple: come with one big project you&apos;ve been meaning to finish; whether it&apos;s a startup, a coding project, finish 300 leetcodes, a set of 50 videos, a book, a course, or something creative; and use this time to get it done. We&apos;ll rent one big Airbnb, stock it with food and everything we need, and work side-by-side every day with full focus. No one sleeps more than 2-4 hours a day, and there are no distractions. We&apos;ll start each day with a short check-in and end with progress updates or demos. Everyone is expected to contribute to the energy and momentum of the house.
