@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import thabs from '../assets/thabs.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,7 @@ const Navbar = () => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,9 +29,11 @@ const Navbar = () => {
 
   const handleNavLinkClick = (id) => {
     setActive(id);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (id.startsWith('#')) {
+      const element = document.getElementById(id.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -63,7 +66,7 @@ const Navbar = () => {
             <li
               key={link.id}
               className={`${
-                active === link.title 
+                active === link.title || location.pathname === link.url
                   ? "text-white" 
                   : "text-secondary"
               } hover:text-white text-[18px] font-medium cursor-pointer`}
@@ -71,6 +74,8 @@ const Navbar = () => {
             >
               {link.download ? (
                 <a href={link.url} download>{link.title}</a>
+              ) : link.url ? (
+                <Link to={link.url}>{link.title}</Link>
               ) : (
                 <a href={`#${link.id}`}>{link.title}</a>
               )}
@@ -95,7 +100,7 @@ const Navbar = () => {
                 <li
                   key={link.id}
                   className={`font-poppins font-medium cursor-pointer text-[16px] ${
-                    active === link.title ? "text-white" : "text-secondary"
+                    active === link.title || location.pathname === link.url ? "text-white" : "text-secondary"
                   }`}
                   onClick={() => {
                     setToggle(!toggle);
@@ -104,6 +109,8 @@ const Navbar = () => {
                 >
                   {link.download ? (
                     <a href={link.url} download>{link.title}</a>
+                  ) : link.url ? (
+                    <Link to={link.url}>{link.title}</Link>
                   ) : (
                     <a href={`#${link.id}`}>{link.title}</a>
                   )}
