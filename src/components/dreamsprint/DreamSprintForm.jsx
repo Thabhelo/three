@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { submitApplication, validateFormData, checkExistingApplication } from '../../api/applications';
 
-// Form Section Component
+// Form Section Component (same as before, keeping it embedded)
 const FormSection = ({ title, fields, data, onChange, sectionNumber }) => {
   const fieldVariants = {
     hidden: { opacity: 0, y: 30, scale: 0.95 },
@@ -201,7 +202,7 @@ const FormSection = ({ title, fields, data, onChange, sectionNumber }) => {
   );
 };
 
-// Main DreamSprint Form Component
+// Main DreamSprint Form Component with Supabase Integration
 const DreamSprintForm = () => {
   const [formData, setFormData] = useState({
     aboutYou: {
@@ -218,25 +219,60 @@ const DreamSprintForm = () => {
   });
 
   const [currentStep, setCurrentStep] = useState(0);
-  const [submissionStatus, setSubmissionStatus] = useState('idle');
+  const [submissionStatus, setSubmissionStatus] = useState('idle'); // 'idle', 'submitting', 'success', 'error'
+  const [errorMessage, setErrorMessage] = useState('');
+  const [validationErrors, setValidationErrors] = useState([]);
 
   const handleInputChange = (section, field, value) => {
     setFormData(prev => ({
       ...prev,
       [section]: { ...prev[section], [field]: value }
     }));
+    
+    // Clear errors when user starts typing
+    if (errorMessage) setErrorMessage('');
+    if (validationErrors.length > 0) setValidationErrors([]);
   };
 
   const handleSubmit = async () => {
     setSubmissionStatus('submitting');
+    setErrorMessage('');
+    setValidationErrors([]);
     
-    // Simulate submission - replace with actual API call
-    console.log('Form Data:', formData);
-    
-    // Simulate API call delay
-    setTimeout(() => {
-      setSubmissionStatus('success');
-    }, 2000);
+    try {
+      // Validate form data
+      const validation = validateFormData(formData);
+      if (!validation.isValid) {
+        setValidationErrors(validation.errors);
+        setSubmissionStatus('error');
+        setErrorMessage('Please fix the validation errors below');
+        return;
+      }
+
+      // Check for existing application with same email
+      const existingCheck = await checkExistingApplication(formData.aboutYou.email);
+      if (existingCheck.exists) {
+        setSubmissionStatus('error');
+        setErrorMessage('An application with this email address already exists. Please use a different email or contact us if this is an error.');
+        return;
+      }
+
+      // Submit the application
+      const result = await submitApplication(formData);
+      
+      if (result.success) {
+        setSubmissionStatus('success');
+        // Optional: Clear form data
+        // setFormData({ ... reset to initial state ... });
+      } else {
+        setSubmissionStatus('error');
+        setErrorMessage(result.error || 'Failed to submit application. Please try again.');
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      setSubmissionStatus('error');
+      setErrorMessage('An unexpected error occurred. Please try again.');
+    }
   };
 
   const sections = [
@@ -296,10 +332,18 @@ const DreamSprintForm = () => {
             </svg>
           </motion.div>
           <h2 className="text-4xl font-bold text-gray-900 mb-4">Application Submitted!</h2>
-          <p className="text-xl text-gray-600 leading-relaxed">
+          <p className="text-xl text-gray-600 leading-relaxed mb-6">
             Thank you for applying to DreamSprint. We'll review your application and get back to you soon. 
             Get ready to transform your vision into reality!
           </p>
+          <motion.button
+            className="px-8 py-3 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-600 transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => window.location.href = '/dreamsprint'}
+          >
+            Back to DreamSprint
+          </motion.button>
         </motion.div>
       </div>
     );
@@ -365,6 +409,25 @@ const DreamSprintForm = () => {
             />
           </div>
         </motion.div>
+
+        {/* Validation Errors */}
+        <AnimatePresence>
+          {validationErrors.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="mb-8 p-6 bg-red-50 border border-red-200 rounded-2xl"
+            >
+              <h3 className="text-lg font-semibold text-red-800 mb-3">Please fix the following errors:</h3>
+              <ul className="list-disc list-inside text-red-700 space-y-1">
+                {validationErrors.map((error, index) => (
+                  <li key={index}>{error}</li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Form Sections */}
         <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
@@ -540,8 +603,8 @@ const DreamSprintForm = () => {
               onClick={handleSubmit}
               className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-2xl disabled:opacity-50 text-lg"
               disabled={submissionStatus === 'submitting'}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: submissionStatus !== 'submitting' ? 1.05 : 1 }}
+              whileTap={{ scale: submissionStatus !== 'submitting' ? 0.95 : 1 }}
               animate={submissionStatus === 'submitting' ? { scale: [1, 1.05, 1] } : {}}
               transition={{ duration: 0.5, repeat: submissionStatus === 'submitting' ? Infinity : 0 }}
             >
@@ -560,15 +623,19 @@ const DreamSprintForm = () => {
           )}
         </motion.div>
 
-        {submissionStatus === 'error' && (
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-red-500 text-center mt-6 text-lg bg-red-50 py-4 px-6 rounded-2xl border border-red-200"
-          >
-            An error occurred. Please try again.
-          </motion.p>
-        )}
+        {/* Error Message */}
+        <AnimatePresence>
+          {errorMessage && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              className="mt-6 p-4 bg-red-50 border border-red-200 rounded-2xl text-center"
+            >
+              <p className="text-red-600 font-medium">{errorMessage}</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

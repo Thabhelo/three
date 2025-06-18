@@ -9,9 +9,13 @@ lerna-debug.log*
 
 node_modules
 dist
-.env
 dist-ssr
 *.local
+
+# Environment variables
+.env
+.env.*
+!.env.example
 
 # Editor directories and files
 .vscode/*
@@ -23,3 +27,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Supabase
+.supabase/
+supabase/.env
+
+# Production and deployment
+.vercel
+.netlify
+
+# Temporary files
+*.tmp
+*.temp
