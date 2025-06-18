@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { About, Contact, Experience, Feedbacks, Hero, Navbar, Tech, Projects, StarsCanvas, SocialMediaCard } from './components';
-import { DreamSprintPage } from './pages/DreamSprintPage';
-import { DreamSprintLanding } from './pages/DreamSprintLanding';
+import DreamSprintPage from './pages/DreamSprintPage';
+import DreamSprintLanding from './pages/DreamSprintLanding';
 
 const App = () => {
   return (
