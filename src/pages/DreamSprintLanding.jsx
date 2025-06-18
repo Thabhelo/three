@@ -178,15 +178,22 @@ const DreamSprintLanding = () => {
             </div>
 
             {/* Description */}
-            <motion.p
+            <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1.5, duration: 1 }}
-                             className="text-lg md:text-xl lg:text-2xl mb-16 text-gray-700 max-w-5xl mx-auto leading-relaxed font-medium"
+              className="text-base md:text-lg lg:text-xl mb-16 text-gray-700 max-w-5xl mx-auto leading-relaxed font-medium space-y-4"
             >
-              Join an intensive 10-day deep work sprint where ambitious minds converge, 
-              distractions disappear, and breakthrough results emerge from relentless focus.
-            </motion.p>
+              <p>
+                Hey, I&apos;m organizing a 10-day deep work sprint in Miami from August 1 to August 11, and I&apos;m looking for up to 9 other highly motivated people to join. The goal is simple: come with one big project you&apos;ve been meaning to finish; whether it&apos;s a startup, a coding project, finish 300 leetcodes, a set of 50 videos, a book, a course, or something creative; and use this time to get it done. We&apos;ll rent one big Airbnb, stock it with food and everything we need, and work side-by-side every day with full focus. No one sleeps more than 2-4 hours a day, and there are no distractions. We&apos;ll start each day with a short check-in and end with progress updates or demos. Everyone is expected to contribute to the energy and momentum of the house.
+              </p>
+              <p>
+                We may stream the experience live 24/7 if one of us is a content creator. We&apos;ll have fast Wi-Fi, a solid setup for creators or coders, and shared spaces for working or brainstorming. There will be daily challenges, spontaneous team-ups, and constant encouragement to push through. You&apos;ll have people around you who are just as serious about their goals. It&apos;s going to be intense, but also exciting and productive. We&apos;ll also contribute and have access to the $200/mo ChatGPT Pro and the $100/mo Claude Max models.
+              </p>
+              <p>
+                If you&apos;re down, go ahead and fill in the form. We&apos;re looking for people who are ready to show up, lock in, and get real work done. Dates and place are not final, just tentative.
+              </p>
+            </motion.div>
 
             {/* CTA Button */}
             <motion.div
@@ -273,13 +280,13 @@ const DreamSprintLanding = () => {
             >
                              <div className="space-y-6 text-base leading-relaxed text-gray-700">
                 <p>
-                  You're a founder grinding through your MVP. A student pushing boundaries. 
-                  An engineer with a bold side project. A creator with an ambitious backlog. 
-                  Or simply someone chasing an extraordinary dream.
+                  By the end of the sprint, you will have a tangible startup MVP ready to pitch to investors. 
+                  Or you&apos;d have recorded and edited 75 pieces of content. Or finished a book. Or a DSA course. 
+                  Or launched your YouTube channel. Or developed your first machine learning model. 
+                  Or designed and launched your product&apos;s brand identity.
                 </p>
                 <p>
-                  This isn't a retreat or vacation—it's an intensive crucible where focus 
-                  meets execution. Ten days in Miami. One shared mission: transform your 
+                  Ten days in Miami. One shared mission: transform your 
                   vision into tangible reality.
                 </p>
                 <p>
@@ -301,19 +308,19 @@ const DreamSprintLanding = () => {
                 <div className="space-y-6">
                   <div className="flex items-center space-x-4">
                     <div className="w-3 h-3 bg-blue-500 rounded-full" />
-                                         <span className="text-base font-semibold">10 Days of Pure Focus</span>
+                    <span className="text-base font-semibold text-blue-500">10 Days of Pure Focus</span>
                   </div>
                   <div className="flex items-center space-x-4">
                     <div className="w-3 h-3 bg-purple-500 rounded-full" />
-                                         <span className="text-base font-semibold">Maximum 10 Participants</span>
+                    <span className="text-base font-semibold text-purple-500">About 10 Participants</span>
                    </div>
                    <div className="flex items-center space-x-4">
                      <div className="w-3 h-3 bg-cyan-500 rounded-full" />
-                     <span className="text-base font-semibold">Miami Location</span>
+                     <span className="text-base font-semibold text-cyan-500">Miami AirBnB</span>
                    </div>
                    <div className="flex items-center space-x-4">
                      <div className="w-3 h-3 bg-green-500 rounded-full" />
-                     <span className="text-base font-semibold">August 1-11, 2025</span>
+                     <span className="text-base font-semibold text-green-500">August 1-11, 2025</span>
                   </div>
                 </div>
               </div>
@@ -324,19 +331,75 @@ const DreamSprintLanding = () => {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-16">
-        <div className="max-w-6xl mx-auto px-4 text-center">
+        <div className="max-w-6xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="text-center mb-12"
           >
-                         <h4 className="text-xl font-bold mb-6">Ready to Transform Your Vision?</h4>
-             <div className="space-y-3 text-gray-300">
-               <p className="text-base">Organizer: Thabhelo Duve</p>
-               <p className="text-base">Email: thabheloduve@gmail.com</p>
-               <p className="text-base">Phone: +1 256 375 4207</p>
-            </div>
+            <h4 className="text-3xl font-bold mb-12">Ready to Make History?</h4>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-12 mb-12">
+            {/* Contact Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <h5 className="text-xl font-bold mb-4 text-blue-400">Contact</h5>
+              <div className="space-y-3 text-gray-300">
+                <p className="font-semibold">Organizer: Thabhelo Duve</p>
+                <p>thabheloduve@gmail.com</p>
+                <p>+1 256 375 4207</p>
+              </div>
+            </motion.div>
+
+            {/* Timeline Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <h5 className="text-xl font-bold mb-4 text-purple-400">Timeline</h5>
+              <div className="space-y-3 text-gray-300">
+                <p>Applications Due: July 15</p>
+                <p>Decisions Sent: July 20</p>
+                <p>Sprint Begins: August 1</p>
+              </div>
+            </motion.div>
+
+            {/* What to Expect Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <h5 className="text-xl font-bold mb-4 text-cyan-400">What to Expect</h5>
+              <div className="space-y-3 text-gray-300">
+                <p>Intense Focus Sessions</p>
+                <p>Daily Progress Reviews</p>
+                <p>Breakthrough Results</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Description */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center border-t border-gray-700 pt-8"
+          >
+            <p className="text-gray-300 leading-relaxed max-w-4xl mx-auto">
+              DreamSprint is an intensive work experience designed for ambitious individuals ready to transform their visions into reality. This is not a casual event—it&apos;s a crucible for breakthrough achievement.
+            </p>
           </motion.div>
         </div>
       </footer>
