@@ -248,6 +248,19 @@ const DreamSprintLanding = () => {
         </motion.div>
       </motion.div>
 
+      {/* Big Screen Recommendation Notice */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="bg-blue-50 border-b border-blue-100 px-4 py-3 text-center"
+      >
+        <p className="text-xs md:text-sm text-blue-700">
+          * Big screen such as an iPad / Mac is recommended for best experience.
+        </p>
+      </motion.div>
+
       {/* Content Section */}
       <motion.section
         initial={{ opacity: 0 }}

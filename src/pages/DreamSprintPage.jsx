@@ -32,17 +32,7 @@ const DreamSprintPage = () => {
         </div>
       </motion.nav>
 
-      {/* Big Screen Recommendation Notice */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        className="bg-blue-50 border-b border-blue-100 px-4 py-2 text-center"
-      >
-        <p className="text-xs md:text-sm text-blue-700">
-          * Big screen such as an iPad / Mac is recommended for best experience.
-        </p>
-      </motion.div>
+
 
       {/* Form Section */}
       <motion.section
