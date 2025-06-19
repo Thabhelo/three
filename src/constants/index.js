@@ -126,6 +126,21 @@ const technologies = [
   
 const experiences = [
   {
+    title: "Software Development Engineer",
+    company_name: "Amazon",
+    location: "Seattle, WA (Remote)",
+    iconBg: "#FF9900",
+    icon: backend, // Using backend icon as placeholder until we add Amazon logo
+    date: "May 2025 - Present",
+    points: [
+      "Building an internal Gen AI tool for Mobile App Marketing using Java, Python, and TypeScript, streamlining campaign optimization workflows for emerging markets expansion within the Expansions team.",
+      "Developing scalable backend services on AWS cloud infrastructure utilizing Lambda functions, SQS message queues, SNS notification services, and API Gateway for microservices architecture.",
+      "Contributing to the Mobile App growth team responsible for customer acquisition optimization for Amazon Retail app through sophisticated Paid App Marketing strategies across global markets.",
+      "Implementing performance measurement and attribution systems for mobile marketing campaigns across Android and iOS platforms, integrating with third-party ad networks including Google Ads and Apple Search Ads.",
+      "Architecting tools for real-time campaign optimization and automated bidding algorithms on external advertising platforms, leveraging machine learning models for enhanced ROI performance."
+    ],
+  },
+  {
     title: "Data Analyst",
     company_name: "TelOne",
     location: "Bulawayo, Zimbabwe",
@@ -140,20 +155,21 @@ const experiences = [
       "Implemented data cleaning and validation procedures with OpenRefine, resulting in a 30% increase in KYC data accuracy."
     ],
   },
-  {
-    title: "Teaching Assistant",
-    company_name: "Emzini We Code",
-    location: "Hybrid",
-    iconBg: "#383E56",
-    icon: ewc,
-    date: "Feb 2023 - Aug 2023",
-    points: [
-      "Conducted weekly office hours, providing comprehensive support to an average of 30 students, resulting in a 75% increase in the comprehension of complex Python programming concepts.",
-      "Monitored and optimized the course website 3 times every week, ensuring that course materials and announcements were up-to-date, on time, and easily accessible to students.",
-      "Graded student labs, tests, and projects on Gradescope, facilitated discussions on Piazza, and gave feedback within 36 hours, boosting student engagement by 50%.",
-      "Mentored 300+ students on complex programming topics, resulting in a 35% increase in labs performance and proficiency in real-world problem-solving among students."
-    ],
-  }
+  // Temporarily hidden - Teaching Assistant role
+  // {
+  //   title: "Teaching Assistant",
+  //   company_name: "Emzini We Code",
+  //   location: "Hybrid",
+  //   iconBg: "#383E56",
+  //   icon: ewc,
+  //   date: "Feb 2023 - Aug 2023",
+  //   points: [
+  //     "Conducted weekly office hours, providing comprehensive support to an average of 30 students, resulting in a 75% increase in the comprehension of complex Python programming concepts.",
+  //     "Monitored and optimized the course website 3 times every week, ensuring that course materials and announcements were up-to-date, on time, and easily accessible to students.",
+  //     "Graded student labs, tests, and projects on Gradescope, facilitated discussions on Piazza, and gave feedback within 36 hours, boosting student engagement by 50%.",
+  //     "Mentored 300+ students on complex programming topics, resulting in a 35% increase in labs performance and proficiency in real-world problem-solving among students."
+  //   ],
+  // }
 ];
   
   
