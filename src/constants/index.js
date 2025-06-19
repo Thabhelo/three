@@ -48,12 +48,6 @@ export const navLinks = [
     title: "DreamSprint",
     url: "/dreamsprint",
   },
-  {
-    id: "resume",
-    title: "Resume",
-    url: "/src/assets/Thabhelo_Duve_Resume.pdf",
-    download: true,
-  },
 ];
   
 const services = [

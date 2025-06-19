@@ -37,11 +37,14 @@ const transformFormData = (formData) => {
     ideal_sleep: formData.workStyle.idealSleep,
     
     // Planning Input
-    availability: formData.planningInput.availability,
+    attendance_preference: formData.planningInput.attendancePreference,
     miami_ok: formData.planningInput.miamiOk,
     cost_saving_ideas: formData.planningInput.costSavingIdeas,
     dietary_restrictions: formData.planningInput.dietaryRestrictions,
     filming_permission: formData.planningInput.filmingPermission,
+    
+    // Date Preferences
+    date_preferences: formData.datePreferences,
     
     // Consent
     commitment_checkbox: formData.consent.commitment,

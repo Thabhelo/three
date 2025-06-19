@@ -220,7 +220,10 @@ const DreamSprintLanding = () => {
               className="text-xs md:text-base lg:text-lg mb-16 text-gray-700 max-w-5xl mx-auto leading-relaxed font-medium space-y-4"
             >
               <p>
-                Hey, I&apos;m organizing a 10-day deep work sprint in Miami from August 1 to August 11, and I&apos;m looking for up to 9 other highly motivated people to join. The goal is simple: come with one big project you&apos;ve been meaning to finish; whether it&apos;s a startup, a coding project, finish 300 leetcodes, a set of 50 videos, a book, a course, or something creative; and use this time to get it done. We&apos;ll rent one big Airbnb, stock it with food and everything we need, and work side-by-side every day with full focus. No one sleeps more than 2-4 hours a day, and there are no distractions. We&apos;ll start each day with a short check-in and end with progress updates or demos. Everyone is expected to contribute to the energy and momentum of the house.
+                Hey, I&apos;m organizing a 10-day deep work sprint and I&apos;m looking for up to 9 other highly motivated people to join. The goal is simple: come with one big project you&apos;ve been meaning to finish; whether it&apos;s a startup, a coding project, finish 300 leetcodes, a set of 50 videos, a book, a course, or something creative; and use this time to get it done. We&apos;ll rent one big Airbnb, stock it with food and everything we need, and work side-by-side every day with full focus. No one sleeps more than 2-4 hours a day, and there are no distractions. We&apos;ll start each day with a short check-in and end with progress updates or demos. Everyone is expected to contribute to the energy and momentum of the house.
+              </p>
+              <p>
+                <strong>Tentative Dates:</strong> We&apos;re considering three possible time periods: <strong>August 1-11</strong>, <strong>Thanksgiving week</strong>, or <strong>December</strong>. During the application process, you&apos;ll be able to rank these periods by your preference. Don&apos;t worry if you can&apos;t make it in person - those who can&apos;t attend physically can <strong>join virtually</strong> and participate in all the check-ins, progress updates, and collaborative sessions.
               </p>
               <p>
                 We may stream the experience live 24/7 if one of us is a content creator. We&apos;ll have fast Wi-Fi, a solid setup for creators or coders, and shared spaces for working or brainstorming. There will be daily challenges, spontaneous team-ups, and constant encouragement to push through. You&apos;ll have people around you who are just as serious about their goals. It&apos;s going to be intense, but also exciting and productive. We&apos;ll also contribute and have access to the $200/mo ChatGPT Pro and the $100/mo Claude Max models.
@@ -332,7 +335,11 @@ const DreamSprintLanding = () => {
                    </div>
                    <div className="flex items-center space-x-4">
                      <div className="w-3 h-3 bg-green-500 rounded-full" />
-                     <span className="text-sm md:text-base font-semibold text-green-500">August 1-11, 2025</span>
+                     <span className="text-sm md:text-base font-semibold text-green-500">Aug 1-11 | Thanksgiving | December</span>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                     <div className="w-3 h-3 bg-orange-500 rounded-full" />
+                     <span className="text-sm md:text-base font-semibold text-orange-500">Virtual Option Available</span>
                   </div>
                 </div>
               </div>
