@@ -17,6 +17,7 @@ import {
     docker,
     telone,
     ewc,
+    amz,
     homenergy,
     sos,
     heatexchange,
@@ -128,9 +129,9 @@ const experiences = [
   {
     title: "Software Development Engineer",
     company_name: "Amazon",
-    location: "Seattle, WA (Remote)",
+    location: "Austin, TX",
     iconBg: "#FF9900",
-    icon: backend, // Using backend icon as placeholder until we add Amazon logo
+    icon: amz,
     date: "May 2025 - Present",
     points: [
       "Building an internal Gen AI tool for Mobile App Marketing using Java, Python, and TypeScript, streamlining campaign optimization workflows for emerging markets expansion within the Expansions team.",

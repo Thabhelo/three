@@ -23,6 +23,7 @@ import threejs from "./tech/threejs.svg";
 
 import telone from "./company/telone.png";
 import ewc from "./company/ewc.png";
+import amz from "./company/amz.png";
 
 import homenergy from "./homenergy.png";
 import sos from "./sos.png";
@@ -55,6 +56,7 @@ export {
   typescript,
   threejs,
   telone,
+  amz,
   homenergy,
   sos,
   heatexchange,
