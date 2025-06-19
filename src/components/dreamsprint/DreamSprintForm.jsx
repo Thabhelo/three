@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { submitApplication, validateFormData, checkExistingApplication } from '../../api/applications';
+import DatePreferencesRanking from './DatePreferencesRanking';
 
 // Form Section Component (same as before, keeping it embedded)
 const FormSection = ({ title, fields, data, onChange, sectionNumber }) => {
@@ -213,7 +214,8 @@ const DreamSprintForm = () => {
     bragZone: { achievements: '', greatHousemate: '' },
     theProject: { description: '', doneLookLike: '', importance: '', tools: '' },
     workStyle: { experience: '', focusMethod: '', sleepCommitment: '', idealSleep: '' },
-    planningInput: { availability: '', miamiOk: '', costSavingIdeas: '', dietaryRestrictions: '', filmingPermission: '' },
+    planningInput: { attendancePreference: '', miamiOk: '', costSavingIdeas: '', dietaryRestrictions: '', filmingPermission: '' },
+    datePreferences: [],
     consent: { commitment: false, notAVacation: false, liability: false },
     finalNotes: { anythingElse: '' }
   });
@@ -224,10 +226,17 @@ const DreamSprintForm = () => {
   const [validationErrors, setValidationErrors] = useState([]);
 
   const handleInputChange = (section, field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [section]: { ...prev[section], [field]: value }
-    }));
+    if (section === 'datePreferences') {
+      setFormData(prev => ({
+        ...prev,
+        datePreferences: value
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [section]: { ...prev[section], [field]: value }
+      }));
+    }
     
     // Clear errors when user starts typing
     if (errorMessage) setErrorMessage('');
@@ -281,6 +290,7 @@ const DreamSprintForm = () => {
     { title: 'The Project', key: 'theProject' },
     { title: 'Work Style & Logistics', key: 'workStyle' },
     { title: 'Planning Input', key: 'planningInput' },
+    { title: 'Date Preferences', key: 'datePreferences' },
     { title: 'Devotion & Consent', key: 'consent' },
     { title: 'Final Notes', key: 'finalNotes' }
   ];
@@ -511,7 +521,7 @@ const DreamSprintForm = () => {
                   title="Planning Input" 
                   sectionNumber={5}
                   fields={[
-                    { name: 'availability', label: 'Are you available Aug 1–11?', type: 'select', required: true, options: ['Yes', 'No', 'Suggest alt'], placeholder: 'Select an answer' },
+                    { name: 'attendancePreference', label: 'Attendance Preference', type: 'select', required: true, options: ['In-person only', 'Virtual only', 'Either in-person or virtual'], placeholder: 'Select your preference' },
                     { name: 'miamiOk', label: 'Is Miami OK? Suggest other?', type: 'text', placeholder: 'Yes, or suggest alternative locations...' },
                     { name: 'costSavingIdeas', label: 'Tips/ideas for saving cost or setup?', type: 'textarea', placeholder: 'Any frugal hacks, cost-cutting ideas, or setup suggestions?' },
                     { name: 'dietaryRestrictions', label: 'Dietary restrictions', type: 'text', placeholder: 'e.g., Vegetarian, gluten-free, allergies, etc.' },
@@ -523,9 +533,51 @@ const DreamSprintForm = () => {
               )}
 
               {currentStep === 5 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="space-y-12 py-12"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: -30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.8 }}
+                    className="relative"
+                  >
+                    <div className="flex items-center mb-8">
+                      <motion.div
+                        className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl text-white font-bold text-xl shadow-lg mr-6"
+                        whileHover={{ scale: 1.05, rotate: 5 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        6
+                      </motion.div>
+                      <h2 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tight">
+                        Date Preferences
+                      </h2>
+                    </div>
+                    
+                    <motion.div
+                      className="h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 rounded-full"
+                      initial={{ width: 0 }}
+                      animate={{ width: "100%" }}
+                      transition={{ delay: 0.5, duration: 1 }}
+                    />
+                  </motion.div>
+
+                  <DatePreferencesRanking
+                    value={formData.datePreferences}
+                    onChange={(value) => handleInputChange('datePreferences', null, value)}
+                    required={true}
+                  />
+                </motion.div>
+              )}
+
+              {currentStep === 6 && (
                 <FormSection 
                   title="Devotion & Consent" 
-                  sectionNumber={6}
+                  sectionNumber={7}
                   fields={[
                     { 
                       name: 'commitment', 
@@ -554,10 +606,10 @@ const DreamSprintForm = () => {
                 />
               )}
               
-              {currentStep === 6 && (
+              {currentStep === 7 && (
                 <FormSection 
                   title="Final Notes" 
-                  sectionNumber={7}
+                  sectionNumber={8}
                   fields={[
                     { name: 'anythingElse', label: 'Anything else to share?', type: 'textarea', placeholder: 'Any other information, questions, concerns, or thoughts you would like to share with us?' },
                   ]} 
