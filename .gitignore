@@ -39,3 +39,4 @@ supabase/.env
 # Temporary files
 *.tmp
 *.temp
+coverage/
