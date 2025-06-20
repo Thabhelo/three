@@ -191,7 +191,8 @@ const FormSection = ({ title, fields, data, onChange, sectionNumber }) => {
                 className={commonInputStyles}
                 required={field.required}
                 placeholder={field.placeholder}
-                min={field.type === 'number' ? 18 : undefined}
+                min={field.type === 'number' ? (field.min || 18) : undefined}
+                max={field.type === 'number' ? (field.max || undefined) : undefined}
                 whileFocus={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
               />
@@ -462,7 +463,7 @@ const DreamSprintForm = () => {
                     { name: 'phone', label: 'Phone Number', type: 'tel', required: true, placeholder: '+1 (555) 123-4567' },
                     { name: 'preferredChat', label: 'Preferred Group Chat', type: 'select', options: ['WhatsApp', 'iMessage', 'Instagram'], placeholder: 'Select app' },
                     { name: 'location', label: 'City & Country of Residence', type: 'text', placeholder: 'New York, USA' },
-                    { name: 'age', label: 'Age Range', type: 'select', required: true, options: ['18-25', '26+'], placeholder: 'Select age range', description: 'Please select your age range.' },
+                    { name: 'age', label: 'Age', type: 'number', required: true, placeholder: 'Enter your age', description: 'Please enter your age (must be 18 or older).', min: 18, max: 99 },
                     { name: 'occupation', label: 'Current Occupation', type: 'text', placeholder: 'Software Engineer' },
                     { name: 'schoolOrCompany', label: 'School or Company', type: 'text', placeholder: 'Example Inc.' },
                     { name: 'linkedin', label: 'LinkedIn URL', type: 'url', required: true, placeholder: 'https://linkedin.com/in/janedoe' },
