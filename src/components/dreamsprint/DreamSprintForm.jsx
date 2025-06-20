@@ -462,7 +462,7 @@ const DreamSprintForm = () => {
                     { name: 'phone', label: 'Phone Number', type: 'tel', required: true, placeholder: '+1 (555) 123-4567' },
                     { name: 'preferredChat', label: 'Preferred Group Chat', type: 'select', options: ['WhatsApp', 'iMessage', 'Instagram'], placeholder: 'Select app' },
                     { name: 'location', label: 'City & Country of Residence', type: 'text', placeholder: 'New York, USA' },
-                    { name: 'age', label: 'Age', type: 'number', required: true, placeholder: '25', description: 'You must be over 18.' },
+                    { name: 'age', label: 'Age Range', type: 'select', required: true, options: ['18-25', '26+'], placeholder: 'Select age range', description: 'Please select your age range.' },
                     { name: 'occupation', label: 'Current Occupation', type: 'text', placeholder: 'Software Engineer' },
                     { name: 'schoolOrCompany', label: 'School or Company', type: 'text', placeholder: 'Example Inc.' },
                     { name: 'linkedin', label: 'LinkedIn URL', type: 'url', required: true, placeholder: 'https://linkedin.com/in/janedoe' },

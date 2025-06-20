@@ -266,7 +266,7 @@ const ApplicationDetailsModal = ({ app, isOpen, onClose }) => {
                   <p className="text-gray-800"><span className="font-medium text-gray-900">Full Name:</span> {app.full_name}</p>
                   <p className="text-gray-800"><span className="font-medium text-gray-900">Email:</span> {app.email}</p>
                   <p className="text-gray-800"><span className="font-medium text-gray-900">Phone:</span> {app.phone}</p>
-                  <p className="text-gray-800"><span className="font-medium text-gray-900">Age:</span> {app.age || 'Not provided'}</p>
+                  <p className="text-gray-800"><span className="font-medium text-gray-900">Age Range:</span> {app.age || 'Not provided'}</p>
                   <p className="text-gray-800"><span className="font-medium text-gray-900">Sex:</span> {app.sex || 'Not provided'}</p>
                   <p className="text-gray-800"><span className="font-medium text-gray-900">Gender Identity:</span> {app.gender_identity || 'Not provided'}</p>
                   <p className="text-gray-800"><span className="font-medium text-gray-900">Location:</span> {app.location || 'Not provided'}</p>
@@ -531,8 +531,8 @@ const AdminDashboard = () => {
               delay={0.2}
             />
             <StatsCard
-              title="Average Age"
-              value={stats.average_age ? Math.round(stats.average_age) : 0}
+              title="Age Ranges"
+              value={stats.total_applications ? "📊" : 0}
               color="bg-gradient-to-br from-purple-500 to-purple-600 text-white"
               icon="👥"
               delay={0.3}
@@ -621,7 +621,7 @@ const AdminDashboard = () => {
                       Contact
                     </th>
                     <th className="px-6 py-4 text-center text-sm font-bold text-gray-700 uppercase tracking-wider">
-                      Age
+                      Age Range
                     </th>
                     <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
                       Status

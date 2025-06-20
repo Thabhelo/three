@@ -14,7 +14,7 @@ const transformFormData = (formData) => {
     phone: formData.aboutYou.phone,
     preferred_chat: formData.aboutYou.preferredChat,
     location: formData.aboutYou.location,
-    age: formData.aboutYou.age ? parseInt(formData.aboutYou.age) : null,
+    age: formData.aboutYou.age,
     occupation: formData.aboutYou.occupation,
     school_or_company: formData.aboutYou.schoolOrCompany,
     linkedin: formData.aboutYou.linkedin,
@@ -236,8 +236,8 @@ export const validateFormData = (formData) => {
     errors.push('Phone number is required')
   }
   
-  if (!formData.aboutYou.age || formData.aboutYou.age < 18) {
-    errors.push('Age must be 18 or older')
+  if (!formData.aboutYou.age || !['18-25', '26+'].includes(formData.aboutYou.age)) {
+    errors.push('Please select a valid age range')
   }
   
   if (!formData.aboutYou.linkedin?.trim()) {
