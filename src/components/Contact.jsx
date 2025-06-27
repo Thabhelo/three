@@ -31,18 +31,32 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
 
+    // Get EmailJS configuration from environment variables
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    const recipientEmail = import.meta.env.VITE_EMAILJS_RECIPIENT_EMAIL;
+
+    // Validate environment variables
+    if (!serviceId || !templateId || !publicKey || !recipientEmail) {
+      setLoading(false);
+      alert("Email configuration is missing. Please contact the administrator.");
+      console.error("Missing EmailJS environment variables");
+      return;
+    }
+
     emailjs
       .send(
-        'service_ile56zc',
-        'template_8y2z9dp',
+        serviceId,
+        templateId,
         {
           from_name: form.name,
           to_name: "Thabhelo",
           from_email: form.email,
-          to_email: "thabhelo.duve+portfolio@talladega.edu",
+          to_email: recipientEmail,
           message: form.message,
         },
-        '_JDd2_-oFPAXuoAI5'
+        publicKey
       )
       .then(
         () => {
