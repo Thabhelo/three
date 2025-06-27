@@ -76,12 +76,22 @@ npm install
 Create a new file named `.env` in the root of your project and add the following content:
 
 ```env
-REACT_APP_EMAILJS_USERID=your_emailjs_user_id
-REACT_APP_EMAILJS_TEMPLATEID=your_emailjs_template_id
-REACT_APP_EMAILJS_RECEIVERID=your_emailjs_receiver_id
+# Supabase Configuration
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# EmailJS Configuration for Contact Form
+VITE_EMAILJS_SERVICE_ID=your_emailjs_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_emailjs_template_id
+VITE_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
+VITE_EMAILJS_RECIPIENT_EMAIL=your_email@domain.com
 ```
 
-Replace the placeholder values with your actual EmailJS credentials. You can obtain these credentials by signing up on the [EmailJS website](https://www.emailjs.com/).
+Replace the placeholder values with your actual credentials:
+- **Supabase**: Get these from your [Supabase project settings](https://supabase.com/)
+- **EmailJS**: Get these from your [EmailJS dashboard](https://www.emailjs.com/)
+
+You can also copy the `.env.example` file and rename it to `.env`, then fill in your actual values.
 
 **Running the Project**
 
