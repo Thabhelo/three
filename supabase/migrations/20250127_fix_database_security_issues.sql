@@ -44,10 +44,11 @@ CREATE POLICY "Enable update for authenticated users" ON public.admin_users
 -- Drop the existing application_stats view if it exists
 DROP VIEW IF EXISTS public.application_stats;
 
--- Recreate the application_stats view WITHOUT SECURITY DEFINER
+-- Recreate the application_stats view with SECURITY INVOKER (not SECURITY DEFINER)
 -- This view provides statistics for the admin dashboard
 -- Note: age column is INTEGER, so we calculate age ranges accordingly
-CREATE VIEW public.application_stats AS
+CREATE VIEW public.application_stats
+WITH (security_invoker = on) AS
 SELECT 
     COUNT(*) as total_applications,
     COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE - INTERVAL '7 days') as applications_this_week,
@@ -79,4 +80,4 @@ ALTER TABLE public.applications ENABLE ROW LEVEL SECURITY;
 
 -- Add comment for documentation
 COMMENT ON TABLE public.admin_users IS 'Admin users table with proper RLS enabled';
-COMMENT ON VIEW public.application_stats IS 'Application statistics view without security definer for admin dashboard'; 
+COMMENT ON VIEW public.application_stats IS 'Application statistics view with SECURITY INVOKER for proper user permissions'; 
