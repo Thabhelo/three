@@ -19,10 +19,12 @@ CREATE TABLE IF NOT EXISTS public.admin_users (
 -- Enable Row Level Security on admin_users table
 ALTER TABLE public.admin_users ENABLE ROW LEVEL SECURITY;
 
--- Drop existing policies if they exist to avoid conflicts
+-- Drop ALL existing policies if they exist to avoid conflicts
 DROP POLICY IF EXISTS "Admin users can view admin list" ON public.admin_users;
 DROP POLICY IF EXISTS "Enable read access for authenticated users" ON public.admin_users;
 DROP POLICY IF EXISTS "Enable insert for authenticated users" ON public.admin_users;
+DROP POLICY IF EXISTS "Enable update for authenticated users" ON public.admin_users;
+DROP POLICY IF EXISTS "Enable delete for authenticated users" ON public.admin_users;
 
 -- Create proper RLS policies for admin_users
 -- Only authenticated users can view admin users (for admin dashboard)
