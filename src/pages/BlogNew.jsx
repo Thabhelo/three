@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { styles } from '../styles';
 import { supabase, supabaseConfigured } from '../lib/supabase';
 import { MarkdownContent } from '../lib/markdown.jsx';
@@ -30,7 +30,11 @@ const BlogNew = () => {
   const containerRef = useRef(null);
   const [leftWidth, setLeftWidth] = useState(520);
   const [dragging, setDragging] = useState(false);
-  const { resolvedTheme, toggleTheme } = useTheme();
+  const { setTheme } = useTheme();
+
+  useEffect(() => {
+    setTheme('light');
+  }, [setTheme]);
 
   useEffect(() => {
     if (!dragging) return;
@@ -52,6 +56,32 @@ const BlogNew = () => {
     };
   }, [dragging]);
 
+  // If editing existing post: prefill
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const editSlug = params.get('edit');
+    (async () => {
+      if (!editSlug) return;
+      try {
+        const { data } = supabase.storage.from('blog-md').getPublicUrl(`posts/${editSlug}.md`);
+        const res = await fetch(data.publicUrl);
+        if (!res.ok) return;
+        const text = await res.text();
+        // Assume first line is title if starts with '# '
+        const lines = text.split('\n');
+        if (lines[0].startsWith('# ')) {
+          setTitle(lines[0].replace(/^#\s+/, ''));
+          setContent(lines.slice(2).join('\n'));
+        } else {
+          setContent(text);
+        }
+        setSlug(editSlug);
+      } catch (e) {
+        console.warn('Prefill edit failed or not available', e);
+      }
+    })();
+  }, []);
+
   const publish = async (e) => {
     e.preventDefault();
     if (!title.trim() || !slug) return;
@@ -60,7 +90,7 @@ const BlogNew = () => {
     try {
       const filePath = `posts/${slug}.md`;
       const blob = new Blob([`# ${title}\n\n${content}`], { type: 'text/markdown' });
-      const { error } = await supabase.storage.from('blog-md').upload(filePath, blob, { upsert: false });
+      const { error } = await supabase.storage.from('blog-md').upload(filePath, blob, { upsert: true });
       if (error) throw error;
       localStorage.removeItem('draft_content');
       window.location.href = `/blog/${slug}`;

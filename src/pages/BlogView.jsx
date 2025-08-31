@@ -5,6 +5,8 @@ import { supabase } from '../lib/supabase';
 import { MarkdownContent } from '../lib/markdown.jsx';
 import { useAdminUnlock } from '../lib/adminUnlock';
 import { useTheme } from '../lib/theme.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 const BlogView = () => {
   const { slug } = useParams();
@@ -30,15 +32,26 @@ const BlogView = () => {
   const content = mdText;
 
   return (
-    <div className={`blog-light ${styles.padding} mx-auto bg-white`}>
+    <div className={`blog-light min-h-screen bg-white ${styles.padding}`}>
+      <div className="max-w-3xl mx-auto">
       {error ? (
         <div className="text-red-500">{error}</div>
       ) : (
         <>
           {unlocked && (
-            <div className="mb-4 flex justify-end">
+            <div className="mb-4 flex justify-end gap-2">
+              <a
+                href={`/blog/new?edit=${encodeURIComponent(slug)}`}
+                className="px-3 py-1 rounded border border-zinc-300 text-xs text-zinc-700 hover:bg-zinc-50"
+                title="Edit this post"
+              >
+                <span className="inline-flex items-center gap-1">
+                  <FontAwesomeIcon icon={faPen} className="w-3.5 h-3.5" />
+                  Edit
+                </span>
+              </a>
               <button
-                className="px-3 py-1 rounded border border-zinc-300 dark:border-zinc-700 text-xs text-red-700 hover:bg-red-50"
+                className="px-3 py-1 rounded border border-zinc-300 text-xs text-red-700 hover:bg-red-50"
                 onClick={async () => {
                   if (!confirm('Delete this post? This cannot be undone.')) return;
                   const key = `posts/${slug}.md`;
@@ -46,7 +59,7 @@ const BlogView = () => {
                   if (!error) window.location.href = '/blog';
                 }}
               >
-                Delete post
+                Delete
               </button>
             </div>
           )}
@@ -55,6 +68,7 @@ const BlogView = () => {
           </article>
         </>
       )}
+      </div>
     </div>
   );
 };

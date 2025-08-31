@@ -385,9 +385,9 @@ const ApplicationDetailsModal = ({ app, isOpen, onClose }) => {
             <div>
               <h3 className="font-semibold text-gray-900 mb-3 text-lg border-b pb-1">Consent & Commitments</h3>
               <div className="space-y-2 text-sm">
-                <p className="text-gray-800"><span className="font-medium text-gray-900">Commitment Checkbox:</span> {app.commitment_checkbox ? '✓ Agreed' : '✗ Not agreed'}</p>
-                <p className="text-gray-800"><span className="font-medium text-gray-900">Not a Vacation Checkbox:</span> {app.not_vacation_checkbox ? '✓ Agreed' : '✗ Not agreed'}</p>
-                <p className="text-gray-800"><span className="font-medium text-gray-900">Liability Checkbox:</span> {app.liability_checkbox ? '✓ Agreed' : '✗ Not agreed'}</p>
+                <p className="text-gray-800"><span className="font-medium text-gray-900">Commitment Checkbox:</span> {app.commitment_checkbox ? 'Agreed' : 'Not agreed'}</p>
+                <p className="text-gray-800"><span className="font-medium text-gray-900">Not a Vacation Checkbox:</span> {app.not_vacation_checkbox ? 'Agreed' : 'Not agreed'}</p>
+                <p className="text-gray-800"><span className="font-medium text-gray-900">Liability Checkbox:</span> {app.liability_checkbox ? 'Agreed' : 'Not agreed'}</p>
               </div>
             </div>
 
@@ -513,28 +513,28 @@ const AdminDashboard = () => {
               title="Total Applications"
               value={stats.total_applications || 0}
               color="bg-gradient-to-br from-blue-500 to-blue-600 text-white"
-              icon="📋"
+              icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6M9 8h6m-9 8V8a2 2 0 012-2h8a2 2 0 012 2v12l-4-2-4 2-4-2z" /></svg>}
               delay={0}
             />
             <StatsCard
               title="Accepted"
               value={stats.accepted || 0}
               color="bg-gradient-to-br from-green-500 to-green-600 text-white"
-              icon="✅"
+              icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>}
               delay={0.1}
             />
             <StatsCard
               title="Under Review"
               value={stats.under_review || 0}
               color="bg-gradient-to-br from-yellow-500 to-yellow-600 text-white"
-              icon="⏳"
+              icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
               delay={0.2}
             />
             <StatsCard
               title="Age Ranges"
-              value={stats.total_applications ? "📊" : 0}
+              value={stats.total_applications ? stats.total_applications : 0}
               color="bg-gradient-to-br from-purple-500 to-purple-600 text-white"
-              icon="👥"
+              icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-3-3h-4m-4 5H3v-2a3 3 0 013-3h4m0 0a3 3 0 100-6 3 3 0 000 6zm8-3a3 3 0 10-6 0" /></svg>}
               delay={0.3}
             />
           </div>

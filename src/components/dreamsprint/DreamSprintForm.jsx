@@ -637,7 +637,10 @@ const DreamSprintForm = () => {
             whileHover={{ scale: currentStep > 0 ? 1.05 : 1, y: currentStep > 0 ? -2 : 0 }}
             whileTap={{ scale: currentStep > 0 ? 0.95 : 1 }}
           >
-            ← Previous
+            <span className="inline-flex items-center gap-2">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+              Previous
+            </span>
           </motion.button>
 
           {currentStep < sections.length - 1 ? (
@@ -648,7 +651,10 @@ const DreamSprintForm = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Next →
+              <span className="inline-flex items-center gap-2">
+                Next
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+              </span>
             </motion.button>
           ) : (
             <motion.button

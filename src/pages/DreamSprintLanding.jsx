@@ -202,11 +202,13 @@ const DreamSprintLanding = () => {
                   </span>
                   
                   <motion.span
-                    className="relative ml-3 text-base md:text-xl"
+                    className="relative ml-3 inline-block"
                     animate={{ x: [0, 5, 0] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
-                    →
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </motion.span>
                 </a>
               </motion.div>

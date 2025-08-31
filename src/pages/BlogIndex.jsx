@@ -25,7 +25,8 @@ const BlogIndex = () => {
   const toSlug = (name) => name.replace(/\.md$/, '');
 
   return (
-    <div className={`blog-light ${styles.padding} max-w-4xl mx-auto`}>
+    <div className={`blog-light min-h-screen bg-white ${styles.padding}`}>
+      <div className="max-w-4xl mx-auto">
       <div className="flex items-center justify-between">
         <h1 className="text-zinc-900 dark:text-white text-3xl font-black">Blog</h1>
         {unlocked && (
@@ -63,6 +64,7 @@ const BlogIndex = () => {
           <li className="p-6 text-zinc-600 dark:text-zinc-300">No posts yet.</li>
         )}
       </ul>
+      </div>
     </div>
   );
 };
