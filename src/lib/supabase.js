@@ -39,10 +39,20 @@ const createStubClient = () => {
       signOut: rejected,
       getUser: rejected,
     },
+    storage: {
+      from: () => ({
+        list: rejected,
+        upload: rejected,
+        remove: rejected,
+        getPublicUrl: () => ({ data: { publicUrl: '' } }),
+      }),
+    },
   }
 }
 
-export const supabase = (isValidUrl(supabaseUrl) && !!supabaseAnonKey)
+export const supabaseConfigured = (isValidUrl(supabaseUrl) && !!supabaseAnonKey)
+
+export const supabase = supabaseConfigured
   ? createClient(supabaseUrl, supabaseAnonKey, {
       auth: {
         autoRefreshToken: true,

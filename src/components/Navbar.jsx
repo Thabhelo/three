@@ -84,6 +84,9 @@ const Navbar = () => {
             </li>
           ))}
           <li>
+            <Link to="/blog" className='text-[16px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 hover:dark:text-white'>Blog</Link>
+          </li>
+          <li>
             <button
               aria-label='Toggle dark mode'
               onClick={toggleTheme}

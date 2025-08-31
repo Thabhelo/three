@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { styles } from '../styles';
 import { ComputersCanvas } from './canvas'
 
@@ -12,15 +13,26 @@ const Hero = () => {
           <div className="w-px sm:h-80 h-40 bg-zinc-300 dark:turquoise-gradient"/>
         </div>
 
-        <div>
+        <div className="relative z-20">
           <h1 className={`${styles.heroHeadText}`} > Hi, I'm <span className="text-zinc-900 dark:text-[#3bc9c9]">Thabhelo</span></h1>
           <p className={`${styles.heroSubText} mt-2`}>
             I code, I write, I think, <br className="sm:block hidden"/> I sing, I travel and repeat.
           </p>
+          <p className="mt-4 text-zinc-700 dark:text-zinc-300 text-[14px] sm:text-[16px]">I teach ML too.</p>
+          <div className="mt-6">
+            <Link
+              to="/blog"
+              className="inline-block rounded-xl border border-zinc-600/30 dark:border-zinc-400/30 px-5 py-3 text-[15px] sm:text-[16px] font-semibold text-zinc-900 dark:text-white bg-white/60 dark:bg-white/0 backdrop-blur hover:bg-zinc-900 hover:text-white hover:dark:bg-white hover:dark:text-black transition-colors relative z-30 shadow-sm"
+            >
+              Blog
+            </Link>
+          </div>
         </div>
       </div>
 
-      <ComputersCanvas />
+      <div className='absolute inset-0 z-0 pointer-events-none'>
+        <ComputersCanvas />
+      </div>
 
       <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center'>
         <a href="#about">

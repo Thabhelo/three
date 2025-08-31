@@ -3,6 +3,9 @@ import { About, Contact, Experience, Feedbacks, Hero, Navbar, Tech, Projects, St
 import DreamSprintPage from './pages/DreamSprintPage';
 import DreamSprintLanding from './pages/DreamSprintLanding';
 import AdminDashboard from './pages/AdminDashboard';
+import BlogIndex from './pages/BlogIndex';
+import BlogNew from './pages/BlogNew';
+import BlogView from './pages/BlogView';
 
 const App = () => {
   return (
@@ -41,6 +44,9 @@ const App = () => {
         <Route path="/dreamsprint" element={<DreamSprintLanding />} />
         <Route path="/dreamsprint/apply" element={<DreamSprintPage />} />
         <Route path="/dreamsprint/admin" element={<AdminDashboard />} />
+        <Route path="/blog" element={<BlogIndex />} />
+        <Route path="/blog/new" element={<BlogNew />} />
+        <Route path="/blog/:slug" element={<BlogView />} />
       </Routes>
     </BrowserRouter>
   )
