@@ -20,9 +20,9 @@ export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
-      return stored === "light" || stored === "dark" ? stored : "dark";
+      return stored === "light" || stored === "dark" ? stored : "light";
     } catch {
-      return "dark";
+      return "light";
     }
   });
 

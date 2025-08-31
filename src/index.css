@@ -17,6 +17,22 @@
   color-scheme: light dark;
 }
 
+/* Immediate readability override */
+body {
+  background: #ffffff;
+  color: #333333;
+}
+.dark body {
+  background: #050816;
+  color: #e5e7eb;
+}
+
+.math-content {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #dddddd;
+}
+
 /* Minimal math/physics blueprint background for light mode */
 .bg-blueprint {
   background-color: #f6f3ff; /* faint lavender for light mode */

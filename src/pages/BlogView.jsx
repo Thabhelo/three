@@ -4,12 +4,14 @@ import { styles } from '../styles';
 import { supabase } from '../lib/supabase';
 import { MarkdownContent } from '../lib/markdown.jsx';
 import { useAdminUnlock } from '../lib/adminUnlock';
+import { useTheme } from '../lib/theme.js';
 
 const BlogView = () => {
   const { slug } = useParams();
   const [mdText, setMdText] = useState('');
   const [error, setError] = useState('');
   const { unlocked } = useAdminUnlock();
+  const { resolvedTheme, toggleTheme } = useTheme();
 
   useEffect(() => {
     (async () => {
@@ -29,6 +31,13 @@ const BlogView = () => {
 
   return (
     <div className={`${styles.padding} mx-auto bg-white dark:bg-primary`}>
+      <button
+        aria-label="Toggle theme"
+        onClick={toggleTheme}
+        className="fixed top-4 right-4 z-50 px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 text-sm font-medium text-zinc-900 dark:text-white bg-white hover:bg-zinc-100 dark:bg-zinc-800 hover:dark:bg-zinc-700"
+      >
+        {resolvedTheme === 'dark' ? 'Dark' : 'Light'}
+      </button>
       {error ? (
         <div className="text-red-500">{error}</div>
       ) : (

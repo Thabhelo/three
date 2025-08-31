@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { styles } from '../styles';
 import { supabase, supabaseConfigured } from '../lib/supabase';
 import { useAdminUnlock } from '../lib/adminUnlock';
+import { useTheme } from '../lib/theme.js';
 
 const BlogIndex = () => {
   const [files, setFiles] = useState([]);
@@ -19,11 +20,19 @@ const BlogIndex = () => {
     })();
   }, []);
   const { unlocked } = useAdminUnlock();
+  const { resolvedTheme, toggleTheme } = useTheme();
 
   const toSlug = (name) => name.replace(/\.md$/, '');
 
   return (
     <div className={`${styles.padding} max-w-4xl mx-auto`}>
+      <button
+        aria-label="Toggle theme"
+        onClick={toggleTheme}
+        className="fixed top-4 right-4 z-50 px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 text-sm font-medium text-zinc-900 dark:text-white bg-white hover:bg-zinc-100 dark:bg-zinc-800 hover:dark:bg-zinc-700"
+      >
+        {resolvedTheme === 'dark' ? 'Dark' : 'Light'}
+      </button>
       <div className="flex items-center justify-between">
         <h1 className="text-zinc-900 dark:text-white text-3xl font-black">Blog</h1>
         {unlocked && (
