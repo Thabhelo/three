@@ -55,6 +55,20 @@
   background-size: 22px 22px, 38px 38px, 44px 44px, 64px 64px;
 }
 
+/* Paper-like page for blog posts */
+
+.paper-a3 { margin: 0 auto; max-width: 1120px; background: #ffffff; }
+.paper-a4 { margin: 0 auto; max-width: 800px; background: #ffffff; }
+
+@media (max-width: 1024px) {
+  .paper-a3 { max-width: 1000px; }
+}
+
+@media (max-width: 768px) {
+  .paper-a3 { max-width: 740px; }
+  .paper-a4 { max-width: 640px; }
+}
+
 .bg-symbols-dark::before {
   content: "∫  e^{iπ}+1=0  F=ma  ∇·E=ρ/ε₀  ψ  ℏ  Σ  Δ  Ω  λ  θ  φ  π  ";
   position: absolute;
