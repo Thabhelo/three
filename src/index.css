@@ -33,6 +33,14 @@ body {
   border: 1px solid #dddddd;
 }
 
+/* Force light theme styling for blog pages only */
+.blog-light { background: #ffffff !important; color: #111827 !important; }
+.blog-light * { color: inherit; }
+.blog-light .prose { color: #111827; }
+.blog-light .prose :where(h1,h2,h3,h4,h5,h6,strong) { color: #111827; }
+.blog-light .prose a { color: #111827; text-decoration-color: rgba(17,24,39,0.4); }
+.blog-light .paper-a3, .blog-light .paper-a4 { background: #ffffff; border-color: #e5e7eb; }
+
 /* Minimal math/physics blueprint background for light mode */
 .bg-blueprint {
   background-color: #f6f3ff; /* faint lavender for light mode */

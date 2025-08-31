@@ -9,14 +9,16 @@
       (function() {
         try {
           var stored = localStorage.getItem('theme');
-          var preferred = stored === 'light' || stored === 'dark' ? stored : 'light';
+          var path = (window.location && window.location.pathname) || '/';
+          var defaultTheme = path.startsWith('/blog') ? 'light' : 'dark';
+          var preferred = stored === 'light' || stored === 'dark' ? stored : defaultTheme;
           if (preferred === 'dark') {
             document.documentElement.classList.add('dark');
           } else {
             document.documentElement.classList.remove('dark');
           }
         } catch (e) {
-          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('dark');
         }
       })();
     </script>

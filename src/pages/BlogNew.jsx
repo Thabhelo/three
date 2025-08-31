@@ -79,15 +79,8 @@ const BlogNew = () => {
       )}
       {error && <div className="mt-4 text-sm text-red-500">{error}</div>}
       <form onSubmit={publish} className="mt-6">
-        <button
-          aria-label="Toggle theme"
-          type="button"
-          onClick={toggleTheme}
-          className="fixed top-4 right-4 z-50 px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 text-sm font-medium text-zinc-900 dark:text-white bg-white hover:bg-zinc-100 dark:bg-zinc-800 hover:dark:bg-zinc-700"
-        >
-          {resolvedTheme === 'dark' ? 'Dark' : 'Light'}
-        </button>
-        <div ref={containerRef} className="relative flex items-stretch gap-0">
+        <div className="blog-light">
+          <div ref={containerRef} className="relative flex items-stretch gap-0">
           <div style={{ flexBasis: leftWidth }} className="min-w-[260px] max-w-[1200px] pr-3">
             <div className="space-y-3 border border-zinc-200 dark:border-zinc-700 rounded-lg p-3 bg-white/50 dark:bg-black/10">
           <input
@@ -123,6 +116,7 @@ const BlogNew = () => {
             <article className="prose prose-zinc max-w-none dark:prose-invert bg-white dark:bg-tertiary border border-zinc-200 dark:border-zinc-700 rounded-lg p-4">
               <MarkdownContent content={previewContent} />
             </article>
+          </div>
           </div>
         </div>
       </form>
