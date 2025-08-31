@@ -1,3 +1,36 @@
+## Blog (Markdown + KaTeX)
+
+Storage-only posts in Supabase:
+
+1. In Supabase project (same as DreamSprint), run the migration to create the bucket and policies:
+
+```
+-- SQL in supabase/migrations/20250831_add_blog_md_bucket.sql
+```
+
+Or apply manually:
+
+```
+insert into storage.buckets (id, name, public)
+values ('blog-md', 'blog-md', true)
+on conflict (id) do nothing;
+-- policies are in the migration file
+```
+
+2. Create folder `posts/` inside bucket `blog-md` (optional; the app writes to `posts/slug.md`).
+
+3. Set env vars:
+
+```
+VITE_SUPABASE_URL=your-url
+VITE_SUPABASE_ANON_KEY=your-anon-key
+```
+
+Routes:
+- `/blog` list posts
+- `/blog/new` editor (requires auth to publish)
+- `/blog/:slug` view
+
 <div align="center">
   <div>
     <img src="https://img.shields.io/badge/-React_JS-black?style=for-the-badge&logoColor=white&logo=react&color=61DAFB" alt="react.js" />
