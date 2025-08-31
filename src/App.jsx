@@ -9,8 +9,8 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={
-          <div className="relative z-0 bg-primary">
-            <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center relative z-10">
+          <div className="min-h-screen relative z-0 bg-white dark:bg-primary transition-colors duration-200 bg-blueprint bg-symbols dark:bg-equations dark:bg-symbols-dark">
+            <div className="bg-transparent dark:bg-hero-pattern bg-cover bg-no-repeat bg-center relative z-10 transition-colors duration-200">
               <Navbar />
               <Hero />
               <SocialMediaCard />

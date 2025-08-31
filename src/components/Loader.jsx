@@ -2,6 +2,7 @@ import { Html, useProgress } from "@react-three/drei";
 
 const CanvasLoader = () => {
   const { progress } = useProgress();
+  const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
   return (
     <Html
       as='div'
@@ -17,7 +18,7 @@ const CanvasLoader = () => {
       <p
         style={{
           fontSize: 14,
-          color: "#F1F1F1",
+          color: isDark ? "#F1F1F1" : "#18181b",
           fontWeight: 800,
           marginTop: 40,
         }}

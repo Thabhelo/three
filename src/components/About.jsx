@@ -10,8 +10,8 @@ import { fadeIn, textVariant } from "../utils/motion";
 const ServiceCard = ({ index, title, icon }) => (
   <Tilt className='xs:w-[250px] w-full'>
     <motion.div
-      variants={fadeIn("right", "spring", index * 0.5, 0.75)}
-      className='w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card'
+      variants={fadeIn("right", "tween", index * 0.15, 0.45)}
+      className='w-full p-[1px] rounded-[16px] border border-zinc-200 dark:border-zinc-700'
     >
       <div
         options={{
@@ -19,15 +19,15 @@ const ServiceCard = ({ index, title, icon }) => (
           scale: 1,
           speed: 450,
         }}
-        className='bg-tertiary rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col'
+        className='bg-white dark:bg-tertiary rounded-[16px] py-6 px-8 min-h-[240px] flex justify-evenly items-center flex-col transition-colors'
       >
         <img
           src={icon}
           alt='web-development'
-          className='w-16 h-16 object-contain'
+          className='w-14 h-14 object-contain'
         />
 
-        <h3 className='text-white text-[20px] font-bold text-center'>
+        <h3 className='text-zinc-900 dark:text-white text-[18px] font-bold text-center'>
           {title}
         </h3>
       </div>
@@ -47,8 +47,8 @@ const About = () => {
       <div className="mt-4 flex flex-col lg:flex-row items-start gap-8">
         {/* Text Section */}
         <motion.p
-          variants={fadeIn("", "", 0.1, 1)}
-          className='text-secondary text-[17px] leading-[30px] max-w-3xl lg:border-r border-gray-600 pr-8'
+          variants={fadeIn("", "tween", 0.05, 0.6)}
+          className='text-zinc-700 dark:text-secondary text-[16px] leading-[28px] max-w-3xl lg:border-r border-zinc-200 dark:border-gray-600 pr-8'
         >
           I have a strong foundation in Computer Science and Mathematics, I'm an 8x hackathon winner, and I'm a Software Engineering Intern at Amazon.
           I'm a growing Full Stack Software Engineer, with a keen interest in web and VR/AR development. I'm also very passionate in Data Science, Machine Learning and Cloud Engineering.

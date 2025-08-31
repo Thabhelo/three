@@ -40,7 +40,7 @@ const ProjectCard = ({
           scale: isMobile ? 1 : 1,
           speed: isMobile ? 250 : 450,
         }}
-        className='bg-tertiary p-4 sm:p-5 rounded-2xl w-full'
+        className='bg-white dark:bg-tertiary border border-zinc-200 dark:border-transparent p-4 sm:p-5 rounded-2xl w-full transition-colors'
       >
         <div className='relative w-full h-[200px] sm:h-[230px]'>
           <img
@@ -50,10 +50,10 @@ const ProjectCard = ({
             loading="lazy"
           />
 
-          <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
+          <div className='absolute inset-0 flex justify-end m-3'>
             <div
               onClick={() => window.open(source_code_link, "_blank")}
-              className='black-gradient w-8 h-8 sm:w-10 sm:h-10 rounded-full flex justify-center items-center cursor-pointer'
+              className='w-8 h-8 sm:w-10 sm:h-10 rounded-full flex justify-center items-center cursor-pointer bg-white/80 dark:bg-black/60 border border-zinc-200 dark:border-zinc-700 backdrop-blur'
             >
               <img
                 src={github}
@@ -65,8 +65,8 @@ const ProjectCard = ({
         </div>
 
         <div className='mt-4 sm:mt-5'>
-          <h3 className='text-white font-bold text-[20px] sm:text-[24px]'>{name}</h3>
-          <p className='mt-2 text-secondary text-[12px] sm:text-[14px]'>{description}</p>
+          <h3 className='text-zinc-900 dark:text-white font-bold text-[20px] sm:text-[24px]'>{name}</h3>
+          <p className='mt-2 text-zinc-600 dark:text-secondary text-[12px] sm:text-[14px]'>{description}</p>
         </div>
 
         <div className='mt-3 sm:mt-4 flex flex-wrap gap-2'>
@@ -108,7 +108,7 @@ const Projects = () => {
       <div className='w-full flex'>
         <motion.p
           variants={fadeIn("", "", 0.1, 1)}
-          className='mt-3 text-secondary text-[14px] sm:text-[17px] max-w-3xl leading-[24px] sm:leading-[30px] text-center sm:text-left'
+          className='mt-3 text-zinc-600 dark:text-secondary text-[14px] sm:text-[17px] max-w-3xl leading-[24px] sm:leading-[30px] text-center sm:text-left'
         >
           The following projects showcase my skills and experience through
           real-world examples of my work. Each project is briefly described with

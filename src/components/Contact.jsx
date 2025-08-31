@@ -83,8 +83,8 @@ const Contact = () => {
       className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden`}
     >
       <motion.div
-        variants={slideIn("left", "tween", 0.2, 1)}
-        className='flex-[0.75] bg-black-100 p-8 rounded-2xl'
+        variants={slideIn("left", "tween", 0.1, 0.55)}
+        className='flex-[0.75] bg-white dark:bg-black-100 border border-zinc-200 dark:border-zinc-700 p-8 rounded-2xl transition-colors'
       >
         <p className={styles.sectionSubText}>Get in touch</p>
         <h3 className={styles.sectionHeadText}>Contact</h3>
@@ -92,45 +92,45 @@ const Contact = () => {
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className='mt-12 flex flex-col gap-8'
+          className='mt-8 flex flex-col gap-6'
         >
           <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>Your Name</span>
+            <span className='text-zinc-900 dark:text-white font-medium mb-2'>Your Name</span>
             <input
               type='text'
               name='name'
               value={form.name}
               onChange={handleChange}
               placeholder="What's your preferred name?"
-              className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+              className='bg-white dark:bg-tertiary py-3 px-4 placeholder:text-zinc-400 dark:placeholder:text-secondary text-zinc-900 dark:text-white rounded-lg outline-none border border-zinc-200 dark:border-zinc-700 font-medium transition-colors'
             />
           </label>
           <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>Your email</span>
+            <span className='text-zinc-900 dark:text-white font-medium mb-2'>Your email</span>
             <input
               type='email'
               name='email'
               value={form.email}
               onChange={handleChange}
               placeholder="What's your email address?"
-              className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+              className='bg-white dark:bg-tertiary py-3 px-4 placeholder:text-zinc-400 dark:placeholder:text-secondary text-zinc-900 dark:text-white rounded-lg outline-none border border-zinc-200 dark:border-zinc-700 font-medium transition-colors'
             />
           </label>
           <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>Your Message</span>
+            <span className='text-zinc-900 dark:text-white font-medium mb-2'>Your Message</span>
             <textarea
               rows={7}
               name='message'
               value={form.message}
               onChange={handleChange}
               placeholder="Let's talk!"
-              className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+              className='bg-white dark:bg-tertiary py-3 px-4 placeholder:text-zinc-400 dark:placeholder:text-secondary text-zinc-900 dark:text-white rounded-lg outline-none border border-zinc-200 dark:border-zinc-700 font-medium transition-colors'
             />
           </label>
 
           <button
             type='submit'
-            className='bg-tertiary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary'
+            className='bg-zinc-900 dark:bg-tertiary py-3 px-6 rounded-lg outline-none w-fit text-white font-medium hover:opacity-90 transition-opacity'
           >
             {loading ? "Sending..." : "Send"}
           </button>

@@ -10,8 +10,61 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
-  color-scheme: dark;
   -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+/* Minimal math/physics blueprint background for light mode */
+.bg-blueprint {
+  background-color: #f6f3ff; /* faint lavender for light mode */
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(139, 92, 246, 0.12) 1px, transparent 0),
+    radial-gradient(circle at 3px 3px, rgba(37, 99, 235, 0.08) 1px, transparent 0),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 0),
+    linear-gradient(0deg, rgba(99, 102, 241, 0.05) 1px, transparent 0);
+  background-size: 22px 22px, 38px 38px, 44px 44px, 64px 64px;
+}
+
+/* Subtle overlay of fine-printed symbols */
+.bg-symbols::before {
+  content: "∑ ∫ ∂ π λ θ φ ψ ℏ ϵ F=ma E=mc² ∇×E = -∂B/∂t ";
+  position: absolute;
+  top: 8%;
+  right: 6%;
+  font-size: 10px;
+  letter-spacing: 10px;
+  color: rgba(79, 70, 229, 0.12);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Soft lavender/blue ornamental glows (light mode) */
+/* removed ornate glow layer */
+
+/* Dark-mode chalkboard equations */
+.bg-equations {
+  background-color: #050816;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(34, 197, 94, 0.06) 1px, transparent 0),
+    radial-gradient(circle at 3px 3px, rgba(56, 189, 248, 0.08) 1px, transparent 0),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.06) 1px, transparent 0),
+    linear-gradient(0deg, rgba(59, 130, 246, 0.05) 1px, transparent 0);
+  background-size: 22px 22px, 38px 38px, 44px 44px, 64px 64px;
+}
+
+.bg-symbols-dark::before {
+  content: "∫  e^{iπ}+1=0  F=ma  ∇·E=ρ/ε₀  ψ  ℏ  Σ  Δ  Ω  λ  θ  φ  π  ";
+  position: absolute;
+  bottom: 8%;
+  left: 6%;
+  font-size: 10px;
+  letter-spacing: 10px;
+  color: rgba(56, 189, 248, 0.14);
+  pointer-events: none;
+  user-select: none;
 }
 
 @media (max-width: 768px) {

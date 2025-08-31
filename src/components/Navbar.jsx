@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import thabs from '../assets/thabs.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { useTheme } from '../lib/theme.js';
 
 import { styles } from '../styles';
 import { navLinks } from '../constants';
@@ -12,6 +13,7 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { resolvedTheme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,8 +44,8 @@ const Navbar = () => {
       className={`${
         styles.paddingX
       } w-full flex items-center py-5 fixed top-0 z-20 ${
-        scrolled ? "bg-primary" : "bg-transparent"
-      }`}
+        scrolled ? "bg-white/80 dark:bg-primary/80 backdrop-blur" : "bg-transparent"
+      } transition-colors`}
     >
       <div className='w-full flex justify-between items-center max-w-7xl mx-auto'>
         <Link
@@ -55,21 +57,21 @@ const Navbar = () => {
           }}
         >
           <img src={thabs} alt='thabhelos face' className='w-12 h-12 object-contain rounded-xl' />
-          <p className='text-white text-[18px] font-bold cursor-pointer flex '>
+          <p className='text-zinc-900 dark:text-white text-[18px] font-bold cursor-pointer flex '>
             Thabhelo&nbsp;
             <span className='sm:block hidden'> | 8x Hackathon Winner</span>
           </p>
         </Link>
 
-        <ul className='list-none hidden sm:flex flex-row gap-10'>
+        <ul className='list-none hidden sm:flex flex-row gap-8'>
           {navLinks.map((link) => (
             <li
               key={link.id}
               className={`${
                 active === link.title || location.pathname === link.url
-                  ? "text-white" 
-                  : "text-secondary"
-              } hover:text-white text-[18px] font-medium cursor-pointer`}
+                  ? "text-zinc-900 dark:text-white"
+                  : "text-zinc-500 dark:text-secondary"
+              } hover:text-zinc-900 hover:dark:text-white text-[16px] font-medium cursor-pointer transition-colors`}
               onClick={() => handleNavLinkClick(link.id)}
             >
               {link.download ? (
@@ -81,26 +83,35 @@ const Navbar = () => {
               )}
             </li>
           ))}
+          <li>
+            <button
+              aria-label='Toggle dark mode'
+              onClick={toggleTheme}
+              className='text-[14px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 hover:dark:text-white border border-zinc-200 dark:border-zinc-700 rounded-full px-3 py-1 transition-colors'
+            >
+              {resolvedTheme === 'dark' ? 'Dark' : 'Light'}
+            </button>
+          </li>
         </ul>
 
         <div className='sm:hidden flex flex-1 justify-end items-center'>
           <FontAwesomeIcon
             icon={toggle ? faTimes : faBars}
-            className='w-[28px] h-[28px] text-white cursor-pointer'
+            className='w-[28px] h-[28px] text-zinc-900 dark:text-white cursor-pointer'
             onClick={() => setToggle(!toggle)}
           />
 
           <div
             className={`${
               !toggle ? "hidden" : "flex"
-            } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
+            } p-6 absolute top-20 right-0 mx-4 my-2 min-w-[160px] z-10 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-black`}
           >
             <ul className='list-none flex justify-end items-start flex-1 flex-col gap-4'>
               {navLinks.map((link) => (
                 <li
                   key={link.id}
                   className={`font-poppins font-medium cursor-pointer text-[16px] ${
-                    active === link.title || location.pathname === link.url ? "text-white" : "text-secondary"
+                    active === link.title || location.pathname === link.url ? "text-zinc-900 dark:text-white" : "text-zinc-500 dark:text-secondary"
                   }`}
                   onClick={() => {
                     setToggle(!toggle);
@@ -116,6 +127,18 @@ const Navbar = () => {
                   )}
                 </li>
               ))}
+              <li className='pt-2 border-t border-zinc-200 dark:border-zinc-700 w-full'>
+                <button
+                  aria-label='Toggle dark mode'
+                  onClick={() => {
+                    toggleTheme();
+                    setToggle(false);
+                  }}
+                  className='mt-2 text-[16px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 hover:dark:text-white border border-zinc-200 dark:border-zinc-700 rounded-full px-3 py-1 w-full text-left'
+                >
+                  {resolvedTheme === 'dark' ? 'Dark' : 'Light'} mode
+                </button>
+              </li>
             </ul>
           </div>
         </div>
