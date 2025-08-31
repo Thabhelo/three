@@ -1,43 +1,24 @@
 /* From Uiverse.io by joe-herbert */ 
 .card {
-  background-color: #ccc;
-  box-shadow: 0 0 10px -5px black;
-  border-radius: 10px;
-  width: 150px;
+  background-color: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(228,228,231,1);
+  border-radius: 12px;
+  width: 160px;
   height: 200px;
-  transition: all 0.3s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: absolute;
   bottom: 20px;
   right: 20px;
-  transition-delay: 0.3s;
-  z-index: 1000; /* Ensure it is above other elements */
+  z-index: 1000;
 }
 
 .card:hover {
-  width: 250px;
-  height: 300px;
-  transition-delay: 0s;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
-.card::after {
-  content: "\2193  Hover for Socials \2193";
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  position: absolute;
-  top: -30px;
-  left: 0;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.3s, visibility 0.3s;
-  transition-delay: 0.3s;
-}
-
-.card:hover::after {
-  opacity: 0;
-  visibility: hidden;
-  transition-delay: 0s;
-}
+.card::after { display: none; }
 
 .image {
   width: 100%;
@@ -47,42 +28,21 @@
   transition-delay: 0.3s;
 }
 
-.card:hover .image {
-  transition-delay: 0s;
-  width: 60%;
-  margin: 0 10px 0 0;
-  filter: drop-shadow(-5px 5px 4px #000000aa);
-}
+.card:hover .image { filter: none; }
 
 .heading,
 .icons {
-  opacity: 0;
-  visibility: hidden;
-  overflow: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-  transition-delay: 0s;
+  opacity: 1;
+  visibility: visible;
 }
 
 .heading {
   display: block;
-  font-size: 20px; /* Adjusted font size */
-  font-weight: bold;
-  font-family: Montserrat, sans-serif;
-  margin: 15px 10px; /* Adjusted margin */
-  text-align: right;
-  position: relative;
-  z-index: 1;
-  color: white;
-  text-shadow: 1px 1px 3px #0004;
-  user-select: none;
-  background: linear-gradient(
-    130deg,
-    pink 20%,
-    rgb(196, 91, 196) 50%,
-    rgb(85, 183, 228) 100%
-  );
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 10px 10px;
+  text-align: left;
+  color: #18181b;
 }
 
 .card:hover .heading {
@@ -91,9 +51,7 @@
   visibility: visible;
 }
 
-.heading::after {
-  content: "!";
-}
+.heading::after { display: none; }
 
 .card:hover .icons {
   transition-delay: 0.3s;
@@ -101,37 +59,24 @@
   visibility: visible;
 }
 
-.icons {
-  text-align: center;
-  transform: translateX(-10px);
-}
+.icons { text-align: left; padding: 0 8px 8px; }
 
 .icons a {
   text-decoration: none;
 }
 
 .icons svg {
-  width: 30px; /* Adjusted icon size */
-  height: 30px; /* Adjusted icon size */
-  margin: 5px; /* Adjusted margin */
-  transition: transform 0.3s;
+  width: 20px;
+  height: 20px;
+  margin: 4px;
+  transition: transform 0.2s;
 }
 
-.icons svg:hover {
-  transform: translateY(-5px);
-  transform-origin: center -10px;
-}
+.icons svg:hover { transform: translateY(-2px); }
 
 .icons svg:active {
   transform: scale(0.9);
 }
 
-.icons svg path {
-  stroke: black;
-  opacity: 0.6;
-  transition: opacity 0.6s;
-}
-
-.icons svg:hover path {
-  opacity: 1;
-}
+.icons svg path { stroke: #18181b; opacity: 0.7; transition: opacity 0.2s; }
+.icons svg:hover path { opacity: 1; }

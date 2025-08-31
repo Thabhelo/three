@@ -15,21 +15,20 @@ const FeedbackCard = ({
   image,
 }) => (
   <motion.div
-    variants={fadeIn("", "spring", index * 0.5, 0.75)}
-    className='bg-black-200 p-10 rounded-3xl xs:w-[320px] w-full'
+    variants={fadeIn("", "tween", index * 0.15, 0.45)}
+    className='bg-white dark:bg-black-200 border border-zinc-200 dark:border-zinc-700 p-8 rounded-2xl xs:w-[320px] w-full transition-colors'
   >
-    <p className='text-white font-black text-[24px]'>"</p>
+    <p className='text-zinc-900 dark:text-white font-black text-[20px]'>"</p>
 
     <div className='mt-1'>
-      <p className='text-white tracking-wider text-[18px]'>{testimonial}</p>
+      <p className='text-zinc-700 dark:text-white tracking-wider text-[16px]'>{testimonial}</p>
 
       <div className='mt-7 flex justify-between items-center gap-1'>
         <div className='flex-1 flex flex-col'>
-        <p className='text-white font-black text-[24px]'>"</p>
-          <p className='text-white font-medium text-[16px]'>
-            <span className='blue-text-gradient'>@</span> {name}
+          <p className='text-zinc-900 dark:text-white font-medium text-[15px]'>
+            @{name}
           </p>
-          <p className='mt-1 text-secondary text-[12px]'>
+          <p className='mt-1 text-zinc-600 dark:text-secondary text-[12px]'>
             {designation} at {company}
           </p>
           
@@ -47,16 +46,16 @@ const FeedbackCard = ({
 
 const Feedbacks = () => {
   return (
-    <div className={`mt-12 bg-black-100 rounded-[20px]`}>
+    <div className={`mt-12`}>
       <div
-        className={`bg-tertiary rounded-2xl ${styles.padding} min-h-[300px]`}
+        className={`bg-white dark:bg-tertiary rounded-2xl border border-zinc-200 dark:border-zinc-700 ${styles.padding} min-h-[260px] transition-colors`}
       >
         <motion.div variants={textVariant()}>
           <p className={styles.sectionSubText}>What others said about me</p>
           <h2 className={styles.sectionHeadText}>Testimonials.</h2>
         </motion.div>
       </div>
-      <div className={`-mt-20 pb-14 ${styles.paddingX} flex flex-wrap gap-7`}>
+      <div className={`-mt-14 pb-12 ${styles.paddingX} grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6`}>
         {testimonials.map((testimonial, index) => (
           <FeedbackCard key={testimonial.name} index={index} {...testimonial} />
         ))}

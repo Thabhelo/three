@@ -19,10 +19,12 @@ CREATE TABLE IF NOT EXISTS public.admin_users (
 -- Enable Row Level Security on admin_users table
 ALTER TABLE public.admin_users ENABLE ROW LEVEL SECURITY;
 
--- Drop existing policies if they exist to avoid conflicts
+-- Drop ALL existing policies if they exist to avoid conflicts
 DROP POLICY IF EXISTS "Admin users can view admin list" ON public.admin_users;
 DROP POLICY IF EXISTS "Enable read access for authenticated users" ON public.admin_users;
 DROP POLICY IF EXISTS "Enable insert for authenticated users" ON public.admin_users;
+DROP POLICY IF EXISTS "Enable update for authenticated users" ON public.admin_users;
+DROP POLICY IF EXISTS "Enable delete for authenticated users" ON public.admin_users;
 
 -- Create proper RLS policies for admin_users
 -- Only authenticated users can view admin users (for admin dashboard)
@@ -44,20 +46,18 @@ CREATE POLICY "Enable update for authenticated users" ON public.admin_users
 -- Drop the existing application_stats view if it exists
 DROP VIEW IF EXISTS public.application_stats;
 
--- Recreate the application_stats view WITHOUT SECURITY DEFINER
+-- Recreate the application_stats view with SECURITY INVOKER (not SECURITY DEFINER)
 -- This view provides statistics for the admin dashboard
-CREATE VIEW public.application_stats AS
+-- Note: age column is INTEGER, so we calculate age ranges accordingly
+CREATE VIEW public.application_stats
+WITH (security_invoker = on) AS
 SELECT 
     COUNT(*) as total_applications,
     COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE - INTERVAL '7 days') as applications_this_week,
     COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE - INTERVAL '30 days') as applications_this_month,
-    COUNT(DISTINCT CASE 
-        WHEN age ~ '^[0-9]+$' AND age::integer BETWEEN 18 AND 25 THEN '18-25'
-        WHEN age ~ '^[0-9]+$' AND age::integer >= 26 THEN '26+'
-        WHEN age = '18-25' THEN '18-25'
-        WHEN age = '26+' THEN '26+'
-        ELSE NULL
-    END) as age_range_count,
+    ROUND(AVG(age), 1) as average_age,
+    COUNT(*) FILTER (WHERE age BETWEEN 18 AND 25) as age_18_25,
+    COUNT(*) FILTER (WHERE age >= 26) as age_26_plus,
     COUNT(*) FILTER (WHERE status = 'pending') as pending_applications,
     COUNT(*) FILTER (WHERE status = 'approved') as approved_applications,
     COUNT(*) FILTER (WHERE status = 'rejected') as rejected_applications,
@@ -82,4 +82,4 @@ ALTER TABLE public.applications ENABLE ROW LEVEL SECURITY;
 
 -- Add comment for documentation
 COMMENT ON TABLE public.admin_users IS 'Admin users table with proper RLS enabled';
-COMMENT ON VIEW public.application_stats IS 'Application statistics view without security definer for admin dashboard'; 
+COMMENT ON VIEW public.application_stats IS 'Application statistics view with SECURITY INVOKER for proper user permissions'; 

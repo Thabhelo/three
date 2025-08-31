@@ -33,6 +33,16 @@ const EarthCanvas = () => {
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
         />
+        {/* Lighting tuned for both themes: soft hemisphere + key rim light */}
+        <hemisphereLight intensity={0.25} groundColor={'#0b0b0b'} />
+        <directionalLight
+          position={[5, 5, 5]}
+          intensity={1.0}
+          castShadow
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+        />
+        <pointLight position={[-6, -3, -4]} intensity={0.3} />
         <Earth />
 
         <Preload all />

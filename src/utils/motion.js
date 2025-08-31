@@ -1,16 +1,17 @@
 export const textVariant = (delay) => {
     return {
       hidden: {
-        y: -50,
+        y: -12,
         opacity: 0,
       },
       show: {
         y: 0,
         opacity: 1,
         transition: {
-          type: "spring",
-          duration: 1.25,
+          type: "tween",
+          duration: 0.4,
           delay: delay,
+          ease: [0.2, 0.8, 0.2, 1],
         },
       },
     };
@@ -19,8 +20,8 @@ export const textVariant = (delay) => {
   export const fadeIn = (direction, type, delay, duration) => {
     return {
       hidden: {
-        x: direction === "left" ? 100 : direction === "right" ? -100 : 0,
-        y: direction === "up" ? 100 : direction === "down" ? -100 : 0,
+        x: direction === "left" ? 12 : direction === "right" ? -12 : 0,
+        y: direction === "up" ? 12 : direction === "down" ? -12 : 0,
         opacity: 0,
       },
       show: {
@@ -28,10 +29,10 @@ export const textVariant = (delay) => {
         y: 0,
         opacity: 1,
         transition: {
-          type: type,
+          type: type || "tween",
           delay: delay,
-          duration: duration,
-          ease: "easeOut",
+          duration: duration || 0.45,
+          ease: [0.2, 0.8, 0.2, 1],
         },
       },
     };
@@ -49,8 +50,8 @@ export const textVariant = (delay) => {
         transition: {
           type: "tween",
           delay: delay,
-          duration: duration,
-          ease: "easeOut",
+          duration: duration || 0.35,
+          ease: [0.2, 0.8, 0.2, 1],
         },
       },
     };
@@ -66,10 +67,10 @@ export const textVariant = (delay) => {
         x: 0,
         y: 0,
         transition: {
-          type: type,
+          type: type || "tween",
           delay: delay,
-          duration: duration,
-          ease: "easeOut",
+          duration: duration || 0.45,
+          ease: [0.2, 0.8, 0.2, 1],
         },
       },
     };
@@ -80,7 +81,7 @@ export const textVariant = (delay) => {
       hidden: {},
       show: {
         transition: {
-          staggerChildren: staggerChildren,
+          staggerChildren: staggerChildren ?? 0.06,
           delayChildren: delayChildren || 0,
         },
       },

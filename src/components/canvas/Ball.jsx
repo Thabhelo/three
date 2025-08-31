@@ -26,13 +26,13 @@ const Ball = (props) => {
   }, []);
 
   return (
-    <Float speed={isMobile ? 0.5 : 1.75} rotationIntensity={isMobile ? 0.5 : 1} floatIntensity={isMobile ? 1 : 2}>
-      <ambientLight intensity={0.25} />
-      <directionalLight position={[0, 0, 0.05]} />
-      <mesh castShadow receiveShadow scale={isMobile ? 1.5 : 2}>
+    <Float speed={isMobile ? 0.5 : 1.4} rotationIntensity={isMobile ? 0.4 : 0.8} floatIntensity={isMobile ? 0.8 : 1.4}>
+      <ambientLight intensity={0.3} />
+      <directionalLight position={[2, 2, 2]} intensity={0.9} />
+      <mesh castShadow receiveShadow scale={isMobile ? 1.4 : 1.8}>
         <sphereGeometry args={[1, 32, 32]} />
         <meshStandardMaterial
-          color='#fff8eb'
+          color={'#f7f7f7'}
           polygonOffset
           polygonOffsetFactor={-5}
           flatShading
@@ -81,6 +81,11 @@ const BallCanvas = ({ icon }) => {
           minPolarAngle={Math.PI / 2}
           maxPolarAngle={Math.PI / 2}
         />
+        {/* Neutral background plane for light mode readability */}
+        <mesh position={[0, 0, -1]} receiveShadow>
+          <planeGeometry args={[6, 6]} />
+          <meshBasicMaterial color={'#ffffff'} transparent opacity={0.0} />
+        </mesh>
         <Ball imgUrl={icon} />
       </Suspense>
     </Canvas>
