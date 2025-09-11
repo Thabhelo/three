@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import thabs from '../assets/thabs.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '../lib/theme.js';
+import resumePdf from '../assets/Thabhelo_Duve_Resume.pdf';
 
 import { styles } from '../styles';
 import { navLinks } from '../constants';
@@ -84,6 +85,16 @@ const Navbar = () => {
             </li>
           ))}
           <li>
+            <a
+              href={resumePdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className='text-[16px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 hover:dark:text-white border border-zinc-200 dark:border-zinc-700 rounded-full px-3 py-1'
+            >
+              Resume
+            </a>
+          </li>
+          <li>
             <Link to="/blog" className='text-[16px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 hover:dark:text-white'>Blog</Link>
           </li>
           <li>
@@ -131,6 +142,14 @@ const Navbar = () => {
                 </li>
               ))}
               <li className='pt-2 border-t border-zinc-200 dark:border-zinc-700 w-full'>
+                <a
+                  href={resumePdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className='block mb-3 text-[16px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 hover:dark:text-white border border-zinc-200 dark:border-zinc-700 rounded-full px-3 py-1'
+                >
+                  Resume
+                </a>
                 <button
                   aria-label='Toggle dark mode'
                   onClick={() => {
