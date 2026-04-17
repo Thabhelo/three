@@ -39,7 +39,7 @@ export default function Hero({ backgroundImage }: HeroProps) {
           </p>
 
           <div className="flex gap-4">
-            <a href="https://thabhelo.hashnode.dev" target="_blank" rel="noopener noreferrer">
+            <a href="https://medium.com/@thabheloduve" target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="rounded-full text-lg h-14 px-8 bg-primary text-primary-foreground hover:bg-primary/90 hover:text-glow transition-all">
                 Blog <ArrowUpRight className="ml-2 w-5 h-5" />
               </Button>

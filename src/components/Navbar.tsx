@@ -12,7 +12,7 @@ const NAV_LINKS = [
     { name: "Projects", href: "/#projects" },
     { name: "Contact", href: "/#contact" },
     { name: "DreamSprint", href: "/dreamsprint" },
-    { name: "Blog", href: "https://thabhelo.hashnode.dev", external: true },
+    { name: "Blog", href: "https://medium.com/@thabheloduve", external: true },
 ];
 
 export default function Navbar() {
