@@ -1,0 +1,42 @@
+{
+  "name": "Thabhelo Duve - Software Engineer & ML Builder",
+  "short_name": "Thabhelo Duve",
+  "description": "Portfolio of Thabhelo Duve, a software engineer and machine learning builder working across applied AI, cloud systems, open source, and community tools.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0a0a",
+  "theme_color": "#000000",
+  "scope": "/",
+  "dir": "ltr",
+  "lang": "en",
+  "categories": ["developer", "portfolio", "technology", "productivity"],
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Projects",
+      "short_name": "Projects",
+      "description": "View featured projects",
+      "url": "/projects"
+    },
+    {
+      "name": "Blog",
+      "short_name": "Blog",
+      "description": "Read notes and essays",
+      "url": "/blog"
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Get in touch",
+      "url": "/contact"
+    }
+  ]
+}

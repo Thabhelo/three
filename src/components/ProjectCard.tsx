@@ -1,70 +1,88 @@
 import { motion } from "framer-motion";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { useState, type PointerEvent } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { Link } from "wouter";
+import type { Project } from "@/content/site";
+import CursorFollowBadge from "@/components/CursorFollowBadge";
+import { useMotionValue, useSpring } from "framer-motion";
+import { springSmooth } from "@/lib/motion";
 
-interface ProjectCardProps {
-  title: string;
-  description: string;
-  tags: string[];
-  image?: string;
-  link?: string;
-  index: number;
-}
+type ProjectCardData = Project & {
+  cursorBadge?: boolean;
+};
 
-export default function ProjectCard({ title, description, tags, image, link, index }: ProjectCardProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
+export default function ProjectCard({ project, index }: { project: ProjectCardData; index: number }) {
+  const [badgeVisible, setBadgeVisible] = useState(false);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const badgeX = useSpring(rawX, springSmooth);
+  const badgeY = useSpring(rawY, springSmooth);
+
+  const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
+    if (!project.cursorBadge) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    rawX.set(event.clientX - rect.left);
+    rawY.set(event.clientY - rect.top);
+  };
+
+  const preview = (
+    <motion.article
+      onPointerEnter={() => project.cursorBadge && setBadgeVisible(true)}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={() => setBadgeVisible(false)}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      viewport={{ once: true }}
+      transition={{ duration: 0.55, delay: index * 0.07 }}
+      viewport={{ once: true, margin: "-60px" }}
+      className="group relative h-full overflow-hidden rounded-[1.35rem] border border-white/[0.08] bg-white/[0.025] shadow-xl shadow-black/20 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.045]"
     >
-      <a href={link} target="_blank" rel="noopener noreferrer" className="block h-full">
-        <Card className="group overflow-hidden border-muted bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-colors duration-300 rounded-xl h-full">
-          <div className="aspect-video w-full overflow-hidden bg-muted relative">
-            {image ? (
-              <img
-                src={image}
-                alt={title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center bg-secondary/30 group-hover:bg-secondary/50 transition-colors">
-                <span className="text-4xl font-bold text-muted-foreground/20 group-hover:text-primary/20 transition-colors">
-                  {title.substring(0, 2).toUpperCase()}
-                </span>
-              </div>
-            )}
-            <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <CursorFollowBadge visible={Boolean(project.cursorBadge && badgeVisible)} x={badgeX} y={badgeY} label="View" />
+      <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+        {project.image ? (
+          <img
+            src={project.image}
+            alt={project.title}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        ) : (
+          <div className="grid h-full place-items-center bg-gradient-to-br from-zinc-900 via-zinc-800 to-purple-950">
+            <span className="font-display text-7xl italic text-white/20">{project.title.slice(0, 2)}</span>
           </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+        <div className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/30 px-3 py-1 font-mono text-xs text-white/80 backdrop-blur">
+          {project.eyebrow}
+        </div>
+        <div className="absolute right-5 top-5 rounded-full border border-white/15 bg-black/30 px-3 py-1 font-mono text-xs text-white/80 backdrop-blur">
+          {String(index + 1).padStart(2, "0")}
+        </div>
+      </div>
 
-          <CardHeader className="p-4">
-            <div className="flex justify-between items-start">
-              <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">
-                {title}
-              </CardTitle>
-              <div className="text-muted-foreground hover:text-primary transition-colors">
-                <ArrowUpRight className="w-5 h-5" />
-              </div>
-            </div>
-          </CardHeader>
+      <div className="flex min-h-72 flex-col p-5">
+        <div className="mb-4 flex items-start justify-between gap-4">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">{project.role} / {project.year}</p>
+            <h3 className="mt-2 text-xl font-semibold tracking-tight text-foreground">{project.title}</h3>
+          </div>
+          <ArrowUpRight className="mt-1 size-5 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+        </div>
 
-          <CardContent className="p-4 pt-0">
-            <p className="text-muted-foreground font-mono text-xs leading-relaxed">
-              {description}
-            </p>
-          </CardContent>
+        <p className="text-sm leading-6 text-muted-foreground">{project.description}</p>
 
-          <CardFooter className="p-4 pt-0 flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <Badge key={tag} variant="outline" className="rounded-md border-primary/20 text-primary/80 bg-primary/5 hover:bg-primary/10 text-[10px] px-2 py-0.5">
-                {tag}
-              </Badge>
-            ))}
-          </CardFooter>
-        </Card>
-      </a>
-    </motion.div >
+        <div className="mt-auto flex flex-wrap gap-2 pt-6">
+          {project.tags.slice(0, 5).map((tag) => (
+            <span key={tag} className="ref-pill">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.article>
+  );
+
+  return (
+    <Link href={`/projects/${project.slug}`} className="block h-full">
+      {preview}
+    </Link>
   );
 }

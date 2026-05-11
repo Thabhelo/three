@@ -40,3 +40,4 @@ supabase/.env
 *.tmp
 *.temp
 coverage/
+reference-style-audit/

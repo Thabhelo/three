@@ -1,0 +1,58 @@
+[
+  {
+    "file": "/media/stylus-pencil.jpg",
+    "query": "single black digital stylus on dark background",
+    "alt": "Elegant white stylus poised against a black background with reflection.",
+    "photographer": "Eterna  Media",
+    "photographerUrl": "https://www.pexels.com/@eterna",
+    "pexelsUrl": "https://www.pexels.com/photo/minimalist-reflection-of-a-white-stylus-pen-34015478/"
+  },
+  {
+    "file": "/media/guestbook-journal.jpg",
+    "query": "open journal desk",
+    "alt": "Top view of opened notebook near white paper and pencil placed on book near smartphone and laptop keyboard in office",
+    "photographer": "Tatiana Syrikova",
+    "photographerUrl": "https://www.pexels.com/@tatianasyrikova",
+    "pexelsUrl": "https://www.pexels.com/photo/overhead-of-blank-opened-stationery-3975575/"
+  },
+  {
+    "file": "/media/bucket-list-adventure.jpg",
+    "query": "skydiving adventure",
+    "alt": "Exhilarating tandem skydive with stunning aerial views of landscape.",
+    "photographer": "Henry Li",
+    "photographerUrl": "https://www.pexels.com/@henry-li-37732310",
+    "pexelsUrl": "https://www.pexels.com/photo/skydiver-on-air-7214101/"
+  },
+  {
+    "file": "/media/blog-performance-ring.jpg",
+    "query": "abstract chrome ring technology",
+    "alt": "Intriguing abstract image of metallic spirals with a dark and moody ambiance.",
+    "photographer": "Mahmoud Ramadan",
+    "photographerUrl": "https://www.pexels.com/@mahmoudramadan",
+    "pexelsUrl": "https://www.pexels.com/photo/abstract-metallic-spiral-formation-in-dark-tones-30412656/"
+  },
+  {
+    "file": "/media/blog-terminal-setup.jpg",
+    "query": "developer terminal setup",
+    "alt": "Warmly lit home office with dual screens for coding and programming. Perfect modern workspace for tech enthusiasts.",
+    "photographer": "Paras Katwal",
+    "photographerUrl": "https://www.pexels.com/@paras",
+    "pexelsUrl": "https://www.pexels.com/photo/computer-with-code-4218883/"
+  },
+  {
+    "file": "/media/blog-mdx-writing.jpg",
+    "query": "writing desk notebook",
+    "alt": "An open lined notebook with a pen resting on a wooden desk, capturing a moment of creativity.",
+    "photographer": "ᛟᛞᚨᛚᚹ ᚨᚱᚲᛟᚾᛊᚲᛁ",
+    "photographerUrl": "https://www.pexels.com/@odalv",
+    "pexelsUrl": "https://www.pexels.com/photo/open-notebook-with-pen-on-wooden-desk-33887246/"
+  },
+  {
+    "file": "/media/blog-learning-code.jpg",
+    "query": "laptop learning code",
+    "alt": "A comfortable workspace showcasing a laptop with code, a coffee mug, and a notepad.",
+    "photographer": "Daniil Komov",
+    "photographerUrl": "https://www.pexels.com/@dkomov",
+    "pexelsUrl": "https://www.pexels.com/photo/cozy-workspace-with-coding-on-laptop-screen-34803983/"
+  }
+]

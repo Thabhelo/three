@@ -1,87 +1,50 @@
-## Blog (Markdown + KaTeX)
+# Thabhelo Duve Portfolio
 
-Storage-only posts in Supabase:
+A full-feature personal portfolio built with React, Vite, Tailwind CSS, framer-motion, and typed local content.
 
-1. In Supabase project (same as DreamSprint), run the migration to create the bucket and policies:
+## Features
 
-```
--- SQL in supabase/migrations/20250831_add_blog_md_bucket.sql
-```
+- Editorial homepage with motion, polished typography, and project highlights.
+- About, projects, project case studies, blog, guestbook, links, uses, bucket list, contact, attribution, legal, and RSS shell routes.
+- Static frontend shells for backend-heavy features that are tracked in GitHub issues: native blog/RSS, guestbook persistence, production contact backend, project content pipeline, and PWA/SEO automation.
+- EmailJS contact fallback using environment variables.
+- Manifest, robots, and sitemap starter files in `public/`.
 
-Or apply manually:
+## Tech Stack
 
-```
-insert into storage.buckets (id, name, public)
-values ('blog-md', 'blog-md', true)
-on conflict (id) do nothing;
--- policies are in the migration file
-```
-
-2. Create folder `posts/` inside bucket `blog-md` (optional; the app writes to `posts/slug.md`).
-
-3. Set env vars:
-
-```
-VITE_SUPABASE_URL=your-url
-VITE_SUPABASE_ANON_KEY=your-anon-key
-```
-
-Routes:
-- `/blog` list posts
-- `/blog/new` editor (requires auth to publish)
-- `/blog/:slug` view
-
-<div align="center">
-  <div>
-    <img src="https://img.shields.io/badge/-React_JS-black?style=for-the-badge&logoColor=white&logo=react&color=61DAFB" alt="react.js" />
-    <img src="https://img.shields.io/badge/-Three_JS-black?style=for-the-badge&logoColor=white&logo=threedotjs&color=000000" alt="three.js" />
-    <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
-  </div>
-  
-<hr />
-
-  <h3 align="center"> This is my Developer Portfolio made with ReactJS and ThreeJS</h3>
-</div>
-
-## <a name="introduction">🤖 Introduction</a>
-
-I developed this project on my journey to learn threeJS to boost my frontend dev skills. It has been a great experience to craft immersive web experiences, mastering 3D libraries, and implementing engaging animations. The combination of creativity and technical skills showcased in this project may help you too to enhance your future projects and captivate users with awesome 3d designs.
-
-## <a name="tech-stack">⚙️ Tech Stack</a>
-
-- React.js
-- Three.js
-- React Three Fiber
-- React Three Drei
-- Email JS
+- React 19
+- TypeScript
 - Vite
-- Tailwind CSS
+- Tailwind CSS 4
+- framer-motion
+- lucide-react
+- wouter
+- EmailJS
 
-## <a name="features">🔋 Features</a>
+## Routes
 
--  **Customizable 3D Hero Section**: Includes a 3D desktop model easily customizable to suit specific needs.
+- `/`
+- `/about`
+- `/projects`
+- `/projects/:slug`
+- `/blog`
+- `/blog/:slug`
+- `/guestbook`
+- `/links`
+- `/uses`
+- `/bucket-list`
+- `/contact`
+- `/attribution`
+- `/legal/terms`
+- `/legal/privacy`
+- `/rss`
+- `/dreamsprint`
 
--  **Interactive Experience and Work Sections**: Utilizes animations powered by framer motion for engaging user experience.
-
--  **3D Skills Section**: Showcases skills using 3D geometries through three.js and React Three fiber
-
--  **Animated Projects and Testimonials**: Features animated sections using framer motion for projects and client testimonials.
-
--  **Contact Section with 3D Earth Model**:Integrates a 3D earth model with email functionality powered by emailjs.
-
--  **3D Stars**: Generate stars progressively at random positions using Three.js for background display.
-
--  **Consistent Animations**: Implements cohesive animations throughout the website using framer motion.
-
--  **Responsive Design**: Ensures optimal display and functionality across all devices.
-
-and many more, including code architecture and reusability 
-
-## <a name="quick-start">🤸 Quick Start</a>
+## Quick Start
 
 Follow these steps to set up the project locally on your machine.
 
-**Prerequisites**
+Prerequisites:
 
 Make sure you have the following installed on your machine:
 
@@ -89,14 +52,14 @@ Make sure you have the following installed on your machine:
 - [Node.js](https://nodejs.org/en)
 - [npm](https://www.npmjs.com/) (Node Package Manager)
 
-**Cloning the Repository**
+Clone the repository:
 
 ```bash
 git clone git@github.com:Thabhelo/three.git
 cd three
 ```
 
-**Installation**
+Install dependencies:
 
 Install the project dependencies using npm:
 
@@ -104,15 +67,11 @@ Install the project dependencies using npm:
 npm install
 ```
 
-**Set Up Environment Variables**
+Set up environment variables:
 
 Create a new file named `.env` in the root of your project and add the following content:
 
 ```env
-# Supabase Configuration
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-
 # EmailJS Configuration for Contact Form
 VITE_EMAILJS_SERVICE_ID=your_emailjs_service_id
 VITE_EMAILJS_TEMPLATE_ID=your_emailjs_template_id
@@ -120,15 +79,10 @@ VITE_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
 VITE_EMAILJS_RECIPIENT_EMAIL=your_email@domain.com
 ```
 
-Replace the placeholder values with your actual credentials:
-- **Supabase**: Get these from your [Supabase project settings](https://supabase.com/)
-- **EmailJS**: Get these from your [EmailJS dashboard](https://www.emailjs.com/)
+Copy `.env.example` to `.env` and fill in the EmailJS values if you want the contact form to send mail.
 
-You can also copy the `.env.example` file and rename it to `.env`, then fill in your actual values.
-
-**Running the Project**
+Run locally:
 
 ```bash
 npm run dev
 ```
-<h3>Be sure to drop me a message in the contact page of my website</h3>
