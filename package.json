@@ -1,6 +1,7 @@
 {
   "name": "three",
   "version": "0.0.0",
+  "description": "A cinematic personal portfolio for Thabhelo Duve built with React, Vite, Tailwind CSS, motion, and data-driven content.",
   "type": "module",
   "scripts": {
     "dev": "vite",
