@@ -36,7 +36,7 @@ const techRows: TechItem[][] = [
 
 function TechPill({ item }: { item: TechItem }) {
   return (
-    <span className="inline-flex h-7 min-w-max items-center gap-2 rounded-md border border-white/[0.08] bg-zinc-950 px-3 font-mono text-[11px] text-zinc-400 shadow-border">
+    <span className="inline-flex h-7 min-w-max items-center gap-2 rounded-md border border-white/[0.08] bg-card px-3 font-mono text-[11px] text-zinc-400 shadow-border">
       {item.icon ? <img src={item.icon} alt="" className="size-3.5" /> : <span className="size-1.5 rounded-full bg-zinc-500" />}
       {item.label}
     </span>
@@ -65,7 +65,7 @@ function TechRowsLayer() {
 
 function MagnifierLens() {
   return (
-    <div className="pointer-events-none absolute left-1/2 top-[61%] z-20 size-[104px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[7px] border-[#dbe6f2] bg-black/20 shadow-[0_0_36px_rgba(219,230,242,0.22)]">
+    <div className="pointer-events-none absolute left-1/2 top-[61%] z-20 size-[104px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[7px] border-[#dbe6f2] bg-indigo-500/20 shadow-[0_0_36px_rgba(219,230,242,0.22)]">
       <div className="absolute inset-0 overflow-hidden rounded-full">
         <div className="absolute left-1/2 top-1/2 w-[420px] -translate-x-1/2 -translate-y-1/2 scale-[1.24]">
           <TechRowsLayer />
@@ -87,7 +87,7 @@ function BuildTogetherCard() {
   ];
 
   return (
-    <a href="/contact" className="group relative min-h-[260px] overflow-hidden rounded-[14px] border border-[#25262a] bg-[#08090a] p-6 lg:col-span-2">
+    <a href="/contact" className="group relative min-h-[260px] overflow-hidden rounded-[14px] border border-indigo-500/10 bg-[#0c0a18] p-6 lg:col-span-2">
       <div className="pointer-events-none absolute left-[-6%] right-[-6%] top-5 flex justify-center opacity-80">
         {[0, 1, 2, 3, 4].map((item) => (
           <span key={item} className="-ml-10 h-28 w-[25%] rounded-full border border-white/[0.065]" />
@@ -104,7 +104,7 @@ function BuildTogetherCard() {
       ))}
       <div className="relative z-10 grid h-full place-items-center text-center">
         <div>
-          <div className="mx-auto mb-5 grid size-24 place-items-center rounded-full border border-white/15 bg-zinc-950 shadow-[0_0_50px_rgba(255,255,255,0.08)]">
+          <div className="mx-auto mb-5 grid size-24 place-items-center rounded-full border border-white/15 bg-card shadow-[0_0_50px_rgba(255,255,255,0.08)]">
             <img src={profile.portrait} alt="" className="size-20 rounded-full object-cover" />
           </div>
           <p className="font-label">Let&apos;s build together</p>
@@ -120,7 +120,7 @@ function BuildTogetherCard() {
 
 function TechStackCard() {
   return (
-    <div className="relative min-h-[260px] overflow-hidden rounded-[14px] border border-[#25262a] bg-[#08090a] p-6">
+    <div className="relative min-h-[260px] overflow-hidden rounded-[14px] border border-indigo-500/10 bg-[#0c0a18] p-6">
       <p className="text-center font-label">Tech stack</p>
       <h2 className="mx-auto mt-3 max-w-xs text-center font-editorial text-xl text-zinc-100">The stack behind everything I ship</h2>
       <div className="relative mt-8 grid gap-3 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_14%,black_86%,transparent)]">
@@ -199,7 +199,7 @@ function TimezoneGlobeCard() {
 
   return (
     <div
-      className="relative min-h-[260px] overflow-hidden rounded-[14px] border border-[#25262a] bg-[#08090a] p-6 lg:col-span-2"
+      className="relative min-h-[260px] overflow-hidden rounded-[14px] border border-indigo-500/10 bg-[#0c0a18] p-6 lg:col-span-2"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
@@ -222,11 +222,11 @@ function UsesCard() {
   const tools = uses.slice(0, 7);
 
   return (
-    <div className="relative min-h-[260px] overflow-hidden rounded-[14px] border border-[#25262a] bg-[#08090a] p-6">
+    <div className="relative min-h-[260px] overflow-hidden rounded-[14px] border border-indigo-500/10 bg-[#0c0a18] p-6">
       <div className="absolute inset-x-0 top-8 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
         <div className="tech-row-left flex w-max gap-3">
           {[...tools, ...tools, ...tools].map((tool, index) => (
-            <span key={`${tool.name}-${index}`} className="grid size-20 place-items-center rounded-[1.25rem] border border-white/10 bg-zinc-950 transition-all duration-300 hover:scale-110 hover:border-white/30 hover:bg-white/[0.10]">
+            <span key={`${tool.name}-${index}`} className="grid size-20 place-items-center rounded-[1.25rem] border border-white/10 bg-card transition-all duration-300 hover:scale-110 hover:border-white/30 hover:bg-white/[0.10]">
               <img src={tool.icon} alt="" className="size-9" />
             </span>
           ))}
@@ -243,7 +243,7 @@ function UsesCard() {
 export default function BentoSection() {
   return (
     <section className="section-frame py-16">
-      <div className="relative grid gap-2.5 overflow-hidden rounded-[18px] border border-dashed border-white/[0.06] bg-[#050505] p-2.5 shadow-border before:absolute before:inset-y-0 before:left-0 before:w-20 before:bg-[repeating-linear-gradient(135deg,rgba(255,255,255,0.035)_0_1px,transparent_1px_7px)] after:absolute after:inset-y-0 after:right-0 after:w-20 after:bg-[repeating-linear-gradient(135deg,rgba(255,255,255,0.035)_0_1px,transparent_1px_7px)] lg:grid-cols-3">
+      <div className="relative grid gap-2.5 overflow-hidden rounded-[18px] border border-dashed border-white/[0.06] bg-[#0a0818] p-2.5 shadow-border before:absolute before:inset-y-0 before:left-0 before:w-20 before:bg-[repeating-linear-gradient(135deg,rgba(255,255,255,0.035)_0_1px,transparent_1px_7px)] after:absolute after:inset-y-0 after:right-0 after:w-20 after:bg-[repeating-linear-gradient(135deg,rgba(255,255,255,0.035)_0_1px,transparent_1px_7px)] lg:grid-cols-3">
         <BuildTogetherCard />
         <TechStackCard />
         <TimezoneGlobeCard />

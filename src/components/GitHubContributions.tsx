@@ -132,7 +132,7 @@ export default function GitHubContributions({ username }: { username: string }) 
         ))}
       </div>
 
-      <div className="mt-6 overflow-x-auto rounded-[14px] border border-white/10 bg-zinc-950/50 p-4">
+      <div className="mt-6 overflow-x-auto rounded-[14px] border border-white/10 bg-card/50 p-4">
         <div className="mb-3 grid min-w-[760px] grid-cols-6 text-xs text-zinc-600">
           {months.map((month) => <span key={month}>{month}</span>)}
         </div>

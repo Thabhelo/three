@@ -46,7 +46,7 @@ export default function GalleryAdminPage() {
 
   if (!isFirebaseConfigured()) {
     return (
-      <div className="min-h-screen bg-background text-foreground">
+      <div className="site-shell">
         <Navbar />
         <main className="container mx-auto px-4 pb-24 pt-32 md:px-6">
           <div className="soft-card mx-auto max-w-lg rounded-[14px] p-8 text-center">
@@ -64,7 +64,7 @@ export default function GalleryAdminPage() {
 
   if (checkingAuth) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="size-10 animate-spin rounded-full border-b-2 border-white" />
       </div>
     );
@@ -75,7 +75,7 @@ export default function GalleryAdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="site-shell">
       <Navbar />
       <main className="flex min-h-[80vh] items-center justify-center px-4 pb-24 pt-28">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">

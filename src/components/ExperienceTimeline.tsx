@@ -15,7 +15,7 @@ export default function ExperienceTimeline({ experiences }: { experiences: Exper
     <div ref={ref} className="relative grid gap-0">
       <div className="pointer-events-none absolute bottom-16 left-[calc(28%+4rem)] top-5 hidden w-px bg-white/[0.10] md:block">
         <motion.div className="absolute left-0 top-0 w-px bg-gradient-to-b from-white/70 via-white/35 to-white/10" style={{ height }} />
-        <motion.div className="absolute left-1/2 grid size-9 -translate-x-1/2 -translate-y-1/2 place-items-center overflow-hidden rounded-full border border-white/20 bg-zinc-950 shadow-[0_0_30px_rgba(255,255,255,0.12)]" style={{ top: markerTop }}>
+        <motion.div className="absolute left-1/2 grid size-9 -translate-x-1/2 -translate-y-1/2 place-items-center overflow-hidden rounded-full border border-white/20 bg-card shadow-[0_0_30px_rgba(255,255,255,0.12)]" style={{ top: markerTop }}>
           <img src={profile.portrait} alt="" className="size-8 rounded-full object-cover" />
         </motion.div>
       </div>

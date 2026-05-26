@@ -42,7 +42,7 @@ import { seedGalleryIfEmpty, galleryHasBeenInitialized } from "@/lib/gallery-ser
 
 function PageShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-white/20 selection:text-white">
+    <div className="site-shell">
       <Navbar />
       <main className="pt-28">{children}</main>
       <Footer />
@@ -150,7 +150,7 @@ export function ProjectsPage() {
                 ))}
               </div>
             </motion.div>
-            <div className="absolute bottom-6 left-6 right-6 overflow-hidden rounded-[14px] border border-white/10 bg-zinc-950">
+            <div className="absolute bottom-6 left-6 right-6 overflow-hidden rounded-[14px] border border-white/10 bg-card">
               {featured.image ? (
                 <motion.img
                   key={featured.slug}
@@ -185,7 +185,7 @@ export function ProjectsPage() {
                       : "border-white/[0.10] bg-white/[0.025] hover:border-white/20 hover:bg-white/[0.045]"
                   }`}
                 >
-                  <div className="grid aspect-[4/3] place-items-center overflow-hidden rounded-[1rem] border border-white/10 bg-zinc-950">
+                  <div className="grid aspect-[4/3] place-items-center overflow-hidden rounded-[1rem] border border-white/10 bg-card">
                     {project.image ? (
                       <img src={project.image} alt={project.title} className="h-full w-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105" />
                     ) : (
@@ -234,7 +234,7 @@ export function ProjectDetailPage() {
             <p className="font-label">{project.eyebrow}</p>
             <h1 className="mt-4 font-display text-5xl leading-none md:text-7xl">{project.title}</h1>
             <p className="mt-6 max-w-3xl text-xl leading-8 text-muted-foreground">{project.description}</p>
-            <div className="mt-10 overflow-hidden rounded-[14px] border border-white/10 bg-zinc-950">
+            <div className="mt-10 overflow-hidden rounded-[14px] border border-white/10 bg-card">
               {project.image ? <img src={project.image} alt={project.title} className="aspect-[16/9] w-full object-cover opacity-85 transition-transform duration-700 hover:scale-[1.03]" /> : <div className="grid aspect-[16/9] place-items-center"><span className="font-display text-8xl italic text-white/12">{project.title.slice(0, 2)}</span></div>}
             </div>
             <div className="prose prose-invert mt-10 max-w-none text-muted-foreground">
@@ -365,7 +365,7 @@ export function BlogIndexPage() {
                 <>
                   {[nativePosts[0]].filter(Boolean).map((featured) => (
                     <Link key={featured.slug} href={`/blog/${featured.slug}`} className="group grid gap-6 rounded-[14px] border border-dashed border-white/[0.10] bg-white/[0.025] p-3 transition-all duration-300 hover:border-white/20 md:grid-cols-[1.1fr_0.9fr] md:p-4">
-                      <div className="overflow-hidden rounded-[14px] bg-zinc-950">
+                      <div className="overflow-hidden rounded-[14px] bg-card">
                         <img src={featured.coverImage || featured.imageFallback || "/media/blog-highway-aerial.jpg"} alt="" className="aspect-[16/9] w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" />
                       </div>
                       <div className="flex flex-col justify-center p-3 md:p-6">
@@ -470,7 +470,7 @@ export function BlogPostPage() {
                 ))}
               </div>
               {getStaticCode(staticPost) && (
-                <figure className="mt-10 max-w-4xl overflow-hidden rounded-[14px] border border-border bg-zinc-950">
+                <figure className="mt-10 max-w-4xl overflow-hidden rounded-[14px] border border-border bg-card">
                   <figcaption className="flex items-center justify-between border-b border-white/10 px-4 py-3 font-mono text-xs text-zinc-400">
                     <span>terminal</span>
                     <Clipboard className="size-4" />
@@ -628,7 +628,7 @@ export function GalleryPage() {
                     alt={item.label}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-x-0 top-0 z-10 bg-gradient-to-b from-black/75 via-black/35 to-transparent p-4">
+                  <div className="absolute inset-x-0 top-0 z-10 bg-gradient-to-b from-[#0b0218]/75 via-[#0b0218]/35 to-transparent p-4">
                     <p className="font-label text-white/90">{item.label}</p>
                   </div>
                 </div>

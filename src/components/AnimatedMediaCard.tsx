@@ -66,7 +66,7 @@ export default function AnimatedMediaCard({
         className,
       )}
     >
-      <div className={cn("relative overflow-hidden bg-zinc-950", aspectRatio)}>
+      <div className={cn("relative overflow-hidden bg-card", aspectRatio)}>
         <motion.div
           className="absolute inset-[-3%]"
           style={cursorParallax ? { x: mediaX, y: mediaY } : undefined}
@@ -78,13 +78,13 @@ export default function AnimatedMediaCard({
           ) : image ? (
             <img src={image} alt={alt ?? title ?? ""} className="h-full w-full object-cover opacity-85 transition-all duration-700 group-hover:brightness-110" loading="lazy" />
           ) : (
-            <div className="grid h-full place-items-center bg-zinc-950">
+            <div className="grid h-full place-items-center bg-card">
               <span className="font-display text-6xl italic text-white/18">{title?.slice(0, 2) ?? "TD"}</span>
             </div>
           )}
         </motion.div>
         <div className={cn("absolute inset-0 bg-gradient-to-br opacity-35 transition-transform duration-700 group-hover:translate-y-[-6px]", gradientTone)} />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-black/8 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0218]/72 via-[#0b0218]/8 to-transparent" />
         {overlay}
       </div>
       {!overlay && (title || subtitle) ? (

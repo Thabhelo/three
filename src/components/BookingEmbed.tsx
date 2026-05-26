@@ -6,28 +6,18 @@ export default function BookingEmbed() {
   const { bookingUrl } = contactConfig;
 
   return (
-    <div className="overflow-hidden rounded-[14px] border border-white/10 bg-[#0a0a0a]">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-5 py-4">
-        <div className="flex items-center gap-3">
-          <Calendar className="size-5 text-white/70" />
-          <div className="text-left">
-            <p className="font-label">Scheduling</p>
-            <p className="text-sm text-muted-foreground">Google Calendar · pick a time that works</p>
-          </div>
-        </div>
-        <a href={bookingUrl} target="_blank" rel="noopener noreferrer">
-          <Button variant="outline" className="rounded-[10px]">
-            Open in new tab <ArrowUpRight className="ml-2 size-4" />
-          </Button>
-        </a>
-      </div>
-      <iframe
-        src={bookingUrl}
-        title="Book a call with Thabhelo Duve"
-        className="block min-h-[640px] w-full bg-[#0a0a0a]"
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-      />
+    <div className="soft-card flex min-h-[420px] flex-col items-center justify-center rounded-[14px] p-8 text-center md:min-h-[480px] md:p-12">
+      <Calendar className="size-10 text-indigo-300/80" strokeWidth={1.5} />
+      <h2 className="mt-6 font-display text-3xl tracking-tight md:text-4xl">Book a call</h2>
+      <p className="mt-3 max-w-md text-sm leading-7 text-muted-foreground">
+        Pick a time on my Google Calendar. Scheduling opens in a new tab.
+      </p>
+      <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="mt-8">
+        <Button className="h-12 rounded-[10px] px-6">
+          Open scheduling page
+          <ArrowUpRight className="ml-2 size-4" />
+        </Button>
+      </a>
     </div>
   );
 }

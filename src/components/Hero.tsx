@@ -22,11 +22,13 @@ export default function Hero({ backgroundImage }: HeroProps) {
     <section onMouseMove={handlePointerMove} className="cinematic-stage relative min-h-screen overflow-hidden px-4 md:px-6">
       <div className="noise-overlay absolute inset-0" />
       <div className="stage-vignette absolute inset-0" />
+      <div className="pointer-events-none absolute top-1/2 left-1/2 z-0 h-96 w-[56rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-700/20 blur-3xl" />
+      <div className="pointer-events-none absolute -right-[432px] -bottom-[753px] -left-[454px] h-[955px] rounded-[100%] bg-gradient-to-b from-indigo-500/35 to-transparent" />
       <div className="absolute inset-0 -z-10 opacity-10">
         <img src={backgroundImage} alt="" className="h-full w-full object-cover blur-3xl saturate-50" />
       </div>
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[48vh] overflow-hidden">
-        <div className="absolute bottom-[12vh] left-1/2 h-28 w-[760px] -translate-x-1/2 overflow-hidden rounded-full opacity-70 blur-3xl">
+        <div className="absolute bottom-[12vh] left-1/2 h-28 w-[760px] -translate-x-1/2 overflow-hidden rounded-full opacity-80 blur-3xl">
           <div className="hero-glow-band h-full w-[300%]" />
         </div>
         <div className="hero-horizon absolute bottom-[-26vh] left-1/2 h-[40vh] w-[132vw] -translate-x-1/2 rounded-[100%]" />
@@ -46,7 +48,7 @@ export default function Hero({ backgroundImage }: HeroProps) {
             className="group mb-8 inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-[13px] text-white/70 backdrop-blur-xs transition-colors duration-150 ease-in hover:border-white/15 hover:bg-white/5 hover:text-white"
           >
             <span className="rounded-full bg-blue-600 px-2 py-0.5 text-[10px] font-semibold uppercase text-white">New</span>
-            <span>Oh, please support my business.</span>
+            <span>Please support my business.</span>
             <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </a>
 

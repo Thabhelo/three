@@ -96,7 +96,7 @@ export default function ProjectsShowcase() {
                       className={isActive ? "border-white/28 bg-white/[0.05]" : undefined}
                       overlay={
                         <>
-                          <div className="absolute right-5 top-5 rounded-full border border-dashed border-white/15 bg-black/30 px-3 py-1 font-label text-white/80 backdrop-blur">
+                          <div className="absolute right-5 top-5 rounded-full border border-dashed border-white/15 bg-[#0b0218]/40 px-3 py-1 font-label text-white/80 backdrop-blur">
                             {String(index + 1).padStart(2, "0")}
                           </div>
                           <div className="absolute inset-x-0 bottom-0 z-20 p-5">

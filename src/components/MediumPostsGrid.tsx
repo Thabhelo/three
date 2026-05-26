@@ -62,7 +62,7 @@ export default function MediumPostsGrid({ posts }: MediumPostsGridProps) {
           transition={{ duration: 0.22 }}
           className="group mb-6 grid overflow-hidden rounded-[14px] border border-dashed border-white/[0.12] bg-white/[0.03] transition-colors hover:border-white/25 md:grid-cols-[1.05fr_0.95fr]"
         >
-          <div className="relative overflow-hidden bg-zinc-950">
+          <div className="relative overflow-hidden bg-card">
             <img
               src={active.coverImage || active.imageFallback || "/media/blog-mdx-writing.jpg"}
               alt=""
@@ -97,13 +97,13 @@ export default function MediumPostsGrid({ posts }: MediumPostsGridProps) {
                   : "border-dashed border-white/[0.10] bg-white/[0.025] hover:border-white/20 hover:bg-white/[0.04]"
               }`}
             >
-              <div className="relative aspect-[4/3] overflow-hidden bg-zinc-950">
+              <div className="relative aspect-[4/3] overflow-hidden bg-card">
                 <img
                   src={post.coverImage || post.imageFallback || "/media/blog-mdx-writing.jpg"}
                   alt=""
                   className={`h-full w-full object-cover transition-all duration-500 ${isActive ? "opacity-95" : "opacity-80"}`}
                 />
-                <div className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/70 via-black/30 to-transparent p-3 pr-10">
+                <div className="absolute inset-x-0 top-0 bg-gradient-to-b from-[#0b0218]/70 via-[#0b0218]/30 to-transparent p-3 pr-10">
                   <p className="font-label text-white/85">{post.readTime}</p>
                 </div>
               </div>

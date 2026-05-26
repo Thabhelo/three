@@ -128,7 +128,7 @@ export default function Navbar() {
                                   className="absolute inset-0 z-0 h-full w-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-105"
                                 />
                               ) : null}
-                              <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                              <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#0b0218]/80 via-[#0b0218]/30 to-transparent" />
                               <div className="relative z-[2]">
                                 <Icon className="mb-4 size-8 text-zinc-200" />
                                 <h3 className="font-editorial text-xl font-semibold text-zinc-50">{item.name}</h3>

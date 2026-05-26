@@ -138,7 +138,7 @@ export default function CommandPalette({ open, onClose }: { open: boolean; onClo
     <AnimatePresence>
       {open ? (
         <motion.div
-          className="fixed inset-0 z-[80] bg-black/45 backdrop-blur-sm"
+          className="fixed inset-0 z-[80] bg-[#0b0218]/60 backdrop-blur-sm"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

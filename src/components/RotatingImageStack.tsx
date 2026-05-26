@@ -67,10 +67,10 @@ export default function RotatingImageStack({ images }: { images: StackImage[] })
               key={image.title}
               layout
               transition={springSmooth}
-              className={`absolute overflow-hidden rounded-[18px] border border-dashed border-white/[0.12] bg-zinc-950 shadow-border ${styles[image.position] ?? styles[3]}`}
+              className={`absolute overflow-hidden rounded-[18px] border border-dashed border-white/[0.12] bg-card shadow-border ${styles[image.position] ?? styles[3]}`}
             >
               <img src={image.src} alt={image.alt} className="aspect-[4/5] w-full object-cover opacity-90 transition-transform duration-700 hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0b0218]/70 via-transparent to-transparent" />
               {isActive ? <div className="absolute inset-x-0 bottom-0 p-5 font-label text-white/75">{image.title}</div> : null}
             </motion.div>
           );

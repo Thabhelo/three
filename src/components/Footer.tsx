@@ -4,7 +4,7 @@ import { navLinks, profile, socials } from "@/content/site";
 
 export default function Footer({ showReachOutCTA = false }: { showReachOutCTA?: boolean }) {
   return (
-    <footer className="relative border-t border-dashed border-white/[0.10] bg-zinc-950 py-14">
+    <footer className="relative border-t border-dashed border-indigo-500/10 bg-card/40 py-14 backdrop-blur-sm">
       <div className="container mx-auto px-4 md:px-6">
         {showReachOutCTA ? (
           <div className="glass-panel relative mb-8 overflow-hidden rounded-[14px] p-6 text-center md:p-8">

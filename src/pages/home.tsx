@@ -13,7 +13,7 @@ import { ExperienceSection, TestimonialsSection } from "@/pages/site-pages";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-white/20 selection:text-white">
+    <div className="site-shell">
       <Navbar />
       <Hero backgroundImage={profile.heroImage} />
 

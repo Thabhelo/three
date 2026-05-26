@@ -107,7 +107,7 @@ export default function DreamSprintLanding() {
   const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
   return (
-    <div className="min-h-screen w-full bg-[#0d0d0f] text-zinc-100 selection:bg-white/20 selection:text-white">
+    <div className="site-shell">
       <header className="fixed top-6 z-50 w-full px-4 md:px-8">
         <div className="site-container flex items-center justify-between">
           <Link href="/" className="group flex items-center gap-3">
@@ -223,7 +223,7 @@ export default function DreamSprintLanding() {
         </div>
       </section>
 
-      <footer className="border-t border-dashed border-white/10 bg-zinc-950 py-16">
+      <footer className="border-t border-dashed border-indigo-500/10 bg-card/40 py-16 backdrop-blur-sm">
         <div className="site-container">
           <h3 className="text-center font-editorial text-2xl md:text-3xl">Ready to make history?</h3>
 

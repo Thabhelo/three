@@ -62,7 +62,7 @@ function GalleryEditorCard({
     >
       <div className="relative aspect-[4/5] cursor-grab overflow-hidden active:cursor-grabbing">
         <img src={item.src} alt={item.label} className="h-full w-full object-cover" draggable={false} />
-        <div className="absolute inset-x-0 top-0 z-10 bg-gradient-to-b from-black/75 via-black/35 to-transparent p-4 pr-12">
+        <div className="absolute inset-x-0 top-0 z-10 bg-gradient-to-b from-[#0b0218]/75 via-[#0b0218]/35 to-transparent p-4 pr-12">
           {editingLabel ? (
             <input
               autoFocus
@@ -93,7 +93,7 @@ function GalleryEditorCard({
             event.stopPropagation();
             onDelete(item.id);
           }}
-          className="absolute right-3 top-3 z-20 grid size-8 place-items-center rounded-full bg-black/55 text-white/85 backdrop-blur-sm transition-colors hover:bg-red-500/90 hover:text-white"
+          className="absolute right-3 top-3 z-20 grid size-8 place-items-center rounded-full bg-[#0b0218]/55 text-white/85 backdrop-blur-sm transition-colors hover:bg-red-500/90 hover:text-white"
         >
           <X className="size-4" />
         </button>

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="site-shell">
       <Navbar />
       <main className="container mx-auto grid min-h-[72vh] place-items-center px-4 pt-28 md:px-6">
         <div className="glass-panel max-w-2xl rounded-[14px] p-8 text-center md:p-12">
