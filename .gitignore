@@ -28,9 +28,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# Supabase
-.supabase/
-supabase/.env
 .firebase-seed-key.json
 
 # Production and deployment
@@ -41,5 +38,3 @@ supabase/.env
 *.tmp
 *.temp
 coverage/
-reference-style-audit/
-output/

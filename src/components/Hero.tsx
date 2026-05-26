@@ -1,7 +1,8 @@
 import type { MouseEvent } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Mail, Sparkles } from "lucide-react";
-import { profile } from "@/content/site";
+import HeroTerminalBanner from "@/components/HeroTerminalBanner";
+import { profile, profileCredentials } from "@/content/site";
 import { blurIn, heroItemTransition } from "@/lib/motion";
 
 interface HeroProps {
@@ -50,14 +51,30 @@ export default function Hero({ backgroundImage }: HeroProps) {
             <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </a>
 
-          <motion.h1 variants={blurIn} transition={heroItemTransition} className="w-full text-balance font-display text-[clamp(42px,3.75vw,60px)] font-normal leading-[1.25] tracking-tight text-white/[0.88]">
-            Code that feels designed.
-          </motion.h1>
-          <motion.p variants={blurIn} transition={heroItemTransition} className="mt-3 font-display text-[clamp(40px,3.75vw,60px)] font-normal italic leading-[1.05] tracking-tight">
-            <span className="shiny-text">Engineering that actually ships.</span>
-          </motion.p>
+          <motion.div
+            variants={blurIn}
+            transition={heroItemTransition}
+            className="mx-auto w-full max-w-[min(100%,640px)] overflow-hidden rounded-[14px] border border-[#39FF14]/20 shadow-[0_0_40px_rgba(57,255,20,0.12)]"
+          >
+            <HeroTerminalBanner className="h-auto w-full" />
+          </motion.div>
 
-          <motion.div variants={blurIn} transition={heroItemTransition} className="relative z-20 mt-10 flex flex-col items-center justify-center text-center text-lg leading-[1.5] tracking-tight text-white/[0.68] sm:flex-row sm:gap-3 lg:text-xl">
+          <motion.div
+            variants={blurIn}
+            transition={heroItemTransition}
+            className="mx-auto mt-10 flex max-w-3xl flex-wrap items-center justify-center gap-2"
+          >
+            {profileCredentials.map((credential) => (
+              <span
+                key={credential}
+                className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[12.5px] leading-snug text-white backdrop-blur-xs"
+              >
+                {credential}
+              </span>
+            ))}
+          </motion.div>
+
+          <motion.div variants={blurIn} transition={heroItemTransition} className="relative z-20 mt-8 flex flex-col items-center justify-center text-center text-lg leading-[1.5] tracking-tight text-white/[0.68] sm:flex-row sm:gap-3 lg:text-xl">
             <span>Hello, I&apos;m {profile.fullName}</span>
             <img src={profile.portrait} alt="" className="h-[34px] w-[58px] rounded-full border border-white/10 object-cover shadow-border" />
             <span>a {profile.role}</span>

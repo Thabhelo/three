@@ -31,7 +31,7 @@ export default function MailingListSignup({ source = "blog", compact = false }: 
       </h2>
       {!compact && (
         <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
-          ML teaching notes and new writing — one email when something new goes live. No spam.
+          ML teaching notes and new writing. One email when something new goes live. No spam.
         </p>
       )}
       <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-3 sm:flex-row">

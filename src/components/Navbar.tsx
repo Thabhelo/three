@@ -6,7 +6,6 @@ import { Link, useLocation } from "wouter";
 import CommandPalette from "@/components/CommandPalette";
 import { Button } from "@/components/ui/button";
 import { moreLinks, primaryLinks } from "@/config/nav";
-import { profile } from "@/content/site";
 import { dropdownItemMotion, dropdownMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -40,33 +39,42 @@ export default function Navbar() {
 
   return (
     <>
-    <nav className="fixed top-[22px] z-50 w-full px-4 md:top-6 md:px-8">
-      <div className="site-container relative flex h-[54px] items-start py-1.5">
+    <nav className="fixed top-[22px] z-50 w-full overflow-visible px-4 md:top-6 md:px-8">
+      <div className="site-container relative flex min-h-[54px] items-start overflow-visible py-1.5">
         <div className="flex w-full items-center justify-between">
-          <Link href="/" className="group flex items-center gap-3" onClick={() => setIsOpen(false)}>
+          <Link
+            href="/"
+            className="group relative z-[60] flex items-center gap-3"
+            onClick={() => {
+              setIsOpen(false);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
             <img src="/favicon.svg" alt="Home" className="size-[30px] transition-transform duration-300 group-hover:rotate-6" />
           </Link>
 
           <div
-            className={cn(
-              "shadow-border absolute left-1/2 top-1/2 hidden h-11 w-[456px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.08] p-1 backdrop-blur-[20px] transition-all duration-300 md:flex",
-              scrolled && "bg-white/[0.11]",
-            )}
+            className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 md:block"
             onMouseLeave={() => setMoreOpen(false)}
           >
-            {primaryLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={cn(
-                  "rounded-full px-4 py-1.5 text-[13.5px] font-normal leading-5 text-white/60 transition-colors duration-150 hover:text-white",
-                  (location === link.href || (link.href !== "/" && location.startsWith(link.href))) && "bg-white/[0.12] text-white",
-                )}
-              >
-                {link.name}
-              </Link>
-            ))}
-            <div className="relative">
+            <div
+              className={cn(
+                "shadow-border flex h-11 w-[456px] items-center justify-center overflow-visible rounded-full border border-white/[0.12] bg-white/[0.08] p-1 backdrop-blur-[20px] transition-all duration-300",
+                scrolled && "bg-white/[0.11]",
+              )}
+            >
+              {primaryLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={cn(
+                    "rounded-full px-4 py-1.5 text-[13.5px] font-normal leading-5 text-white/60 transition-colors duration-150 hover:text-white",
+                    (location === link.href || (link.href !== "/" && location.startsWith(link.href))) && "bg-white/[0.12] text-white",
+                  )}
+                >
+                  {link.name}
+                </Link>
+              ))}
               <button
                 type="button"
                 onMouseEnter={() => setMoreOpen(true)}
@@ -80,48 +88,64 @@ export default function Navbar() {
               >
                 More ^
               </button>
-              <AnimatePresence>
-                {moreOpen ? (
-                  <motion.div
-                    {...dropdownMotion}
-                    role="menu"
-                    onFocus={() => setMoreOpen(true)}
-                    style={{ x: "-50%" }}
-                    className="absolute left-1/2 top-12 w-[min(88vw,900px)] rounded-[18px] border border-dashed border-white/[0.12] bg-[rgba(30,30,32,0.86)] p-4 shadow-border backdrop-blur-[24px]"
-                  >
-                    <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-                      <div className="grid gap-4 sm:grid-cols-2">
+              <Link href="/contact">
+                <span className="inline-flex h-8 items-center rounded-full bg-white/[0.12] px-4 py-1.5 text-[13.5px] font-normal leading-5 text-white/75 transition-colors duration-200 hover:bg-white/[0.18] hover:text-white">
+                  Book a Call
+                </span>
+              </Link>
+            </div>
+
+            <AnimatePresence>
+              {moreOpen ? (
+                <motion.div
+                  {...dropdownMotion}
+                  role="menu"
+                  onMouseEnter={() => setMoreOpen(true)}
+                  onFocus={() => setMoreOpen(true)}
+                  style={{ x: "-50%" }}
+                  className="absolute left-1/2 top-[calc(100%+0.75rem)] z-50 w-[min(88vw,900px)] overflow-visible rounded-[18px] border border-dashed border-white/[0.12] bg-[rgba(30,30,32,0.86)] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-[24px]"
+                >
+                  <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+                    <div className="grid auto-rows-fr gap-4 sm:grid-cols-2">
                       {moreLinks.filter((item) => item.featured).map((item, index) => {
                         const Icon = item.icon;
                         return (
-                          <motion.div key={item.name} {...dropdownItemMotion} transition={{ ...dropdownItemMotion.transition, delay: index * 0.04 }}>
-                          <Link
-                            href={item.href}
-                            role="menuitem"
-                            className="group relative min-h-[208px] overflow-hidden rounded-[14px] border border-dashed border-white/10 bg-white/[0.025] p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/25 focus:outline-none focus:ring-2 focus:ring-white/20"
+                          <motion.div
+                            key={item.name}
+                            {...dropdownItemMotion}
+                            transition={{ ...dropdownItemMotion.transition, delay: index * 0.04 }}
+                            className="min-h-[208px]"
                           >
-                            {"image" in item && item.image ? <img src={item.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-105" /> : null}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                            <div className="relative mt-auto flex h-full flex-col justify-end">
-                              <Icon className="mb-4 size-8 text-zinc-200" />
-                              <h3 className="font-editorial text-xl font-semibold text-zinc-50">{item.name}</h3>
-                              <p className="mt-2 text-sm text-zinc-300">{item.description}</p>
-                            </div>
-                          </Link>
+                            <Link
+                              href={item.href}
+                              role="menuitem"
+                              className="group relative flex min-h-[208px] flex-col justify-end overflow-hidden rounded-[14px] border border-dashed border-white/10 bg-white/[0.025] p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/25 focus:outline-none focus:ring-2 focus:ring-white/20"
+                            >
+                              {"image" in item && item.image ? (
+                                <img
+                                  src={item.image}
+                                  alt=""
+                                  className="absolute inset-0 z-0 h-full w-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-105"
+                                />
+                              ) : null}
+                              <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                              <div className="relative z-[2]">
+                                <Icon className="mb-4 size-8 text-zinc-200" />
+                                <h3 className="font-editorial text-xl font-semibold text-zinc-50">{item.name}</h3>
+                                <p className="mt-2 text-sm text-zinc-300">{item.description}</p>
+                              </div>
+                            </Link>
                           </motion.div>
                         );
                       })}
-                      </div>
-                      <div className="grid content-start gap-3">
+                    </div>
+                    <div className="grid content-start gap-3">
                       {moreLinks.filter((item) => !item.featured).map((item, index) => {
                         const Icon = item.icon;
-                        return (
-                          <motion.div key={item.name} {...dropdownItemMotion} transition={{ ...dropdownItemMotion.transition, delay: 0.08 + index * 0.04 }}>
-                          <Link
-                            href={item.href}
-                            role="menuitem"
-                            className="group flex items-center gap-4 rounded-[10px] border border-dashed border-white/10 bg-white/[0.055] p-4 transition-all duration-150 hover:border-white/25 hover:bg-white/[0.09] focus:outline-none focus:ring-2 focus:ring-white/20"
-                          >
+                        const rowClassName =
+                          "group flex items-center gap-4 rounded-[10px] border border-dashed border-white/10 bg-white/[0.055] p-4 transition-all duration-150 hover:border-white/25 hover:bg-white/[0.09] focus:outline-none focus:ring-2 focus:ring-white/20";
+                        const rowContent = (
+                          <>
                             <span className="grid size-11 place-items-center rounded-[10px] border border-dashed border-white/10 bg-white/[0.06]">
                               <Icon className="size-5 text-zinc-200" />
                             </span>
@@ -130,21 +154,32 @@ export default function Navbar() {
                               <span className="mt-1 block text-sm text-zinc-400">{item.description}</span>
                             </span>
                             <ArrowUpRight className="ml-auto size-4 text-zinc-500 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-zinc-100" />
-                          </Link>
+                          </>
+                        );
+
+                        return (
+                          <motion.div
+                            key={item.name}
+                            {...dropdownItemMotion}
+                            transition={{ ...dropdownItemMotion.transition, delay: 0.08 + index * 0.04 }}
+                          >
+                            {item.external ? (
+                              <a href={item.href} target="_blank" rel="noopener noreferrer" role="menuitem" className={rowClassName}>
+                                {rowContent}
+                              </a>
+                            ) : (
+                              <Link href={item.href} role="menuitem" className={rowClassName}>
+                                {rowContent}
+                              </Link>
+                            )}
                           </motion.div>
                         );
                       })}
-                      </div>
                     </div>
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
-            </div>
-            <Link href="/contact">
-              <span className="inline-flex h-8 items-center rounded-full bg-white/[0.12] px-4 py-1.5 text-[13.5px] font-normal leading-5 text-white/75 transition-colors duration-200 hover:bg-white/[0.18] hover:text-white">
-                Book a Call
-              </span>
-            </Link>
+                  </div>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
           </div>
 
           <div className="hidden items-center justify-end gap-2 md:flex">
@@ -182,25 +217,35 @@ export default function Navbar() {
       {isOpen && (
         <div className="absolute left-4 right-4 top-16 rounded-[14px] border border-dashed border-white/10 bg-background/95 p-3 shadow-border backdrop-blur-xl md:hidden">
           <div className="grid gap-1">
-            {[...primaryLinks, ...moreLinks, { name: "Contact", href: "/contact" }].map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className={cn(
-                  "rounded-[10px] px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
-                  location === link.href && "bg-muted text-foreground",
-                )}
-              >
-                {link.name}
-              </Link>
-            ))}
+            {[...primaryLinks, ...moreLinks, { name: "Contact", href: "/contact" }].map((link) => {
+              const isExternal = "external" in link && link.external;
+              const className = cn(
+                "rounded-[10px] px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+                !isExternal && location === link.href && "bg-muted text-foreground",
+              );
+
+              if (isExternal) {
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsOpen(false)}
+                    className={className}
+                  >
+                    {link.name}
+                  </a>
+                );
+              }
+
+              return (
+                <Link key={link.name} href={link.href} onClick={() => setIsOpen(false)} className={className}>
+                  {link.name}
+                </Link>
+              );
+            })}
           </div>
-          <a href={profile.resume} target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
-            <Button variant="outline" size="sm" className="mt-3 w-full rounded-2xl">
-              Resume
-            </Button>
-          </a>
         </div>
       )}
     </nav>

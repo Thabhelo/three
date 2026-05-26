@@ -222,7 +222,7 @@ function UsesCard() {
   const tools = uses.slice(0, 7);
 
   return (
-    <a href="/uses" className="group relative min-h-[260px] overflow-hidden rounded-[14px] border border-[#25262a] bg-[#08090a] p-6">
+    <div className="relative min-h-[260px] overflow-hidden rounded-[14px] border border-[#25262a] bg-[#08090a] p-6">
       <div className="absolute inset-x-0 top-8 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
         <div className="tech-row-left flex w-max gap-3">
           {[...tools, ...tools, ...tools].map((tool, index) => (
@@ -233,10 +233,10 @@ function UsesCard() {
         </div>
       </div>
       <div className="absolute inset-x-6 bottom-7 text-center">
-        <p className="font-label">Uses</p>
-        <h2 className="mt-3 font-editorial text-xl text-zinc-100">Check out my favorite tools</h2>
+        <p className="font-label">Stack</p>
+        <h2 className="mt-3 font-editorial text-xl text-zinc-100">Tools I use</h2>
       </div>
-    </a>
+    </div>
   );
 }
 

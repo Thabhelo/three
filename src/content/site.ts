@@ -2,45 +2,77 @@ import faceImage from "@/assets/thabs.png";
 import heroImage from "@assets/generated_images/Abstract_dark_3D_wireframe_geometry_for_developer_portfolio_hero_fcb42ce4.png";
 import resume from "@/assets/Thabhelo_Duve_Resume.pdf";
 import {
-  backend,
-  creator,
   docker,
   figma,
   git,
-  github,
   javascript,
   nodejs,
   reactjs,
   tailwind,
   trafficdensity,
   typescript,
-  web,
 } from "@/assets";
+import afterTheDataRamp from "@/content/blog/after-the-data-ramp.md?raw";
 
 export const profile = {
   firstName: "Thabhelo",
   fullName: "Thabhelo Duve",
   handle: "thabheloduve",
-  role: "Software engineer building AI systems, public-safety tooling, and ML infrastructure",
-  location: "Pittsburgh, PA",
+  role: "machine learning engineer and full-stack software engineer focused on autonomous systems and AI safety",
+  location: "San Francisco, CA",
   email: "thabhelo@deepubuntu.com",
   resume,
   heroImage,
   portrait: faceImage,
   github: "https://github.com/Thabhelo",
   medium: "https://medium.com/@thabheloduve",
-  tagline: "I build reliable AI systems from messy real-world data.",
+  linkedin: "https://www.linkedin.com/in/thabhelo",
+  tagline: "I build software and ML systems.",
   intro:
-    "I work across machine learning, cloud systems, developer tools, public-safety software, and autonomous-systems data infrastructure. My projects usually sit where research-grade ideas have to become usable products.",
-  shortBio:
-    "CS & Math at Talladega College. Ex-SDE @ Amazon, ex-ML Engineering @ Analytical AI, 11x hackathon titles, Top 10% in the National Cyber League, and winner of the Propel Center x Apple Innovation Challenge 2026 with a $17,500 award.",
+    "Machine learning, full-stack engineering, AI safety, and autonomous-systems data. I focus on work that has to work outside the lab.",
+  shortBio: [
+    "CS, Math & Physics",
+    "Founder of DeepUbuntu: field-data and dataset infrastructure for autonomous systems in underrepresented regions",
+    "Ex-SDE @ Amazon · Ex-ML Engineering @ Analytical AI",
+    "11× hackathon titles · Top 10% · National Cyber League",
+    "Top 10% YC applicant signal · YC Startup School 2026",
+    "$30K+ in grants and competitions",
+  ],
 };
+
+export const aboutFocusAreas = [
+  {
+    title: "Autonomous Systems Data",
+    subtitle:
+      "DeepUbuntu, CowCow, and DuFind: collecting, validating, and searching AV field data in regions current stacks rarely cover.",
+  },
+  {
+    title: "Production ML",
+    subtitle:
+      "Medical imaging benchmarks, computer vision, and evaluation where preprocessing, metrics, and deployment tradeoffs matter more than demo polish.",
+  },
+  {
+    title: "Shippable Products",
+    subtitle:
+      "Mesh, full-stack tools, and multi-agent systems built for real operators, offline conditions, and constraints lab demos usually skip.",
+  },
+];
+
+export const profileCredentials = [
+  "CS, Math & Physics",
+  "YC Startup School 2026",
+  "Ex-SDE @ Amazon",
+  "Ex-ML Engineering @ Analytical AI",
+  "11× hackathon titles",
+  "Top 10% · National Cyber League",
+  "Top 10% YC signal · DeepUbuntu",
+  "$30K+ · grants & competitions",
+];
 
 export const socials = [
   { name: "GitHub", href: profile.github },
   { name: "Medium", href: profile.medium },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/thabhelo" },
-  { name: "Email", href: `mailto:${profile.email}` },
+  { name: "LinkedIn", href: profile.linkedin },
 ];
 
 export const navLinks = [
@@ -49,7 +81,6 @@ export const navLinks = [
   { name: "Projects", href: "/projects" },
   { name: "Blog", href: "/blog" },
   { name: "Guestbook", href: "/guestbook" },
-  { name: "Uses", href: "/uses" },
   { name: "Links", href: "/links" },
   { name: "Contact", href: "/contact" },
   { name: "DreamSprint", href: "/dreamsprint" },
@@ -62,6 +93,8 @@ export type Project = {
   description: string;
   year: string;
   role: string;
+  /** When true, show founder-style Role / Year in the project sidebar. */
+  isStartup?: boolean;
   tags: string[];
   image?: string;
   link?: string;
@@ -78,8 +111,9 @@ export const projects: Project[] = [
     description:
       "A real-time public-safety interoperability platform for incident awareness, agency coordination, surge prediction, and district-level risk intelligence.",
     year: "2026",
-    role: "Founder / lead engineer",
+    role: "Full-stack engineer",
     tags: ["Swift", "SwiftUI", "MapKit", "Public Safety", "AI", "macOS"],
+    image: "/media/project-mesh-public-safety.jpg",
     link: "https://meshofdata.org",
     repo: "https://github.com/Thabhelo/mesh-macos",
     highlights: [
@@ -99,8 +133,9 @@ export const projects: Project[] = [
     description:
       "A self-evolving AI civilization simulator where Gemini-powered agents live, negotiate, build, and govern inside a shared 3D world.",
     year: "2026",
-    role: "Full-stack AI engineer",
+    role: "Full-stack engineer",
     tags: ["TypeScript", "React", "Three.js", "Gemini", "Firestore", "Node.js"],
+    image: "/media/project-genesis.jpg",
     repo: "https://github.com/thabhelo/project-genesis",
     highlights: [
       "Created a sandbox where five AI agents debate governance, allocate resources, and procedurally generate 3D objects through structured JSON.",
@@ -117,19 +152,42 @@ export const projects: Project[] = [
     title: "CowCow",
     eyebrow: "Autonomous Systems Data Infrastructure",
     description:
-      "An offline-first data collection and quality-control system for turning raw field data into training-ready datasets for autonomous systems and ML teams.",
+      "A pipeline for turning raw field data into training-ready datasets: quality checks, metadata, exports, and packaging for autonomous-systems and ML teams.",
     year: "2026",
     role: "Founder / open-source maintainer",
+    isStartup: true,
     tags: ["Rust", "Python", "FastAPI", "SQLite", "gRPC", "Data Quality"],
+    image: "/media/project-cowcow-field.jpg",
     repo: "https://github.com/deepubuntu/cowcow",
     highlights: [
       "Built quality checks for noisy real-world collection workflows, including signal validation, metadata structure, export integrity, and dataset packaging.",
-      "Designed the product to work offline first, then sync when connectivity is available.",
-      "Positioned CowCow as DeepUbuntu's flagship product for robotics, autonomy, and field-data pipelines.",
+      "Designed the pipeline to work offline first, then sync when connectivity is available.",
+      "Anchors DeepUbuntu's field-data stack alongside underrepresented AV dataset collection and DuFind search.",
     ],
     body: [
-      "CowCow is built for teams that need usable datasets from messy environments, not just clean lab exports.",
-      "The system focuses on collection discipline: quality checks near the source, structured metadata, repeatable exports, and workflows that still work when the network does not.",
+      "CowCow is the processing layer: raw captures in, training-ready datasets out.",
+      "The system focuses on collection discipline near the source: validation, structured metadata, repeatable exports, and workflows that still work when the network does not.",
+    ],
+  },
+  {
+    slug: "deepubuntu-dufind",
+    title: "DuFind",
+    eyebrow: "Local-First AV Dataset Search",
+    description:
+      "A local-first semantic search tool for autonomous-vehicle datasets, combining YOLOv8 object detection with SigLIP embeddings to explore and retrieve field data on machine.",
+    year: "2026",
+    role: "Founder / lead engineer",
+    isStartup: true,
+    tags: ["Python", "YOLOv8", "SigLIP", "Computer Vision", "Semantic Search", "Local-First"],
+    image: "/media/project-dufind-traffic.jpg",
+    highlights: [
+      "Indexes AV dataset assets locally so search and preview work without round-trips to the cloud.",
+      "Pairs YOLOv8 detections with SigLIP semantic embeddings for object- and concept-level retrieval.",
+      "Built to sit on top of CowCow exports and underrepresented field datasets collected through DeepUbuntu.",
+    ],
+    body: [
+      "DuFind is for the moment after collection: finding the right frames, scenes, and labels inside large, messy autonomy datasets.",
+      "Local-first search keeps sensitive field data on your machine while still making multimodal retrieval practical for training and review workflows.",
     ],
   },
   {
@@ -139,8 +197,9 @@ export const projects: Project[] = [
     description:
       "A PyTorch implementation of the Dynamic Learning Rate Scheduler algorithm with package distribution, documentation, examples, tests, and CI/CD.",
     year: "2026",
-    role: "Open-source maintainer",
+    role: "Full-stack engineer",
     tags: ["Python", "PyTorch", "PyPI", "CI/CD", "Testing", "ML"],
+    image: "/media/project-pytorch-dlrs.jpg",
     repo: "https://github.com/Thabhelo/pytorch-dlrs",
     highlights: [
       "Converted a research learning-rate scheduling idea into an installable PyPI package.",
@@ -159,8 +218,9 @@ export const projects: Project[] = [
     description:
       "A comparative study of 3D deep learning architectures for volumetric CT and MRI tumor segmentation.",
     year: "2025",
-    role: "ML engineer",
+    role: "Full-stack engineer",
     tags: ["Python", "PyTorch", "MONAI", "nnU-Net", "SwinUNETR"],
+    image: "/media/project-medical-imaging.jpg",
     highlights: [
       "Benchmarked 3D U-Net, V-Net, nnU-Net, and SwinUNETR across accuracy, latency, and memory tradeoffs.",
       "Built preprocessing for HU windowing, resampling, normalization, augmentation, and patch-based training.",
@@ -178,7 +238,7 @@ export const projects: Project[] = [
     description:
       "A spatio-temporal classifier for vehicle density in Singapore CBD camera feeds, published on ReadyTensor.",
     year: "2024",
-    role: "ML engineer",
+    role: "Full-stack engineer",
     tags: ["Python", "PyTorch", "Keras", "OpenCV", "AWS"],
     image: trafficdensity,
     repo: "https://github.com/Thabhelo/traffic-density-classification",
@@ -200,7 +260,9 @@ export const projects: Project[] = [
       "An NLP contract-intelligence platform using transformer models, semantic search, and risk classification.",
     year: "2024",
     role: "Founder / engineer",
+    isStartup: true,
     tags: ["JavaScript", "spaCy", "LangChain", "DeBERTa-v3", "FastAPI"],
+    image: "/media/project-fineprint-contract.jpg",
     link: "https://www.fineprint.vercel.app",
     highlights: [
       "Secured $12K in seed funding for a practical legal-risk review product.",
@@ -221,20 +283,9 @@ export const experiences = [
     location: "Remote",
     date: "Jan 2025 - Present",
     description: [
-      "Building CowCow, an offline-first field-data and quality-control platform for autonomous systems, robotics, and ML teams.",
-      "Designing ingestion, validation, metadata, export, and dataset-readiness workflows for real-world data collection.",
-      "Developing technical writing, open-source tooling, and ML infrastructure around robustness, data quality, and applied AI systems.",
-    ],
-  },
-  {
-    title: "Founder / Lead Engineer",
-    company: "Mesh",
-    location: "Remote",
-    date: "Feb 2026 - Present",
-    description: [
-      "Built Mesh, a public-safety interoperability platform with a native macOS app, live incident views, MapKit overlays, surge signals, and district-level hazard scoring.",
-      "Won the Propel Center x Apple Innovation Challenge 2026 and received a $17,500 award for the product.",
-      "Developing backend ingestion and API architecture for normalized incident records, data freshness, and operational public-safety intelligence.",
+      "Collecting underrepresented autonomous-systems datasets from regions where current AV stacks rarely operate: Africa, Southeast Asia, Eastern Europe, and LATAM.",
+      "Building CowCow, a pipeline for turning raw field data into training-ready datasets.",
+      "Shipping DuFind, a local-first semantic search tool for AV datasets using YOLOv8 and SigLIP.",
     ],
   },
   {
@@ -254,9 +305,9 @@ export const experiences = [
     location: "Austin, TX",
     date: "May 2025 - Aug 2025",
     description: [
-      "Developed a generative AI tool using Amazon Bedrock and Titan models for intelligent data pipeline automation.",
-      "Built a RAG pipeline with OpenSearch, semantic search, and multi-modal embeddings for cross-organizational data access.",
-      "Implemented serverless ingestion and event-driven processing with AWS Lambda, API Gateway, DynamoDB, SQS, and SNS.",
+      "Built internal AI tooling to automate repetitive data workflows and reduce manual coordination across teams.",
+      "Implemented semantic retrieval and search so distributed datasets could be accessed with richer, cross-functional context.",
+      "Shipped event-driven ingestion and processing on cloud infrastructure for reliable, scalable data movement.",
     ],
   },
   {
@@ -295,24 +346,24 @@ export const testimonials = [
 
 export const capabilities = [
   {
-    title: "AI Product Engineering",
-    description: "Full-stack AI systems, agentic products, RAG pipelines, public demos, and production-minded delivery.",
-    icon: web,
+    title: "Machine Learning Engineering",
+    description:
+      "Computer vision, medical imaging, model benchmarking, training pipelines, evaluation, and the deployment tradeoffs that decide whether research survives production.",
   },
   {
-    title: "Machine Learning Infrastructure",
-    description: "Computer vision, medical ML, data quality, evaluation, dataset pipelines, and deployment tradeoffs.",
-    icon: backend,
+    title: "Full Stack Software Engineering",
+    description:
+      "End-to-end product delivery across React, TypeScript, APIs, native apps, and cloud backends, from interface polish to the infrastructure that keeps systems reliable.",
   },
   {
-    title: "Public Safety & Civic Tech",
-    description: "Operational dashboards, interoperability tooling, geospatial interfaces, and real-time risk signals.",
-    icon: creator,
+    title: "AI Safety & Policy",
+    description:
+      "Multi-agent simulation, alignment testbeds, governance observability, and policy-aware tooling for studying how autonomous systems behave under real constraints.",
   },
   {
-    title: "Developer Tooling",
-    description: "CLIs, offline-first workflows, open-source packages, automation, and practical systems design.",
-    icon: github,
+    title: "Systems Engineering (Autonomous Systems)",
+    description:
+      "Field data collection, dataset quality pipelines, offline-first AV tooling, and infrastructure for turning messy real-world captures into training-ready autonomy data.",
   },
 ];
 
@@ -331,7 +382,7 @@ export const links = [
   { title: "GitHub", href: profile.github, description: "Open-source projects, experiments, and tools." },
   { title: "Mesh", href: "https://meshofdata.org", description: "Public-safety interoperability platform and Apple Propel Innovation Challenge winning project." },
   { title: "Project Genesis", href: "https://github.com/thabhelo/project-genesis", description: "Multi-agent AI civilization simulator powered by Gemini and a real-time 3D visualizer." },
-  { title: "CowCow", href: "https://github.com/deepubuntu/cowcow", description: "Offline-first data collection and quality-control tooling for autonomous systems." },
+  { title: "CowCow", href: "https://github.com/deepubuntu/cowcow", description: "Pipeline for turning raw field data into training-ready AV datasets." },
   { title: "Medium", href: profile.medium, description: "Essays on software, AI systems, and the builder journey." },
   { title: "ML Blog", href: "/blog", description: "Machine learning teaching notes hosted on this site." },
   { title: "Resume", href: profile.resume, description: "A concise overview of my experience and education." },
@@ -339,57 +390,29 @@ export const links = [
   { title: "DreamSprint", href: "/dreamsprint", description: "A focused landing page for sprinting from idea to launch." },
 ];
 
-export const bucketList = [
-  { title: "Ship CowCow as a polished interface, not just a CLI", status: "In progress" },
-  { title: "Turn Mesh into a credible public-safety data platform", status: "In progress" },
-  { title: "Publish more open-source ML infrastructure", status: "In progress" },
-  { title: "Build a stronger research portfolio around robust ML systems", status: "In progress" },
-  { title: "Visit 30 countries while writing about builders", status: "Queued" },
-  { title: "Record a full music project", status: "Queued" },
+export const galleryImages = [
+  { id: "portrait", src: "/media/gallery-portrait.jpg", label: "San Francisco, CA" },
+  { id: "field-road", src: "/media/project-cowcow-field.jpg", label: "On the road" },
+  { id: "team-build", src: "/media/project-genesis.jpg", label: "With collaborators" },
+  { id: "public-safety", src: "/media/project-mesh-public-safety.jpg", label: "Urban ops" },
+  { id: "clinical-ml", src: "/media/project-medical-imaging.jpg", label: "Research bench" },
+  { id: "travel-perspective", src: "/media/mountain-travel-cinematic.jpg", label: "Outside the city" },
+  { id: "training-discipline", src: "/media/gym-training-cinematic.jpg", label: "Gym" },
+  { id: "writing-desk", src: "/media/guestbook-journal.jpg", label: "Desk" },
+  { id: "traffic-singapore", src: "/media/project-dufind-traffic.jpg", label: "Urban CV" },
 ];
 
 export const posts = [
   {
-    slug: "building-ml-that-survives-the-real-world",
-    title: "Building ML That Survives the Real World",
-    date: "2026-05-10",
-    excerpt:
-      "Notes on the difference between a model that demos well and a system that survives edge cases, messy data, and deployment pressure.",
-    tags: ["Machine Learning", "Systems", "MLOps"],
-    readingTime: "5 min read",
-    sections: [
-      "The hardest parts of ML rarely show up in the architecture diagram. They show up in labels, missing metadata, edge cases, and the distance between a benchmark and production.",
-      "My current rule is simple: every model deserves an evaluation story, an operations story, and a failure story before it deserves a launch story.",
-    ],
-    code: "metrics = evaluate(model, dataset)\nreport_tradeoffs(metrics, latency_ms=142, memory_gb=9.8)",
-  },
-  {
-    slug: "why-i-built-mesh",
-    title: "Why I Built Mesh",
+    slug: "after-the-data-ramp",
+    title: "Scaling Autonomous Vehicles: Miles, Data, and Coverage",
     date: "2026-05-26",
     excerpt:
-      "How fragmented public-safety data became the product problem behind Mesh, and why operational interfaces matter during emergencies.",
-    tags: ["Civic Tech", "Public Safety", "Apple", "Product"],
-    readingTime: "4 min read",
-    sections: [
-      "Most emergency-response software problems are not about one missing dashboard. They are about agencies, incidents, maps, updates, and risk signals living in separate places while time is moving.",
-      "Mesh is my attempt to turn that fragmentation into a shared operational picture: incident feeds, map overlays, surge prediction, hazard scoring, and status awareness in a native Mac experience.",
-    ],
-    code: "const signal = normalizeIncident(rawCall)\nconst risk = scoreDistrict(signal, historicalBaseline)",
-  },
-  {
-    slug: "offline-first-tools-for-real-world-data",
-    title: "Offline-First Tools for Real-World Data",
-    date: "2026-04-18",
-    excerpt:
-      "Why unreliable connectivity should be a first-class design constraint for dataset tools, autonomy products, and field-data software.",
-    tags: ["Open Source", "Data", "Autonomous Systems"],
-    readingTime: "4 min read",
-    sections: [
-      "If software only works on perfect internet, it fails exactly where some of the most valuable data is collected.",
-      "Offline-first design is not a fallback. It is respect for the environment the product is entering.",
-    ],
-    code: "cowcow record --offline\ncowcow sync --when-connected",
+      "Waymo and Tesla are scaling fleet miles faster than training data covers new geographies. What changes when scalability—not demos—becomes the AV strategy.",
+    tags: ["Autonomous Vehicles", "Data", "DeepUbuntu", "Industry"],
+    readingTime: "14 min read",
+    coverImage: "/media/blog-highway-aerial.jpg",
+    content: afterTheDataRamp,
   },
 ];
 
@@ -406,9 +429,5 @@ export const guestbookEntries = [
   },
 ];
 
-export const legalPages = {
-  terms:
-    "This portfolio is provided for informational purposes. Project links, writing, and contact forms are maintained by Thabhelo Duve.",
-  privacy:
-    "The current site avoids invasive tracking. Contact form submissions may include the name, email, and message you provide so Thabhelo can respond.",
-};
+export const privacyNotice =
+  "This site collects only what you submit. Contact messages (name, email, and message) are stored so I can reply, and may be sent through Firebase and email delivery providers. Guestbook entries (name, message, and optional email) are stored the same way. Booking through Cal.com is handled by Cal.com under their privacy policy. I do not sell your data or use invasive ad tracking. To ask about or delete something you submitted, email me at thabheloduve@gmail.com.";

@@ -174,7 +174,7 @@ export default function DreamSprintLanding() {
             className="mx-auto mt-12 max-w-5xl space-y-4 text-left text-sm leading-7 text-white/60 md:text-base md:leading-8"
           >
             <p>
-              Hey, I&apos;m organizing a 10-day deep work sprint and I&apos;m looking for up to 9 other highly motivated people to join. The goal is simple: come with one big project you&apos;ve been meaning to finish — whether it&apos;s a startup, a coding project, finish 300 leetcodes, a set of 50 videos, a book, a course, or something creative — and use this time to get it done.
+              Hey, I&apos;m organizing a 10-day deep work sprint and I&apos;m looking for up to 9 other highly motivated people to join. The goal is simple: come with one big project you&apos;ve been meaning to finish, whether it&apos;s a startup, a coding project, finish 300 leetcodes, a set of 50 videos, a book, a course, or something creative, and use this time to get it done.
             </p>
             <p>
               <strong className="text-white/80">Tentative dates:</strong> August 1–11, Thanksgiving week, or December. During the application process, you&apos;ll rank these periods by preference. Those who can&apos;t attend in person can join virtually and participate in check-ins, progress updates, and collaborative sessions.
@@ -241,7 +241,7 @@ export default function DreamSprintLanding() {
           </div>
 
           <p className="mx-auto mt-12 max-w-4xl border-t border-dashed border-white/10 pt-8 text-center text-sm leading-7 text-white/50">
-            DreamSprint is an intensive work experience designed for ambitious individuals ready to transform their visions into reality. This is not a casual event — it&apos;s a crucible for breakthrough achievement.
+            DreamSprint is an intensive work experience designed for ambitious individuals ready to transform their visions into reality. This is not a casual event. It&apos;s a crucible for breakthrough achievement.
           </p>
         </div>
       </footer>

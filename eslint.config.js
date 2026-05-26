@@ -11,8 +11,6 @@ export default tseslint.config(
       "dist",
       "node_modules",
       "scripts/**",
-      "reference-style-audit/**",
-      "output/**",
     ],
   },
   js.configs.recommended,

@@ -6,20 +6,19 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import DreamSprintLanding from "@/pages/dreamsprint";
 import BlogAdminPage from "@/pages/blog-admin";
+import GalleryAdminPage from "@/pages/gallery-admin";
 import {
   AboutPage,
-  AttributionPage,
   BlogIndexPage,
   BlogPostPage,
-  BucketListPage,
+  GalleryPage,
   ContactPage,
   GuestbookPage,
-  LegalPage,
+  PrivacyPage,
   LinksPage,
   ProjectDetailPage,
   ProjectsPage,
   RssRedirectPage,
-  UsesPage,
 } from "@/pages/site-pages";
 
 function Router() {
@@ -34,17 +33,12 @@ function Router() {
       <Route path="/blog/:slug" component={BlogPostPage} />
       <Route path="/guestbook" component={GuestbookPage} />
       <Route path="/links" component={LinksPage} />
-      <Route path="/uses" component={UsesPage} />
-      <Route path="/bucket-list" component={BucketListPage} />
+      <Route path="/gallery" component={GalleryPage} />
+      <Route path="/gallery/admin" component={GalleryAdminPage} />
       <Route path="/contact" component={ContactPage} />
-      <Route path="/attribution" component={AttributionPage} />
       <Route path="/rss" component={RssRedirectPage} />
-      <Route path="/legal/terms">
-        <LegalPage page="terms" />
-      </Route>
-      <Route path="/legal/privacy">
-        <LegalPage page="privacy" />
-      </Route>
+      <Route path="/legal/privacy" component={PrivacyPage} />
+      <Route path="/privacy" component={PrivacyPage} />
       <Route path="/dreamsprint" component={DreamSprintLanding} />
       <Route component={NotFound} />
     </Switch>

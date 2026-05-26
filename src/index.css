@@ -26,6 +26,7 @@
   --font-serif: "Instrument Serif", "Source Serif 4", serif;
   --font-mono: "coreMono", "Geist Mono", "JetBrains Mono", monospace;
   --font-editorial: "bluuNext", "Instrument Serif", serif;
+  --font-blog: "Lora", "Instrument Serif", Georgia, serif;
 
   --radius-sm: 0.5rem;
   --radius-md: 0.625rem;
@@ -194,6 +195,10 @@
     font-family: var(--font-editorial);
   }
 
+  .font-blog {
+    font-family: var(--font-blog);
+  }
+
   .font-label {
     font-family: var(--font-mono);
     @apply text-[11px] uppercase tracking-[0.22em] text-white/55;
@@ -283,6 +288,14 @@
 
   .marquee-track {
     animation: marquee 22s linear infinite;
+  }
+
+  .recommendations-belt {
+    animation: marquee 42s linear infinite;
+  }
+
+  .recommendations-belt:hover {
+    animation-play-state: paused;
   }
 
   .tech-row-right {
@@ -464,3 +477,320 @@
     transform: translateX(-50%) rotate(8deg) scale(1.03);
   }
 }
+
+/* Blog reading layout — DeepUbuntu editorial stack */
+.blog-prose {
+  max-width: 56rem;
+  font-family: var(--font-blog);
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  color: hsl(var(--muted-foreground));
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.blog-prose > :first-child {
+  margin-top: 0;
+}
+
+.blog-prose h2,
+.blog-prose h3 {
+  font-family: var(--font-blog);
+  color: hsl(var(--foreground));
+  letter-spacing: -0.015em;
+}
+
+.blog-prose h2 {
+  margin-top: 2.75rem;
+  margin-bottom: 1rem;
+  font-size: clamp(1.65rem, 2.5vw, 2rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.blog-prose h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.blog-prose p,
+.blog-prose li {
+  margin-top: 0;
+  margin-bottom: 1.15rem;
+}
+
+.blog-prose strong {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+
+.blog-prose a {
+  color: hsl(var(--foreground));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.blog-prose a:hover {
+  color: hsl(var(--foreground) / 0.75);
+}
+
+.blog-prose ul,
+.blog-prose ol {
+  margin: 0 0 1.25rem;
+  padding-left: 1.25rem;
+}
+
+.blog-prose blockquote {
+  margin: 1.75rem 0;
+  border-left: 1px solid hsl(var(--border));
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  font-family: var(--font-blog);
+  font-style: italic;
+  font-size: 1.2rem;
+  line-height: 1.55;
+  color: hsl(var(--foreground) / 0.88);
+}
+
+.blog-prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.blog-prose .blog-lede {
+  font-family: var(--font-blog);
+  font-size: 1.35rem;
+  line-height: 1.55;
+  color: hsl(var(--foreground) / 0.9);
+}
+
+.blog-prose .blog-stat {
+  display: grid;
+  gap: 0.35rem;
+  margin: 1.75rem 0;
+  border: 1px dashed hsl(var(--border));
+  border-radius: 14px;
+  background: hsl(var(--foreground) / 0.025);
+  padding: 1rem 1.15rem;
+}
+
+.blog-prose .blog-stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+}
+
+.blog-prose .blog-stat-value {
+  font-family: var(--font-blog);
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: hsl(var(--foreground));
+}
+
+.blog-prose .blog-stat-note {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: hsl(var(--muted-foreground));
+}
+
+.blog-prose .blog-media {
+  margin: 2rem auto;
+  max-width: 32rem;
+}
+
+.blog-prose .blog-media img,
+.blog-prose .blog-media video {
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px dashed hsl(var(--border));
+  background: hsl(var(--foreground) / 0.03);
+}
+
+.blog-prose .blog-media video {
+  max-height: 14rem;
+  object-fit: cover;
+}
+
+.blog-prose .blog-media figcaption {
+  margin-top: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+}
+
+.blog-prose .blog-table-wrap {
+  margin: 1.75rem 0;
+  overflow-x: auto;
+  border: 1px dashed hsl(var(--border));
+  border-radius: 12px;
+}
+
+.blog-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.blog-prose th,
+.blog-prose td {
+  border-bottom: 1px solid hsl(var(--border));
+  padding: 0.75rem 0.9rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.blog-prose th {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+}
+
+.blog-prose tr:last-child td {
+  border-bottom: none;
+}
+
+.blog-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  border-radius: 0.4rem;
+  border: 1px solid hsl(var(--foreground) / 0.08);
+  background:
+    linear-gradient(180deg, hsl(var(--foreground) / 0.11) 0%, hsl(var(--foreground) / 0.05) 100%);
+  box-shadow:
+    inset 0 1px 0 hsl(var(--foreground) / 0.08),
+    inset 0 -1px 3px rgba(0, 0, 0, 0.35),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+  padding: 0.14rem 0.45rem;
+  color: hsl(var(--foreground) / 0.92);
+}
+
+.blog-prose .blog-code-well {
+  position: relative;
+  margin: 2rem 0;
+  border-radius: 14px;
+  border: 1px solid hsl(var(--foreground) / 0.07);
+  background:
+    radial-gradient(ellipse 130% 90% at 50% -20%, hsl(var(--foreground) / 0.05), transparent 55%),
+    linear-gradient(180deg, #040405 0%, #09090d 42%, #060607 100%);
+  box-shadow:
+    inset 0 1px 0 hsl(var(--foreground) / 0.07),
+    inset 0 2px 24px rgba(0, 0, 0, 0.55),
+    inset 0 -28px 56px rgba(0, 0, 0, 0.65),
+    0 28px 64px -28px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+}
+
+.blog-prose .blog-code-well::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 18% 0%, hsl(var(--foreground) / 0.04), transparent 42%),
+    radial-gradient(circle at 82% 100%, hsl(var(--foreground) / 0.03), transparent 38%);
+  box-shadow: inset 0 0 72px rgba(0, 0, 0, 0.42);
+}
+
+.blog-prose .blog-code-well::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  border: 1px solid hsl(var(--foreground) / 0.04);
+  mask-image: linear-gradient(180deg, black, transparent 88%);
+}
+
+.blog-prose pre {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  overflow-x: auto;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  padding: 1.2rem 1.35rem 1.3rem;
+  box-shadow: none;
+}
+
+.blog-prose pre code {
+  display: block;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  font-size: 0.9rem;
+  line-height: 1.72;
+  color: hsl(var(--foreground) / 0.9);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+}
+
+.blog-prose .katex-display {
+  position: relative;
+  margin: 2rem 0;
+  padding: 1.35rem 1.25rem 1.45rem;
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1px solid hsl(var(--foreground) / 0.07);
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -15%, hsl(var(--foreground) / 0.045), transparent 58%),
+    linear-gradient(180deg, #050506 0%, #0a0a0e 45%, #070708 100%);
+  box-shadow:
+    inset 0 1px 0 hsl(var(--foreground) / 0.06),
+    inset 0 2px 20px rgba(0, 0, 0, 0.5),
+    inset 0 -24px 48px rgba(0, 0, 0, 0.58),
+    0 24px 56px -26px rgba(0, 0, 0, 0.8);
+}
+
+.blog-prose .katex-display::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0 64px rgba(0, 0, 0, 0.38);
+}
+
+.blog-prose .katex-display > .katex {
+  position: relative;
+  z-index: 1;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.blog-prose .katex {
+  color: hsl(var(--foreground) / 0.94);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.28);
+}
+
+.blog-prose .katex:not(.katex-display) {
+  padding: 0.08rem 0.28rem;
+  border-radius: 0.35rem;
+  background: hsl(var(--foreground) / 0.06);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.28);
+}
+
+.blog-prose hr {
+  margin: 2.5rem 0;
+  border: none;
+  border-top: 1px dashed hsl(var(--border));
+}
+
+.blog-prose .blog-source {
+  margin-top: 2.5rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: hsl(var(--muted-foreground));
+}
+

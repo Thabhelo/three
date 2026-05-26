@@ -1,10 +1,11 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  readonly VITE_EMAILJS_SERVICE_ID: string;
-  readonly VITE_EMAILJS_TEMPLATE_ID: string;
-  readonly VITE_EMAILJS_PUBLIC_KEY: string;
-  readonly VITE_EMAILJS_RECIPIENT_EMAIL: string;
+  readonly VITE_CONTACT_RECIPIENT_EMAIL?: string;
+  readonly VITE_CALCOM_LINK?: string;
+  readonly VITE_EMAILJS_SERVICE_ID?: string;
+  readonly VITE_EMAILJS_TEMPLATE_ID?: string;
+  readonly VITE_EMAILJS_PUBLIC_KEY?: string;
   readonly VITE_FIREBASE_API_KEY: string;
   readonly VITE_FIREBASE_AUTH_DOMAIN: string;
   readonly VITE_FIREBASE_PROJECT_ID: string;
@@ -15,6 +16,11 @@ interface ImportMetaEnv {
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;
+}
+
+declare module "*.md?raw" {
+  const value: string;
+  export default value;
 }
 
 declare module "*.png" {

@@ -6,7 +6,7 @@ A cinematic personal portfolio for Thabhelo Duve, built with React, Vite, Tailwi
 
 - Editorial homepage with motion, polished typography, and project highlights.
 - Cinematic hero, glass navigation, bottom-up command palette, animated bento cards, COBE globe, tech marquees, and cursor-follow interactions.
-- About, projects, project case studies, blog, guestbook, links, uses, bucket list, contact, attribution, legal, and RSS shell routes.
+- About, projects, project case studies, blog, gallery, guestbook, links, contact, privacy, and RSS shell routes.
 - Data-driven content modules for profile, projects, experience, blog posts, tools, testimonials, links, and navigation.
 - Real GitHub contribution/stat loading with graceful failure states.
 - Curated local media assets with Pexels attribution stored in `public/media/pexels-manifest.json`.
@@ -34,14 +34,12 @@ A cinematic personal portfolio for Thabhelo Duve, built with React, Vite, Tailwi
 - `/projects/:slug`
 - `/blog`
 - `/blog/:slug`
+- `/gallery`
 - `/guestbook`
 - `/links`
-- `/uses`
-- `/bucket-list`
 - `/contact`
-- `/attribution`
-- `/legal/terms`
 - `/legal/privacy`
+- `/privacy`
 - `/rss`
 - `/dreamsprint`
 

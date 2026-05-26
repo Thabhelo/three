@@ -2,46 +2,40 @@ import { ArrowUpRight } from "lucide-react";
 import { Link } from "wouter";
 import { navLinks, profile, socials } from "@/content/site";
 
-export default function Footer() {
-  const marquee = "OPEN TO WORK · OPEN TO WORK · OPEN TO WORK · OPEN TO WORK ·";
-
+export default function Footer({ showReachOutCTA = false }: { showReachOutCTA?: boolean }) {
   return (
-    <footer className="relative overflow-hidden border-t border-dashed border-white/[0.10] bg-zinc-950 py-14">
-      <div className="pointer-events-none absolute inset-x-0 top-8 overflow-hidden opacity-10 [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
-        <div className="marquee-track flex w-max gap-10 whitespace-nowrap font-display text-8xl italic text-white">
-          <span>{marquee}</span>
-          <span>{marquee}</span>
-        </div>
-      </div>
-
+    <footer className="relative border-t border-dashed border-white/[0.10] bg-zinc-950 py-14">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="glass-panel relative mb-8 overflow-hidden rounded-[14px] p-6 text-center md:p-8">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.08),transparent_20rem)]" />
-          <div className="relative">
-            <div className="mx-auto mb-4 grid size-11 place-items-center overflow-hidden rounded-full border border-white/10 bg-white/[0.06]">
-              <img src="/favicon.svg" alt="" className="size-7" />
+        {showReachOutCTA ? (
+          <div className="glass-panel relative mb-8 overflow-hidden rounded-[14px] p-6 text-center md:p-8">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.08),transparent_20rem)]" />
+            <div className="relative">
+              <Link href="/" className="mx-auto mb-4 inline-grid size-11 place-items-center overflow-hidden rounded-full border border-white/10 bg-white/[0.06] transition-colors hover:border-white/20">
+                <img src="/favicon.svg" alt="Home" className="size-7" />
+              </Link>
+              <h2 className="mx-auto mt-3 max-w-2xl font-display text-4xl leading-none tracking-tight md:text-5xl">
+                Reach out.
+              </h2>
+              <Link
+                href="/contact"
+                className="group mt-6 inline-flex h-10 items-center gap-3 rounded-full bg-white/[0.10] py-1 pl-5 pr-1 text-sm font-semibold text-zinc-50 shadow-[0_0_24px_rgba(255,255,255,0.10)] backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.16]"
+              >
+                Get in Touch
+                <span className="grid size-8 place-items-center rounded-full bg-zinc-100 text-zinc-950 transition-transform duration-300 group-hover:translate-x-1">
+                  <ArrowUpRight className="size-4" />
+                </span>
+              </Link>
             </div>
-            <p className="font-label">From concept to creation</p>
-            <h2 className="mx-auto mt-3 max-w-2xl font-display text-4xl leading-none tracking-tight md:text-5xl">
-              Let&apos;s make it happen!
-            </h2>
-            <a
-              href={`mailto:${profile.email}`}
-              className="group mt-6 inline-flex h-10 items-center gap-3 rounded-full bg-white/[0.10] py-1 pl-5 pr-1 text-sm font-semibold text-zinc-50 shadow-[0_0_24px_rgba(255,255,255,0.10)] backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.16]"
-            >
-              Get in touch
-              <span className="grid size-8 place-items-center rounded-full bg-zinc-100 text-zinc-950 transition-transform duration-300 group-hover:translate-x-1">
-                <ArrowUpRight className="size-4" />
-              </span>
-            </a>
           </div>
-        </div>
+        ) : null}
 
         <div className="grid gap-10 border-y border-dashed border-white/[0.10] py-8 md:grid-cols-[1.2fr_0.8fr] md:items-start">
           <div>
-            <img src="/favicon.svg" alt="" className="size-8" />
+            <Link href="/" className="inline-block transition-opacity hover:opacity-80">
+              <img src="/favicon.svg" alt="Home" className="size-8" />
+            </Link>
             <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">
-              I&apos;m {profile.fullName}, a software engineer building practical ML systems, tools, and community infrastructure.
+              I&apos;m {profile.fullName}, a machine learning engineer and software engineer. Passionate about AI, Math and Physics.
             </p>
           </div>
 
@@ -88,7 +82,6 @@ export default function Footer() {
 
         <div className="mt-6 flex flex-col gap-3 font-mono text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} {profile.fullName}. All rights reserved.</p>
-          <p>Built with React, Tailwind, motion, and a stubborn love for craft.</p>
         </div>
       </div>
     </footer>

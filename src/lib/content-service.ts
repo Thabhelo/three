@@ -90,6 +90,19 @@ export async function subscribeMailingList(email: string, source: string): Promi
   return true;
 }
 
+export async function submitContactMessage(name: string, email: string, message: string): Promise<boolean> {
+  if (!db) return false;
+
+  await addDoc(collection(db, "contactMessages"), {
+    name: name.trim(),
+    email: email.trim().toLowerCase(),
+    message: message.trim(),
+    createdAt: serverTimestamp(),
+  });
+
+  return true;
+}
+
 export async function getMediumPosts(): Promise<MediumPost[]> {
   if (!db) return [];
 

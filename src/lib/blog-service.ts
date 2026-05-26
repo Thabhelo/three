@@ -1,4 +1,4 @@
-import { ref, listAll, getDownloadURL, getMetadata, uploadBytes, deleteObject } from "firebase/storage";
+import { ref, listAll, getDownloadURL, getMetadata, getBytes, uploadBytes, deleteObject } from "firebase/storage";
 import { storage } from "./firebase";
 
 export interface BlogMetadata {
@@ -17,6 +17,79 @@ export interface Blog extends BlogMetadata {
 
 const blogsCache = new Map<string, { data: BlogMetadata[] | Blog | null; timestamp: number }>();
 const CACHE_DURATION = 5 * 60 * 1000;
+
+function parseTags(raw?: string): string[] {
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    return Array.isArray(parsed) ? parsed.filter((tag): tag is string => typeof tag === "string") : [];
+  } catch {
+    return raw.split(",").map((tag) => tag.trim()).filter(Boolean);
+  }
+}
+
+function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => {
+      window.setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms);
+    }),
+  ]);
+}
+
+async function readBlogFile(slug: string): Promise<{ content: string; customMeta: Record<string, string>; fallbackDate?: string }> {
+  if (!storage) {
+    throw new Error("Firebase Storage not initialized");
+  }
+
+  const blogRef = ref(storage, `blogs/${slug}.md`);
+  const storageTimeoutMs = 8_000;
+
+  try {
+    const [url, metadata] = await withTimeout(
+      Promise.all([getDownloadURL(blogRef), getMetadata(blogRef)]),
+      storageTimeoutMs,
+      "blog download",
+    );
+    const response = await withTimeout(fetch(url), storageTimeoutMs, "blog fetch");
+    if (!response.ok) {
+      throw new Error(`Blog fetch failed with status ${response.status}`);
+    }
+    const content = await response.text();
+    return {
+      content,
+      customMeta: metadata.customMetadata ?? {},
+      fallbackDate: metadata.timeCreated,
+    };
+  } catch (downloadError) {
+    console.warn(`Download URL fetch failed for ${slug}, trying getBytes:`, downloadError);
+  }
+
+  const [bytes, metadata] = await withTimeout(
+    Promise.all([getBytes(blogRef), getMetadata(blogRef)]),
+    storageTimeoutMs,
+    "blog getBytes",
+  );
+
+  return {
+    content: new TextDecoder().decode(bytes),
+    customMeta: metadata.customMetadata ?? {},
+    fallbackDate: metadata.timeCreated,
+  };
+}
+
+function blogFromMetadata(slug: string, content: string, customMeta: Record<string, string>, fallbackDate?: string): Blog {
+  return {
+    slug,
+    title: customMeta.title || slug.replace(/-/g, " "),
+    excerpt: customMeta.excerpt || "",
+    date: customMeta.date || fallbackDate || new Date().toISOString().split("T")[0],
+    readTime: customMeta.readTime || "5 min read",
+    coverImage: customMeta.coverImage || undefined,
+    tags: parseTags(customMeta.tags),
+    content,
+  };
+}
 
 export async function getAllBlogs(): Promise<BlogMetadata[]> {
   const cacheKey = "all-blogs";
@@ -50,7 +123,7 @@ export async function getAllBlogs(): Promise<BlogMetadata[]> {
               date: customMeta.date || metadata.timeCreated,
               readTime: customMeta.readTime || "5 min read",
               coverImage: customMeta.coverImage || undefined,
-              tags: customMeta.tags ? JSON.parse(customMeta.tags) : [],
+              tags: parseTags(customMeta.tags),
             } satisfies BlogMetadata;
           } catch (error) {
             console.error(`Error fetching metadata for ${item.name}:`, error);
@@ -71,8 +144,13 @@ export async function getAllBlogs(): Promise<BlogMetadata[]> {
   }
 }
 
-export async function getBlogBySlug(slug: string): Promise<Blog | null> {
+export async function getBlogBySlug(slug: string, options?: { bustCache?: boolean }): Promise<Blog | null> {
   const cacheKey = `blog-${slug}`;
+
+  if (options?.bustCache) {
+    blogsCache.delete(cacheKey);
+  }
+
   const cached = blogsCache.get(cacheKey);
 
   if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
@@ -84,23 +162,8 @@ export async function getBlogBySlug(slug: string): Promise<Blog | null> {
       return null;
     }
 
-    const blogRef = ref(storage, `blogs/${slug}.md`);
-    const [url, metadata] = await Promise.all([getDownloadURL(blogRef), getMetadata(blogRef)]);
-
-    const response = await fetch(url);
-    const content = await response.text();
-    const customMeta = metadata.customMetadata ?? {};
-
-    const blog: Blog = {
-      slug,
-      title: customMeta.title || slug.replace(/-/g, " "),
-      excerpt: customMeta.excerpt || "",
-      date: customMeta.date || metadata.timeCreated,
-      readTime: customMeta.readTime || "5 min read",
-      coverImage: customMeta.coverImage || undefined,
-      tags: customMeta.tags ? JSON.parse(customMeta.tags) : [],
-      content,
-    };
+    const { content, customMeta, fallbackDate } = await readBlogFile(slug);
+    const blog = blogFromMetadata(slug, content, customMeta, fallbackDate);
 
     blogsCache.set(cacheKey, { data: blog, timestamp: Date.now() });
     return blog;

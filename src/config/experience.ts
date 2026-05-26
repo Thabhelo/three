@@ -1,15 +1,15 @@
 import { experiences as baseExperiences } from "@/content/site";
-import { amz, ewc, telone } from "@/assets";
+import { amz, analyticalAi, deepubuntu, telone } from "@/assets";
 
 export const experiences = baseExperiences.map((experience, index) => ({
   ...experience,
   type: ["Founder-led lab", "Internship", "Internship", "Full-time"][index] ?? "Experience",
-  logo: [ewc, undefined, amz, telone][index],
+  logo: [deepubuntu, analyticalAi, amz, telone][index],
   logoText: experience.company.slice(0, 2).toUpperCase(),
   techStack: [
-    ["React", "Python", "Perception", "Datasets"],
+    ["YOLOv8", "SigLIP", "Rust", "Python"],
     ["PyTorch", "MONAI", "3D CV", "Research"],
-    ["AWS", "Bedrock", "OpenSearch", "Serverless"],
+    ["AWS", "GenAI", "Search", "Serverless"],
     ["Power BI", "Tableau", "Excel", "OpenRefine"],
   ][index] ?? [],
   color: ["cyan", "violet", "blue", "pink"][index] ?? "cyan",

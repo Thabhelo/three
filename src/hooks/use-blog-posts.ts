@@ -33,11 +33,45 @@ function staticNativeToDisplay(post: (typeof staticNativePosts)[number]): Displa
     excerpt: post.excerpt,
     date: post.date,
     readTime: post.readingTime,
-    coverImage: post.imageFallback,
-    imageFallback: post.imageFallback,
+    coverImage: post.coverImage ?? post.imageFallback,
+    imageFallback: post.imageFallback ?? post.coverImage,
     tags: post.tags,
+    content: "content" in post ? post.content : undefined,
     source: "static",
     channel: "native",
+  };
+}
+
+function mergeNativeMetadata(
+  staticPost: (typeof staticNativePosts)[number],
+  firebasePost?: BlogMetadata,
+): DisplayNativePost {
+  if (!firebasePost) return staticNativeToDisplay(staticPost);
+
+  return {
+    ...firebaseNativeToDisplay(firebasePost),
+    title: staticPost.title,
+    excerpt: staticPost.excerpt,
+    date: staticPost.date,
+    readTime: staticPost.readingTime,
+    tags: staticPost.tags,
+    coverImage: staticPost.coverImage ?? firebasePost.coverImage,
+    imageFallback: staticPost.imageFallback ?? staticPost.coverImage ?? firebasePost.coverImage,
+  };
+}
+
+function mergeNativeBlog(
+  staticPost: (typeof staticNativePosts)[number],
+  firebasePost: Blog,
+): Blog {
+  return {
+    ...firebasePost,
+    title: staticPost.title,
+    excerpt: staticPost.excerpt,
+    date: staticPost.date,
+    readTime: staticPost.readingTime,
+    tags: staticPost.tags,
+    coverImage: staticPost.coverImage ?? firebasePost.coverImage,
   };
 }
 
@@ -93,11 +127,17 @@ export function useNativePosts() {
         const fetched = await getAllBlogs();
         if (cancelled) return;
 
-        if (fetched.length > 0) {
-          setPosts(fetched.map(firebaseNativeToDisplay));
-        } else {
-          setPosts(staticNativePosts.map(staticNativeToDisplay));
-        }
+        const allowedSlugs = new Set(staticNativePosts.map((post) => post.slug));
+        const firebaseBySlug = new Map(
+          fetched.filter((post) => allowedSlugs.has(post.slug)).map((post) => [post.slug, post]),
+        );
+
+        setPosts(
+          staticNativePosts.map((staticPost) => {
+            const firebasePost = firebaseBySlug.get(staticPost.slug);
+            return mergeNativeMetadata(staticPost, firebasePost);
+          }),
+        );
       } catch (err) {
         console.error("Failed to load native posts:", err);
         if (!cancelled) {
@@ -176,9 +216,16 @@ export function useBlogPost(slug: string | undefined) {
     }
 
     const fallback = staticNativePosts.find((item) => item.slug === slug);
+    if (!fallback) {
+      setPost(null);
+      setLoading(false);
+      return;
+    }
+
+    const canonicalPost = fallback;
 
     if (!isFirebaseConfigured()) {
-      setPost(fallback ? staticNativeToDisplay(fallback) : null);
+      setPost(staticNativeToDisplay(canonicalPost));
       setIsMarkdown(false);
       setLoading(false);
       return;
@@ -194,19 +241,17 @@ export function useBlogPost(slug: string | undefined) {
         if (cancelled) return;
 
         if (fetched) {
-          setPost(fetched);
+          setPost(mergeNativeBlog(canonicalPost, fetched));
           setIsMarkdown(true);
-        } else if (fallback) {
-          setPost(staticNativeToDisplay(fallback));
-          setIsMarkdown(false);
         } else {
-          setPost(null);
+          setPost(staticNativeToDisplay(canonicalPost));
+          setIsMarkdown(false);
         }
       } catch (err) {
         console.error(`Failed to load blog ${slug}:`, err);
         if (!cancelled) {
           setError("Could not load post from Firebase.");
-          setPost(fallback ? staticNativeToDisplay(fallback) : null);
+          setPost(staticNativeToDisplay(canonicalPost));
           setIsMarkdown(false);
         }
       } finally {
@@ -223,12 +268,14 @@ export function useBlogPost(slug: string | undefined) {
   return { post, loading, error, isMarkdown, staticPost };
 }
 
-export function getStaticSections(post: (typeof staticNativePosts)[number] | undefined) {
-  return post?.sections ?? [];
+export function getStaticSections(post: (typeof staticNativePosts)[number] | undefined): string[] {
+  if (!post || !("sections" in post) || !Array.isArray(post.sections)) return [];
+  return post.sections;
 }
 
-export function getStaticCode(post: (typeof staticNativePosts)[number] | undefined) {
-  return post?.code ?? "";
+export function getStaticCode(post: (typeof staticNativePosts)[number] | undefined): string {
+  if (!post || !("code" in post) || typeof post.code !== "string") return "";
+  return post.code;
 }
 
 /** @deprecated Use useNativePosts or useMediumPosts */

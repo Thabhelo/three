@@ -30,8 +30,16 @@ export default function ExperienceTimeline({ experiences }: { experiences: Exper
         >
           <motion.div variants={fadeUp} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} className="md:text-right">
             <p className="font-label">{experience.date}</p>
-            <div className="mt-4 inline-grid size-12 place-items-center rounded-[10px] border border-dashed border-white/10 bg-white/[0.055] font-mono text-xs text-zinc-200">
-              {experience.logo ? <img src={experience.logo} alt={`${experience.company} logo`} className="max-h-7 max-w-7 object-contain" /> : experience.logoText}
+            <div className="mt-4 inline-grid size-16 place-items-center rounded-[10px] border border-dashed border-white/10 bg-white/[0.08] p-2 font-mono text-xs text-zinc-200">
+              {experience.logo ? (
+                <img
+                  src={experience.logo}
+                  alt={`${experience.company} logo`}
+                  className="max-h-10 max-w-10 object-contain"
+                />
+              ) : (
+                experience.logoText
+              )}
             </div>
             <h3 className="mt-4 text-xl font-semibold text-zinc-100">{experience.company}</h3>
             <p className="mt-2 text-sm text-muted-foreground">{experience.location} / {experience.type}</p>

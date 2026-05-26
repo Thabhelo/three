@@ -6,13 +6,16 @@ const envFiles = [".env.local", ".env.example"];
 const outDir = path.join(root, "public", "media");
 
 const requests = [
-  { file: "stylus-pencil.jpg", query: "single black digital stylus on dark background", orientation: "portrait" },
   { file: "guestbook-journal.jpg", query: "open journal desk", orientation: "landscape" },
-  { file: "bucket-list-adventure.jpg", query: "skydiving adventure", orientation: "landscape" },
-  { file: "blog-performance-ring.jpg", query: "abstract chrome ring technology", orientation: "landscape" },
-  { file: "blog-terminal-setup.jpg", query: "developer terminal setup", orientation: "landscape" },
   { file: "blog-mdx-writing.jpg", query: "writing desk notebook", orientation: "landscape" },
   { file: "blog-learning-code.jpg", query: "laptop learning code", orientation: "landscape" },
+  { file: "project-mesh-public-safety.jpg", query: "police emergency lights city night", orientation: "landscape" },
+  { file: "project-genesis.jpg", query: "software developers collaborating laptops", orientation: "landscape" },
+  { file: "project-cowcow-field.jpg", query: "rural road field data collection driving", orientation: "landscape" },
+  { file: "project-dufind-traffic.jpg", query: "highway traffic aerial cars", orientation: "landscape" },
+  { file: "project-pytorch-dlrs.jpg", query: "python code laptop programming", orientation: "landscape" },
+  { file: "project-medical-imaging.jpg", query: "doctor medical scan radiology monitor", orientation: "landscape" },
+  { file: "project-fineprint-contract.jpg", query: "signing legal contract documents", orientation: "landscape" },
 ];
 
 async function readEnvValue(name) {

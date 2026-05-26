@@ -13,6 +13,8 @@ import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
 
 import amz from "./company/amz.png";
+import analyticalAi from "./company/analytical-ai.png";
+import deepubuntu from "./company/deepubuntu.png";
 import telone from "./company/telone.png";
 import ewc from "./company/ewc.png";
 
@@ -34,6 +36,8 @@ export {
   tailwind,
   typescript,
   amz,
+  analyticalAi,
+  deepubuntu,
   telone,
   ewc,
   homenergy,

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   AlertCircle,
@@ -16,7 +16,7 @@ import {
   X,
 } from "lucide-react";
 import { Link } from "wouter";
-import { signInWithEmailAndPassword, signInWithPopup, signOut, onAuthStateChanged, type User } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import MarkdownContent from "@/components/MarkdownContent";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
@@ -26,13 +26,17 @@ import {
   getBlogBySlug,
   uploadBlog,
   uploadImage,
+  type Blog,
   type BlogMetadata,
 } from "@/lib/blog-service";
+import { nativePosts } from "@/config/blog";
 import { auth, googleProvider, isFirebaseConfigured } from "@/lib/firebase";
+import { signOutAdmin } from "@/lib/admin-auth";
+import { useAdminAuth } from "@/hooks/use-admin-auth";
+import { blogSnippets, insertIntoEditor } from "@/lib/blog-markdown";
 
 export default function BlogAdminPage() {
-  const [user, setUser] = useState<User | null>(null);
-  const [checkingAuth, setCheckingAuth] = useState(true);
+  const { user, checkingAuth } = useAdminAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -52,19 +56,13 @@ export default function BlogAdminPage() {
   const [successMessage, setSuccessMessage] = useState("");
   const [existingBlogs, setExistingBlogs] = useState<BlogMetadata[]>([]);
   const [editingSlug, setEditingSlug] = useState<string | null>(null);
+  const [loadingEditSlug, setLoadingEditSlug] = useState<string | null>(null);
+  const [showWritingGuide, setShowWritingGuide] = useState(true);
+  const contentRef = useRef<HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
-    if (!auth) {
-      setCheckingAuth(false);
-      return;
-    }
-
-    return onAuthStateChanged(auth, (nextUser) => {
-      setUser(nextUser);
-      setCheckingAuth(false);
-      if (nextUser) void loadExistingBlogs();
-    });
-  }, []);
+    if (user) void loadExistingBlogs();
+  }, [user]);
 
   useEffect(() => {
     if (title && !slug && !editingSlug) {
@@ -122,8 +120,7 @@ export default function BlogAdminPage() {
   }
 
   async function handleLogout() {
-    if (!auth) return;
-    await signOut(auth);
+    await signOutAdmin();
     setExistingBlogs([]);
   }
 
@@ -155,6 +152,24 @@ export default function BlogAdminPage() {
     }
   }, []);
 
+  function insertSnippet(snippet: string) {
+    insertIntoEditor(content, snippet, contentRef.current, setContent);
+  }
+
+  function insertUploadedImage(img: { name: string; url: string }, asCover = false) {
+    const alt = img.name.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ");
+    if (asCover) {
+      setCoverImage(img.url);
+      setSuccessMessage("Cover image set.");
+      setTimeout(() => setSuccessMessage(""), 2500);
+      return;
+    }
+
+    insertSnippet(`\n\n![${alt}](${img.url})\n\n`);
+    setSuccessMessage("Image inserted into post.");
+    setTimeout(() => setSuccessMessage(""), 2500);
+  }
+
   function resetForm() {
     setTitle("");
     setSlug("");
@@ -167,10 +182,23 @@ export default function BlogAdminPage() {
     setEditingSlug(null);
   }
 
-  async function handleEdit(postSlug: string) {
-    const blog = await getBlogBySlug(postSlug);
-    if (!blog) return;
+  function staticBlogForSlug(postSlug: string): Blog | null {
+    const staticPost = nativePosts.find((post) => post.slug === postSlug);
+    if (!staticPost || !("content" in staticPost) || !staticPost.content) return null;
 
+    return {
+      slug: staticPost.slug,
+      title: staticPost.title,
+      excerpt: staticPost.excerpt,
+      date: staticPost.date,
+      readTime: staticPost.readingTime,
+      coverImage: staticPost.coverImage,
+      tags: staticPost.tags,
+      content: staticPost.content,
+    };
+  }
+
+  function populateEditor(blog: Blog, postSlug: string) {
     setTitle(blog.title);
     setSlug(blog.slug);
     setExcerpt(blog.excerpt);
@@ -178,8 +206,49 @@ export default function BlogAdminPage() {
     setReadTime(blog.readTime);
     setCoverImage(blog.coverImage ?? "");
     setContent(blog.content);
+    setUploadedImages([]);
     setEditingSlug(postSlug);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setShowPreview(false);
+    document.getElementById("blog-editor-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  async function handleEdit(postSlug: string) {
+    setError("");
+    setSuccessMessage("");
+
+    const staticBlog = staticBlogForSlug(postSlug);
+    if (staticBlog) {
+      populateEditor(staticBlog, postSlug);
+
+      void getBlogBySlug(postSlug, { bustCache: true }).then((remote) => {
+        if (!remote?.content?.trim()) return;
+        setTitle(remote.title);
+        setExcerpt(remote.excerpt);
+        setTags(remote.tags?.join(", ") ?? "");
+        setReadTime(remote.readTime);
+        setCoverImage(remote.coverImage ?? "");
+        setContent(remote.content);
+      });
+
+      return;
+    }
+
+    setLoadingEditSlug(postSlug);
+
+    try {
+      const blog = await getBlogBySlug(postSlug, { bustCache: true });
+      if (!blog) {
+        setError(`Could not load "${postSlug}" for editing. Check Storage rules and try again.`);
+        return;
+      }
+
+      populateEditor(blog, postSlug);
+    } catch (err) {
+      console.error("Edit load error:", err);
+      setError(`Failed to open "${postSlug}" for editing.`);
+    } finally {
+      setLoadingEditSlug(null);
+    }
   }
 
   async function handlePublish() {
@@ -364,7 +433,7 @@ export default function BlogAdminPage() {
         )}
 
         <div className="grid gap-8 lg:grid-cols-2">
-          <div className="soft-card space-y-4 rounded-[14px] p-6">
+          <div id="blog-editor-panel" className="soft-card space-y-4 rounded-[14px] p-6">
             <div className="flex items-center justify-between">
               <h2 className="flex items-center gap-2 text-lg font-semibold">
                 <FileText className="size-5" /> {editingSlug ? "Edit post" : "New post"}
@@ -389,7 +458,53 @@ export default function BlogAdminPage() {
               <input value={tags} onChange={(e) => setTags(e.target.value)} placeholder="Tags (comma-separated)" className="admin-input" />
               <input value={readTime} onChange={(e) => setReadTime(e.target.value)} placeholder="Read time" className="admin-input" />
             </div>
-            <input value={coverImage} onChange={(e) => setCoverImage(e.target.value)} placeholder="Cover image URL" className="admin-input" />
+            <input value={coverImage} onChange={(e) => setCoverImage(e.target.value)} placeholder="Cover image URL (or use Set cover on an upload)" className="admin-input" />
+
+            <div className="rounded-[10px] border border-dashed border-white/10 bg-white/[0.02] p-4 text-sm text-muted-foreground">
+              <div className="flex items-center justify-between gap-3">
+                <p className="font-medium text-zinc-200">Write in Markdown — not HTML</p>
+                <button
+                  type="button"
+                  onClick={() => setShowWritingGuide((value) => !value)}
+                  className="text-xs text-zinc-400 hover:text-white"
+                >
+                  {showWritingGuide ? "Hide guide" : "Show guide"}
+                </button>
+              </div>
+              {showWritingGuide ? (
+                <ul className="mt-3 space-y-1.5 text-xs leading-6">
+                  <li><strong className="text-zinc-300">Body text:</strong> plain paragraphs, **bold**, [links](url), ## headings, &gt; quotes</li>
+                  <li><strong className="text-zinc-300">Images:</strong> upload below, then click <em>Insert</em> — or use <code className="rounded bg-white/10 px-1">![caption](url)</code></li>
+                  <li><strong className="text-zinc-300">Site images:</strong> <code className="rounded bg-white/10 px-1">![caption](/media/file.jpg)</code></li>
+                  <li><strong className="text-zinc-300">Stat cards / lede / sources:</strong> use the insert buttons below (no HTML needed)</li>
+                  <li><strong className="text-zinc-300">Video:</strong> only advanced blocks still use HTML — use Insert video if needed</li>
+                </ul>
+              ) : null}
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {(
+                [
+                  ["Lede", blogSnippets.lede],
+                  ["Stat card", blogSnippets.stat],
+                  ["Image", blogSnippets.image],
+                  ["Site image", blogSnippets.localImage],
+                  ["Quote", blogSnippets.quote],
+                  ["Section", blogSnippets.heading],
+                  ["Sources", blogSnippets.sources],
+                  ["Video", blogSnippets.video],
+                ] as const
+              ).map(([label, snippet]) => (
+                <button
+                  key={label}
+                  type="button"
+                  onClick={() => insertSnippet(snippet)}
+                  className="rounded-full border border-dashed border-white/10 px-3 py-1.5 text-xs text-zinc-300 transition-colors hover:border-white/20 hover:text-white"
+                >
+                  + {label}
+                </button>
+              ))}
+            </div>
 
             <label className="block cursor-pointer rounded-[10px] border border-dashed border-white/10 px-4 py-3 text-center text-sm hover:border-white/20">
               <Upload className="mx-auto mb-2 size-4" />
@@ -399,31 +514,43 @@ export default function BlogAdminPage() {
 
             {uploadedImages.length > 0 && (
               <div className="space-y-2">
-                {uploadedImages.map((img, index) => (
-                  <div key={img.url} className="flex items-center gap-2 rounded-[10px] border border-dashed border-white/10 px-3 py-2 text-sm">
-                    <ImageIcon className="size-4 text-muted-foreground" />
-                    <span className="flex-1 truncate">{img.name}</span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        void navigator.clipboard.writeText(`![${img.name}](${img.url})`);
-                        setUploadedImages((prev) => prev.map((item, i) => (i === index ? { ...item, copied: true } : item)));
-                      }}
-                      className="rounded p-1 hover:bg-white/5"
-                    >
-                      {img.copied ? <Check className="size-4" /> : <Copy className="size-4" />}
-                    </button>
+                {uploadedImages.map((img) => (
+                  <div key={img.url} className="rounded-[10px] border border-dashed border-white/10 p-3 text-sm">
+                    <div className="flex items-center gap-2">
+                      <ImageIcon className="size-4 shrink-0 text-muted-foreground" />
+                      <span className="min-w-0 flex-1 truncate">{img.name}</span>
+                    </div>
+                    <p className="mt-2 truncate font-mono text-[11px] text-zinc-500">{img.url}</p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <Button type="button" size="sm" variant="outline" className="h-8 rounded-[8px] text-xs" onClick={() => insertUploadedImage(img)}>
+                        Insert into post
+                      </Button>
+                      <Button type="button" size="sm" variant="outline" className="h-8 rounded-[8px] text-xs" onClick={() => insertUploadedImage(img, true)}>
+                        Set as cover
+                      </Button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          void navigator.clipboard.writeText(`![${img.name}](${img.url})`);
+                          setUploadedImages((prev) => prev.map((item) => (item.url === img.url ? { ...item, copied: true } : item)));
+                        }}
+                        className="inline-flex h-8 items-center gap-1 rounded-[8px] border border-dashed border-white/10 px-3 text-xs text-zinc-300 hover:text-white"
+                      >
+                        {img.copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />} Copy markdown
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
             )}
 
             <textarea
+              ref={contentRef}
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              placeholder="Markdown content (supports GFM + LaTeX with $...$ and $$...$$)"
+              placeholder="Write in Markdown. Example: ## Section title, **bold**, ![image caption](url), and use + Stat card / + Lede buttons for styled blocks."
               rows={16}
-              className="admin-input font-mono text-sm"
+              className="admin-input font-mono text-sm leading-6"
             />
 
             <div className="flex flex-wrap gap-2">
@@ -440,7 +567,7 @@ export default function BlogAdminPage() {
 
             {showPreview && (
               <div className="rounded-[14px] border border-dashed border-white/10 p-5">
-                <MarkdownContent content={content || "*Nothing to preview yet.*"} />
+                <MarkdownContent content={content || "*Nothing to preview yet.*"} variant="blog" />
               </div>
             )}
           </div>
@@ -452,14 +579,29 @@ export default function BlogAdminPage() {
                 <p className="text-sm text-muted-foreground">No Firebase posts yet.</p>
               ) : (
                 existingBlogs.map((blog) => (
-                  <div key={blog.slug} className="flex items-center justify-between gap-3 rounded-[10px] border border-dashed border-white/10 px-4 py-3">
+                  <div
+                    key={blog.slug}
+                    className={`flex items-center justify-between gap-3 rounded-[10px] border border-dashed px-4 py-3 ${
+                      editingSlug === blog.slug ? "border-white/25 bg-white/[0.06]" : "border-white/10"
+                    }`}
+                  >
                     <div className="min-w-0">
                       <p className="truncate font-medium">{blog.title}</p>
                       <p className="text-xs text-muted-foreground">{blog.date}</p>
                     </div>
                     <div className="flex shrink-0 gap-1">
-                      <button type="button" onClick={() => void handleEdit(blog.slug)} className="rounded p-2 hover:bg-white/5">
-                        <Edit className="size-4" />
+                      <button
+                        type="button"
+                        aria-label={`Edit ${blog.title}`}
+                        disabled={loadingEditSlug === blog.slug}
+                        onClick={() => void handleEdit(blog.slug)}
+                        className="rounded p-2 hover:bg-white/5 disabled:opacity-50"
+                      >
+                        {loadingEditSlug === blog.slug ? (
+                          <span className="inline-block size-4 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+                        ) : (
+                          <Edit className="size-4" />
+                        )}
                       </button>
                       <button type="button" onClick={() => void handleDelete(blog.slug)} className="rounded p-2 hover:bg-white/5">
                         <Trash2 className="size-4" />

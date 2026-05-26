@@ -1,4 +1,5 @@
-import { BookOpen, Command, Link as LinkIcon, PenLine } from "lucide-react";
+import { FileText, Images, Link as LinkIcon, PenLine } from "lucide-react";
+import { profile } from "@/content/site";
 
 export const primaryLinks = [
   { name: "Home", href: "/" },
@@ -17,12 +18,12 @@ export const moreLinks = [
     image: "/media/guestbook-journal.jpg",
   },
   {
-    name: "Bucket List",
-    href: "/bucket-list",
-    description: "Things to do at least once",
-    icon: BookOpen,
+    name: "Gallery",
+    href: "/gallery",
+    description: "Meaningful images from the work and the road",
+    icon: Images,
     featured: true,
-    image: "/media/bucket-list-adventure.jpg",
+    image: "/media/mountain-travel-cinematic.jpg",
   },
   {
     name: "Links",
@@ -31,15 +32,10 @@ export const moreLinks = [
     icon: LinkIcon,
   },
   {
-    name: "Uses",
-    href: "/uses",
-    description: "My tools and workflow",
-    icon: BookOpen,
-  },
-  {
-    name: "Attribution",
-    href: "/attribution",
-    description: "Craft and credits",
-    icon: Command,
+    name: "Resume",
+    href: profile.resume,
+    description: "PDF: experience and education",
+    icon: FileText,
+    external: true,
   },
 ];

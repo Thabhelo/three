@@ -1,16 +1,11 @@
 import { posts as mlPosts } from "@/content/site";
 import { mediumPosts } from "@/config/medium-posts";
 
-/** Native ML teaching posts — hosted on this site (Firebase Storage markdown). */
+/** Native ML teaching posts, hosted on this site (Firebase Storage markdown). */
 export const nativePosts = [
   {
     ...mlPosts[0],
-    imageFallback: "/media/blog-performance-ring.jpg",
-    channel: "native" as const,
-  },
-  {
-    ...mlPosts[1],
-    imageFallback: "/media/blog-terminal-setup.jpg",
+    imageFallback: mlPosts[0].coverImage ?? "/media/blog-highway-aerial.jpg",
     channel: "native" as const,
   },
 ];

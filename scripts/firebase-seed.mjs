@@ -21,7 +21,7 @@ if (existsSync(envPath)) {
 }
 
 if (!existsSync(keyPath)) {
-  console.error("Missing .firebase-seed-key.json — run the service account setup first.");
+  console.error("Missing .firebase-seed-key.json. Run the service account setup first.");
   process.exit(1);
 }
 
@@ -35,66 +35,26 @@ admin.initializeApp({
 const db = admin.firestore();
 const bucket = admin.storage().bucket();
 
+const evaluationContent = readFileSync(
+  resolve(root, "src/content/blog/after-the-data-ramp.md"),
+  "utf8",
+);
+
 const nativePosts = [
   {
-    slug: "building-ml-that-survives-the-real-world",
-    title: "Building ML That Survives the Real World",
-    date: "2026-05-10",
+    slug: "after-the-data-ramp",
+    title: "Scaling Autonomous Vehicles: Miles, Data, and Coverage",
+    date: "2026-05-26",
     excerpt:
-      "Notes on the difference between a model that demos well and a system that survives edge cases, messy data, and deployment pressure.",
-    tags: ["Machine Learning", "Systems", "MLOps"],
-    readTime: "5 min read",
-    coverImage: "/media/blog-performance-ring.jpg",
-    content: `# Building ML That Survives the Real World
-
-The hardest parts of ML rarely show up in the architecture diagram. They show up in labels, missing metadata, edge cases, and the distance between a benchmark and production.
-
-My current rule is simple: every model deserves an evaluation story, an operations story, and a failure story before it deserves a launch story.
-
-\`\`\`python
-metrics = evaluate(model, dataset)
-report_tradeoffs(metrics, latency_ms=142, memory_gb=9.8)
-\`\`\`
-
-## What changes in production
-
-- Data drift shows up before model drift.
-- Latency budgets matter as much as accuracy curves.
-- Human review loops are part of the system, not a patch.
-
-Teaching ML well means being honest about all three layers: math, software, and operations.`,
-  },
-  {
-    slug: "offline-first-tools-for-real-communities",
-    title: "Offline-First Tools for Real Communities",
-    date: "2026-04-18",
-    excerpt:
-      "Why unreliable connectivity should be a first-class design constraint for dataset tools, education products, and community software.",
-    tags: ["Open Source", "Community", "Tools"],
-    readTime: "4 min read",
-    coverImage: "/media/blog-terminal-setup.jpg",
-    content: `# Offline-First Tools for Real Communities
-
-If software only works on perfect internet, it excludes many of the people I most want to build for.
-
-Offline-first design is not a fallback. It is respect for the environment the product is entering.
-
-\`\`\`bash
-cowcow record --offline
-cowcow sync --when-connected
-\`\`\`
-
-## Design principles
-
-1. Capture locally, validate early.
-2. Sync when connected, never block the user when not.
-3. Make exports boring and reproducible.`,
+      "Waymo and Tesla are scaling fleet miles faster than training data covers new geographies. What changes when scalability—not demos—becomes the AV strategy.",
+    tags: ["Autonomous Vehicles", "Data", "DeepUbuntu", "Industry"],
+    readTime: "14 min read",
+    coverImage: "/media/blog-highway-aerial.jpg",
+    content: evaluationContent,
   },
 ];
 
-async function seedMediumPosts() {
-  console.log("ℹ Medium posts are synced separately — run: npm run medium:sync");
-}
+const guestbookEntries = [
   {
     name: "Future collaborator",
     message: "Excited to see what you ship next. The ML writing series is going to help a lot of people.",
@@ -104,6 +64,19 @@ async function seedMediumPosts() {
     message: "Leave a note, a project idea, or a trail of where you found the site.",
   },
 ];
+
+async function cleanupOldBlogs() {
+  const canonicalSlugs = new Set(nativePosts.map((post) => post.slug));
+  const [files] = await bucket.getFiles({ prefix: "blogs/" });
+
+  for (const file of files) {
+    const slug = file.name.replace(/^blogs\//, "").replace(/\.md$/, "");
+    if (!slug || canonicalSlugs.has(slug)) continue;
+
+    await file.delete();
+    console.log(`✗ removed old blog: ${slug}`);
+  }
+}
 
 async function seedNativePosts() {
   for (const post of nativePosts) {
@@ -127,15 +100,7 @@ async function seedNativePosts() {
 }
 
 async function seedMediumPosts() {
-  for (const post of mediumPosts) {
-    const existing = await db.collection("mediumPosts").where("slug", "==", post.slug).get();
-    if (!existing.empty) {
-      await existing.docs[0].ref.set(post);
-    } else {
-      await db.collection("mediumPosts").add(post);
-    }
-    console.log(`✓ medium post: ${post.slug}`);
-  }
+  console.log("ℹ Medium posts are synced separately. Run: npm run medium:sync");
 }
 
 async function seedGuestbook() {
@@ -153,7 +118,7 @@ async function ensureAdminUser() {
   const password = process.env.BLOG_ADMIN_PASSWORD;
 
   if (!password) {
-    console.log("⚠ Skipping admin user — set BLOG_ADMIN_PASSWORD in .env");
+    console.log("⚠ Skipping admin user. Set BLOG_ADMIN_PASSWORD in .env");
     return;
   }
 
@@ -181,6 +146,7 @@ async function ensureAdminUser() {
 
 async function main() {
   console.log("Seeding thabhelo-portfolio...\n");
+  await cleanupOldBlogs();
   await seedNativePosts();
   await seedMediumPosts();
   await seedGuestbook();

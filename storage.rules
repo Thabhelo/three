@@ -2,14 +2,28 @@ rules_version = '2';
 
 service firebase.storage {
   match /b/{bucket}/o {
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email.lower() in [
+          'thabheloduve@gmail.com',
+          'thabhelo.duve@talladega.edu',
+          'thabhelo@deepubuntu.com'
+        ];
+    }
+
     match /blogs/{fileName} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow write: if isAdmin();
     }
 
     match /blog-images/{fileName} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow write: if isAdmin();
+    }
+
+    match /gallery/{fileName} {
+      allow read: if true;
+      allow write: if isAdmin();
     }
   }
 }
