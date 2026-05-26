@@ -54,17 +54,6 @@ const nativePosts = [
   },
 ];
 
-const guestbookEntries = [
-  {
-    name: "Future collaborator",
-    message: "Excited to see what you ship next. The ML writing series is going to help a lot of people.",
-  },
-  {
-    name: "Open-source friend",
-    message: "Leave a note, a project idea, or a trail of where you found the site.",
-  },
-];
-
 async function cleanupOldBlogs() {
   const canonicalSlugs = new Set(nativePosts.map((post) => post.slug));
   const [files] = await bucket.getFiles({ prefix: "blogs/" });
@@ -103,16 +92,6 @@ async function seedMediumPosts() {
   console.log("ℹ Medium posts are synced separately. Run: npm run medium:sync");
 }
 
-async function seedGuestbook() {
-  for (const [index, entry] of guestbookEntries.entries()) {
-    await db.collection("guestbook").doc(`seed-${index + 1}`).set({
-      ...entry,
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-    });
-    console.log(`✓ guestbook: ${entry.name}`);
-  }
-}
-
 async function ensureAdminUser() {
   const email = process.env.BLOG_ADMIN_EMAIL ?? "thabhelo@deepubuntu.com";
   const password = process.env.BLOG_ADMIN_PASSWORD;
@@ -149,7 +128,6 @@ async function main() {
   await cleanupOldBlogs();
   await seedNativePosts();
   await seedMediumPosts();
-  await seedGuestbook();
   await ensureAdminUser();
   console.log("\nDone.");
 }

@@ -1,6 +1,6 @@
 import type { MouseEvent } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, Sparkles } from "lucide-react";
+import { ArrowUpRight, Mail } from "lucide-react";
 import HeroTerminalBanner from "@/components/HeroTerminalBanner";
 import { profile, profileCredentials } from "@/content/site";
 import { blurIn, heroItemTransition } from "@/lib/motion";
@@ -46,8 +46,7 @@ export default function Hero({ backgroundImage }: HeroProps) {
             className="group mb-8 inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-[13px] text-white/70 backdrop-blur-xs transition-colors duration-150 ease-in hover:border-white/15 hover:bg-white/5 hover:text-white"
           >
             <span className="rounded-full bg-blue-600 px-2 py-0.5 text-[10px] font-semibold uppercase text-white">New</span>
-            <Sparkles className="size-3.5 text-white/60" />
-            <span>Support my business</span>
+            <span>Oh, please support my business.</span>
             <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </a>
 

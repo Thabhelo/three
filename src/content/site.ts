@@ -398,18 +398,6 @@ export const posts = [
   },
 ];
 
-export const guestbookEntries = [
-  {
-    name: "Future collaborator",
-    message: "Excited to see what you ship next. The ML writing series is going to help a lot of people.",
-    date: "May 2026",
-  },
-  {
-    name: "Open-source friend",
-    message: "Leave a note, a project idea, or a trail of where you found the site.",
-    date: "Soon",
-  },
-];
 
 export const privacyNotice =
-  "This site collects only what you submit. Contact messages (name, email, and message) are stored so I can reply, and may be sent through Firebase and email delivery providers. Guestbook entries (name, message, and optional email) are stored the same way. Booking through Cal.com is handled by Cal.com under their privacy policy. I do not sell your data or use invasive ad tracking. To ask about or delete something you submitted, email me at thabheloduve@gmail.com.";
+  "I only collect what you submit on this site to respond to you; it may be stored via Firebase and email providers, and booking is handled by Google Calendar. I don't sell data or use invasive ad tracking. Email thabheloduve@gmail.com to ask about or delete what you submitted.";

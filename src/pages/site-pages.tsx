@@ -8,12 +8,10 @@ import {
   CheckCircle2,
   Clipboard,
   Github,
-  MessageSquare,
   Rss,
-  Shield,
 } from "lucide-react";
 import { Link, useRoute } from "wouter";
-import CalComEmbed from "@/components/CalComEmbed";
+import BookingEmbed from "@/components/BookingEmbed";
 import ContactForm from "@/components/ContactForm";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import Footer from "@/components/Footer";
@@ -31,7 +29,7 @@ import {
 } from "@/content/site";
 import { getStaticCode, getStaticSections, useBlogPost, useMediumPosts, useNativePosts } from "@/hooks/use-blog-posts";
 import { useAdminAuth } from "@/hooks/use-admin-auth";
-import { useGuestbookForm, useGuestbook } from "@/hooks/use-guestbook";
+import { useGuestbookForm } from "@/hooks/use-guestbook";
 import MarkdownContent from "@/components/MarkdownContent";
 import MailingListSignup from "@/components/MailingListSignup";
 import MediumPostsGrid from "@/components/MediumPostsGrid";
@@ -130,7 +128,7 @@ export function ProjectsPage() {
 
   return (
     <PageShell>
-      <PageHeader eyebrow="Work" title="Selected systems, tools, and experiments." description="A more deliberate view of applied ML, developer tooling, community infrastructure, and product work." />
+      <PageHeader eyebrow="Work" title="Projects" description="ML systems, developer tools, and products I've built." />
       <section className="section-frame pb-24">
         <p className="mb-6 font-label text-center lg:text-left">Hover a project to preview it in the spotlight</p>
         <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
@@ -318,7 +316,7 @@ export function ProjectDetailPage() {
 export function BlogIndexPage() {
   const { posts: nativePosts, loading: nativeLoading } = useNativePosts();
   const { posts: mediumPosts, loading: mediumLoading } = useMediumPosts();
-  const [blogMode, setBlogMode] = useState<"native" | "medium">("native");
+  const [blogMode, setBlogMode] = useState<"native" | "medium">("medium");
   const loading = nativeLoading || mediumLoading;
 
   return (
@@ -334,8 +332,8 @@ export function BlogIndexPage() {
           </h1>
           <div className="mx-auto mt-8 flex max-w-md items-center rounded-[10px] border border-dashed border-white/10 bg-white/[0.035] p-1">
             {[
-              ["native", "ML Blog"],
               ["medium", "Medium"],
+              ["native", "ML Blog"],
             ].map(([mode, label]) => (
               <button
                 key={mode}
@@ -492,56 +490,36 @@ export function BlogPostPage() {
 }
 
 export function GuestbookPage() {
-  const { entries, loading } = useGuestbook();
   const { handleSubmit, submitting, error, submitted } = useGuestbookForm();
 
   return (
     <PageShell>
-      <PageHeader eyebrow="Guestbook" title="Leave a note for the road." description="Sign the guestbook with your name and a short message. Add your email if you want post updates too." />
-      <section className="container mx-auto grid gap-8 px-4 pb-24 md:px-6 lg:grid-cols-[0.8fr_1fr]">
+      <PageHeader eyebrow="Guestbook" title="Guestbook" description="Leave your name, website, and message." />
+      <section className="container mx-auto max-w-2xl px-4 pb-24 md:px-6">
         <div className="soft-card rounded-[14px] p-6">
-          <MessageSquare className="size-10 text-white/70" />
-          <h2 className="mt-5 text-2xl font-semibold">Sign the guestbook</h2>
-          <p className="mt-3 text-muted-foreground">Share a note, a project idea, or where you found the site.</p>
-          <form onSubmit={handleSubmit} className="mt-6 grid gap-4">
+          <form onSubmit={handleSubmit} className="grid gap-4">
             <label className="grid gap-2 text-sm">
               <span>Name</span>
-              <input name="name" required maxLength={80} className="rounded-[10px] border border-dashed border-white/10 bg-white/[0.03] px-4 py-3 outline-none focus:border-white/25" placeholder="Your name" />
+              <input name="name" required maxLength={80} className="rounded-[10px] border border-dashed border-white/10 bg-white/[0.03] px-4 py-3 outline-none focus:border-white/25" />
             </label>
             <label className="grid gap-2 text-sm">
-              <span>Email <span className="text-muted-foreground">(optional, joins the mailing list)</span></span>
-              <input name="email" type="email" maxLength={254} className="rounded-[10px] border border-dashed border-white/10 bg-white/[0.03] px-4 py-3 outline-none focus:border-white/25" placeholder="you@example.com" />
+              <span>Website <span className="text-muted-foreground">(optional)</span></span>
+              <input name="website" type="url" maxLength={2048} className="rounded-[10px] border border-dashed border-white/10 bg-white/[0.03] px-4 py-3 outline-none focus:border-white/25" placeholder="https://" />
+            </label>
+            <label className="grid gap-2 text-sm">
+              <span>Email <span className="text-muted-foreground">(optional)</span></span>
+              <input name="email" type="email" maxLength={254} className="rounded-[10px] border border-dashed border-white/10 bg-white/[0.03] px-4 py-3 outline-none focus:border-white/25" />
             </label>
             <label className="grid gap-2 text-sm">
               <span>Message</span>
-              <textarea name="message" required maxLength={1000} rows={4} className="rounded-[10px] border border-dashed border-white/10 bg-white/[0.03] px-4 py-3 outline-none focus:border-white/25" placeholder="Your message" />
+              <textarea name="message" required maxLength={1000} rows={4} className="rounded-[10px] border border-dashed border-white/10 bg-white/[0.03] px-4 py-3 outline-none focus:border-white/25" />
             </label>
             {error && <p className="text-sm text-red-400">{error}</p>}
-            {submitted && <p className="text-sm text-emerald-300">Thanks, your note is live.</p>}
+            {submitted && <p className="text-sm text-emerald-300">Message sent.</p>}
             <Button type="submit" className="rounded-[10px]" disabled={submitting}>
-              {submitting ? "Sending..." : "Sign guestbook"}
+              {submitting ? "Sending..." : "Submit"}
             </Button>
           </form>
-        </div>
-        <div className="grid gap-4">
-          {loading ? (
-            [...Array(2)].map((_, index) => (
-              <div key={index} className="soft-card animate-pulse rounded-[14px] p-6">
-                <div className="h-4 w-full rounded bg-white/10" />
-                <div className="mt-4 h-4 w-2/3 rounded bg-white/10" />
-              </div>
-            ))
-          ) : (
-            entries.map((entry) => (
-              <div key={entry.id} className="soft-card rounded-[14px] p-6">
-                <p className="text-lg leading-8 text-muted-foreground">&ldquo;{entry.message}&rdquo;</p>
-                <div className="mt-5 flex items-center justify-between font-label">
-                  <span>{entry.name}</span>
-                  <span>{entry.createdAt}</span>
-                </div>
-              </div>
-            ))
-          )}
         </div>
       </section>
     </PageShell>
@@ -696,7 +674,7 @@ export function ContactPage() {
               <ContactForm />
             </div>
           ) : (
-            <CalComEmbed />
+            <BookingEmbed />
           )}
         </div>
         <div className="py-20 text-center">
@@ -733,8 +711,7 @@ export function PrivacyPage() {
       <PageHeader eyebrow="Legal" title="Privacy" description="What this site collects and why." />
       <section className="container mx-auto px-4 pb-24 md:px-6">
         <div className="soft-card max-w-3xl rounded-[14px] p-8">
-          <Shield className="size-10 text-white/70" />
-          <p className="mt-6 text-lg leading-9 text-muted-foreground">{privacyNotice}</p>
+          <p className="text-lg leading-9 text-muted-foreground">{privacyNotice}</p>
         </div>
       </section>
     </PageShell>

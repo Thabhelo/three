@@ -12,14 +12,16 @@ service cloud.firestore {
     }
 
     match /guestbook/{entryId} {
-      allow read: if true;
+      allow read: if isAdmin();
       allow create: if request.resource.data.keys().hasAll(['name', 'message', 'createdAt'])
         && request.resource.data.name is string
         && request.resource.data.message is string
         && request.resource.data.name.size() > 0
         && request.resource.data.name.size() <= 80
         && request.resource.data.message.size() > 0
-        && request.resource.data.message.size() <= 1000;
+        && request.resource.data.message.size() <= 1000
+        && (!('website' in request.resource.data)
+          || (request.resource.data.website is string && request.resource.data.website.size() <= 2048));
       allow update, delete: if isAdmin();
     }
 

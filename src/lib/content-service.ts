@@ -55,12 +55,18 @@ export async function getGuestbookEntries(): Promise<GuestbookEntry[]> {
   });
 }
 
-export async function submitGuestbookEntry(name: string, message: string, email?: string): Promise<boolean> {
+export async function submitGuestbookEntry(
+  name: string,
+  message: string,
+  website?: string,
+  email?: string,
+): Promise<boolean> {
   if (!db) return false;
 
   await addDoc(collection(db, "guestbook"), {
     name: name.trim(),
     message: message.trim(),
+    ...(website?.trim() ? { website: website.trim() } : {}),
     createdAt: serverTimestamp(),
   });
 

@@ -77,10 +77,11 @@ export default function ContactForm() {
           {loading ? "Sending..." : "Send message"}
         </Button>
         <p className="text-center text-xs leading-5 text-muted-foreground">
-          By sending a message, you agree that I can use your details to reply.{" "}
+          By sending a message, you agree to our{" "}
           <Link href="/privacy" className="underline underline-offset-4 transition-colors hover:text-foreground">
-            Privacy notice
+            privacy policy
           </Link>
+          .
         </p>
       </div>
     </form>

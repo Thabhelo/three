@@ -1,6 +1,6 @@
 import emailjs from "@emailjs/browser";
 import { contactConfig, isEmailJsConfigured } from "@/config/contact";
-import { submitContactMessage } from "@/lib/content-service";
+import { submitContactMessage, submitGuestbookEntry } from "@/lib/content-service";
 
 async function sendViaEmailJs(name: string, email: string, message: string) {
   const { serviceId, templateId, publicKey } = contactConfig.emailJs;
@@ -23,7 +23,12 @@ async function sendViaEmailJs(name: string, email: string, message: string) {
   );
 }
 
-async function sendViaFormSubmit(name: string, email: string, message: string) {
+async function sendViaFormSubmit(
+  name: string,
+  email: string,
+  message: string,
+  subject = `Portfolio message from ${name}`,
+) {
   const response = await fetch(
     `https://formsubmit.co/ajax/${encodeURIComponent(contactConfig.recipientEmail)}`,
     {
@@ -36,7 +41,7 @@ async function sendViaFormSubmit(name: string, email: string, message: string) {
         name,
         email,
         message,
-        _subject: `Portfolio message from ${name}`,
+        _subject: subject,
         _template: "table",
         _captcha: "false",
       }),
@@ -74,4 +79,41 @@ export async function deliverContactMessage(name: string, email: string, message
   }
 
   await sendViaFormSubmit(trimmedName, trimmedEmail, trimmedMessage);
+}
+
+export async function deliverGuestbookEntry(
+  name: string,
+  message: string,
+  website?: string,
+  email?: string,
+): Promise<void> {
+  const trimmedName = name.trim();
+  const trimmedMessage = message.trim();
+  const trimmedWebsite = website?.trim();
+  const trimmedEmail = email?.trim();
+
+  try {
+    await submitGuestbookEntry(trimmedName, trimmedMessage, trimmedWebsite, trimmedEmail);
+  } catch {
+    // Firestore backup is best-effort; email delivery still proceeds.
+  }
+
+  const lines = [
+    trimmedMessage,
+    trimmedWebsite ? `Website: ${trimmedWebsite}` : null,
+    trimmedEmail ? `Email: ${trimmedEmail}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+
+  if (isEmailJsConfigured() && trimmedEmail) {
+    try {
+      await sendViaEmailJs(trimmedName, trimmedEmail, lines);
+      return;
+    } catch {
+      // Fall through to FormSubmit when EmailJS fails at runtime.
+    }
+  }
+
+  await sendViaFormSubmit(trimmedName, trimmedEmail || "guestbook@noreply.local", lines, `Guestbook from ${trimmedName}`);
 }
