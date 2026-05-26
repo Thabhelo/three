@@ -25,7 +25,6 @@ import RotatingImageStack from "@/components/RotatingImageStack";
 import { Button } from "@/components/ui/button";
 import {
   capabilities,
-  aboutFocusAreas,
   privacyNotice,
   links,
   testimonials,
@@ -111,22 +110,6 @@ export function AboutPage() {
             </div>
           </motion.div>
           <RotatingImageStack images={stackImages} />
-        </div>
-      </section>
-      <section className="section-frame pb-24">
-        <div className="grid gap-4 md:grid-cols-3">
-          {aboutFocusAreas.map((item) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="soft-card min-h-56 rounded-[14px] p-6 transition-colors duration-300 hover:border-white/20"
-            >
-              <h2 className="text-2xl font-semibold">{item.title}</h2>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.subtitle}</p>
-            </motion.div>
-          ))}
         </div>
       </section>
       <ExperienceSection />

@@ -40,24 +40,6 @@ export const profile = {
   ],
 };
 
-export const aboutFocusAreas = [
-  {
-    title: "Autonomous Systems Data",
-    subtitle:
-      "DeepUbuntu, CowCow, and DuFind: collecting, validating, and searching AV field data in regions current stacks rarely cover.",
-  },
-  {
-    title: "Production ML",
-    subtitle:
-      "Medical imaging benchmarks, computer vision, and evaluation where preprocessing, metrics, and deployment tradeoffs matter more than demo polish.",
-  },
-  {
-    title: "Shippable Products",
-    subtitle:
-      "Mesh, full-stack tools, and multi-agent systems built for real operators, offline conditions, and constraints lab demos usually skip.",
-  },
-];
-
 export const profileCredentials = [
   "CS, Math & Physics",
   "YC Startup School 2026",

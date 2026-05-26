@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import { useAdminAuth } from "@/hooks/use-admin-auth";
-import { isFirebaseConfigured } from "@/lib/firebase";
 
 type AdminHintLinkProps = {
   loginHref: string;
@@ -9,9 +8,7 @@ type AdminHintLinkProps = {
 export default function AdminHintLink({ loginHref }: AdminHintLinkProps) {
   const { user, signOutAdmin } = useAdminAuth();
 
-  if (!isFirebaseConfigured()) return null;
-
-  const className = "font-label text-[11px] text-white/25 transition-colors hover:text-white/50";
+  const className = "font-label text-[11px] text-white/40 transition-colors hover:text-white/70";
 
   if (user) {
     return (
