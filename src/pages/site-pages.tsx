@@ -25,20 +25,23 @@ import { Button } from "@/components/ui/button";
 import {
   bucketList,
   capabilities,
-  guestbookEntries,
   legalPages,
   links,
   testimonials,
   uses,
 } from "@/content/site";
-import { posts } from "@/config/blog";
+import { getStaticCode, getStaticSections, useBlogPost, useMediumPosts, useNativePosts } from "@/hooks/use-blog-posts";
+import { useGuestbookForm, useGuestbook } from "@/hooks/use-guestbook";
+import MarkdownContent from "@/components/MarkdownContent";
+import MailingListSignup from "@/components/MailingListSignup";
+import { toMediumEmbedUrl } from "@/lib/medium-embed";
 import { experiences } from "@/config/experience";
 import { profile } from "@/config/profile";
 import { projects } from "@/config/projects";
 
 function PageShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+    <div className="min-h-screen bg-background text-foreground selection:bg-white/20 selection:text-white">
       <Navbar />
       <main className="pt-28">{children}</main>
       <Footer />
@@ -50,7 +53,7 @@ function PageHeader({ eyebrow, title, description }: { eyebrow: string; title: s
   return (
     <section className="section-frame pb-14 pt-8 md:pb-20">
       <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="max-w-4xl">
-        <p className="font-mono text-xs uppercase tracking-[0.28em] text-primary">{eyebrow}</p>
+        <p className="font-label">{eyebrow}</p>
         <h1 className="mt-5 text-balance font-display text-5xl leading-tight tracking-tight md:text-6xl">{title}</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{description}</p>
       </motion.div>
@@ -61,8 +64,8 @@ function PageHeader({ eyebrow, title, description }: { eyebrow: string; title: s
 function SectionIntro({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
   return (
     <div className="mb-10 max-w-3xl">
-      <p className="font-mono text-xs uppercase tracking-[0.28em] text-primary">{eyebrow}</p>
-      <h2 className="mt-3 font-display text-4xl leading-tight tracking-tight md:text-5xl">{title}</h2>
+      <p className="font-label">{eyebrow}</p>
+      <h2 className="mt-3 font-editorial text-4xl leading-tight tracking-tight md:text-5xl">{title}</h2>
       {description ? <p className="mt-4 text-muted-foreground">{description}</p> : null}
     </div>
   );
@@ -118,7 +121,7 @@ function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="soft-card rounded-[2rem] p-5 md:p-8">
+    <form onSubmit={handleSubmit} className="soft-card rounded-[14px] p-5 md:p-8">
       <div className="grid gap-5">
         <label className="grid gap-2 text-sm font-medium">
           Your name
@@ -127,7 +130,7 @@ function ContactForm() {
             name="name"
             value={form.name}
             onChange={handleChange}
-            className="rounded-2xl border border-border bg-background/70 px-4 py-3 outline-none transition-colors focus:border-primary"
+            className="rounded-[10px] border border-dashed border-white/10 bg-background/70 px-4 py-3 outline-none transition-colors focus:border-white/30"
             placeholder="What should I call you?"
           />
         </label>
@@ -139,7 +142,7 @@ function ContactForm() {
             name="email"
             value={form.email}
             onChange={handleChange}
-            className="rounded-2xl border border-border bg-background/70 px-4 py-3 outline-none transition-colors focus:border-primary"
+            className="rounded-[10px] border border-dashed border-white/10 bg-background/70 px-4 py-3 outline-none transition-colors focus:border-white/30"
             placeholder="you@example.com"
           />
         </label>
@@ -151,11 +154,11 @@ function ContactForm() {
             name="message"
             value={form.message}
             onChange={handleChange}
-            className="resize-none rounded-2xl border border-border bg-background/70 px-4 py-3 outline-none transition-colors focus:border-primary"
+            className="resize-none rounded-[10px] border border-dashed border-white/10 bg-background/70 px-4 py-3 outline-none transition-colors focus:border-white/30"
             placeholder="Tell me what you are building."
           />
         </label>
-        <Button disabled={loading} className="h-12 rounded-2xl">
+        <Button disabled={loading} className="h-12 rounded-[10px]">
           {loading ? "Sending..." : "Send message"}
         </Button>
       </div>
@@ -178,14 +181,14 @@ export function AboutPage() {
         <CursorPencil sectionRef={introRef} />
         <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <motion.div initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-            <p className="font-mono text-xs uppercase tracking-[0.28em] text-primary">More about me</p>
+            <p className="font-label">More about me</p>
             <h1 className="mt-5 text-balance font-display text-5xl leading-tight tracking-tight md:text-7xl">
               I&apos;m {profile.firstName}, a creative engineer and a little bit of everything.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{profile.shortBio}</p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {capabilities.slice(0, 2).map((capability) => (
-                <div key={capability.title} className="soft-card rounded-3xl p-5">
+                <div key={capability.title} className="soft-card rounded-[14px] p-5">
                   <img src={capability.icon} alt="" className="mb-5 size-10" />
                   <h2 className="text-lg font-semibold">{capability.title}</h2>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">{capability.description}</p>
@@ -208,7 +211,7 @@ export function AboutPage() {
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="soft-card min-h-56 rounded-[1.5rem] p-6 transition-colors duration-300 hover:border-white/20"
+              className="soft-card min-h-56 rounded-[14px] p-6 transition-colors duration-300 hover:border-white/20"
             >
               <p className="font-display text-5xl italic text-white/20">{item.title.slice(0, 2)}</p>
               <h2 className="mt-8 text-2xl font-semibold">{item.title}</h2>
@@ -219,8 +222,8 @@ export function AboutPage() {
       </section>
       <ExperienceSection />
       <section className="container mx-auto px-4 pb-24 md:px-6">
-        <div className="glass-panel rounded-[2rem] p-8">
-          <p className="font-mono text-xs uppercase tracking-[0.28em] text-primary">Open source signal</p>
+        <div className="glass-panel rounded-[14px] p-8">
+          <p className="font-label">Open source signal</p>
           <h2 className="mt-3 font-display text-4xl md:text-5xl">Building in public, learning in public.</h2>
           <GitHubContributions username={profile.githubUsername} />
         </div>
@@ -235,15 +238,15 @@ export function ProjectsPage() {
       <PageHeader eyebrow="Work" title="Selected systems, tools, and experiments." description="A more deliberate view of applied ML, developer tooling, community infrastructure, and product work." />
       <section className="section-frame pb-24">
         <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-          <Link href={`/projects/${projects[0].slug}`} className="group soft-card relative min-h-[520px] overflow-hidden rounded-[2rem] p-6">
+          <Link href={`/projects/${projects[0].slug}`} className="group soft-card relative min-h-[520px] overflow-hidden rounded-[14px] p-6">
             <div className="absolute inset-x-8 top-10 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-primary">Featured / 01</p>
+            <p className="font-label">Featured / 01</p>
             <h2 className="mt-6 max-w-lg font-display text-5xl leading-tight">{projects[0].title}</h2>
             <p className="mt-5 max-w-md text-sm leading-7 text-muted-foreground">{projects[0].description}</p>
             <div className="mt-8 flex flex-wrap gap-2">
               {projects[0].tags.slice(0, 5).map((tag) => <span key={tag} className="ref-pill">{tag}</span>)}
             </div>
-            <div className="absolute bottom-6 left-6 right-6 overflow-hidden rounded-[1.35rem] border border-white/10 bg-zinc-950">
+            <div className="absolute bottom-6 left-6 right-6 overflow-hidden rounded-[14px] border border-white/10 bg-zinc-950">
               <div className="grid aspect-[16/7] place-items-center">
                 <span className="font-display text-7xl italic text-white/12">{projects[0].title.slice(0, 2)}</span>
               </div>
@@ -254,17 +257,17 @@ export function ProjectsPage() {
               <Link
                 key={project.slug}
                 href={`/projects/${project.slug}`}
-                className="group grid gap-4 rounded-[1.5rem] border border-white/[0.08] bg-white/[0.025] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.045] sm:grid-cols-[8rem_1fr_auto]"
+                className="group grid gap-4 rounded-[14px] border border-dashed border-white/[0.10] bg-white/[0.025] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.045] sm:grid-cols-[8rem_1fr_auto]"
               >
                 <div className="grid aspect-[4/3] place-items-center overflow-hidden rounded-[1rem] border border-white/10 bg-zinc-950">
                   {project.image ? <img src={project.image} alt={project.title} className="h-full w-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105" /> : <span className="font-display text-4xl italic text-white/14">{project.title.slice(0, 2)}</span>}
                 </div>
                 <div>
-                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">{String(index + 2).padStart(2, "0")} / {project.eyebrow}</p>
+                  <p className="font-label">{String(index + 2).padStart(2, "0")} / {project.eyebrow}</p>
                   <h2 className="mt-2 text-2xl font-semibold">{project.title}</h2>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">{project.description}</p>
                 </div>
-                <ArrowUpRight className="size-5 self-start text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+                <ArrowUpRight className="size-5 self-start text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
               </Link>
             ))}
           </div>
@@ -292,15 +295,15 @@ export function ProjectDetailPage() {
   return (
     <PageShell>
       <section className="container mx-auto px-4 pb-24 pt-8 md:px-6">
-        <Link href="/projects" className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary">
+        <Link href="/projects" className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-white">
           <ArrowLeft className="size-4" /> Back to projects
         </Link>
         <div className="grid gap-10 lg:grid-cols-[1fr_0.55fr]">
           <article>
-            <p className="font-mono text-xs uppercase tracking-[0.28em] text-primary">{project.eyebrow}</p>
+            <p className="font-label">{project.eyebrow}</p>
             <h1 className="mt-4 font-display text-5xl leading-none md:text-7xl">{project.title}</h1>
             <p className="mt-6 max-w-3xl text-xl leading-8 text-muted-foreground">{project.description}</p>
-            <div className="mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950">
+            <div className="mt-10 overflow-hidden rounded-[14px] border border-white/10 bg-zinc-950">
               {project.image ? <img src={project.image} alt={project.title} className="aspect-[16/9] w-full object-cover opacity-85 transition-transform duration-700 hover:scale-[1.03]" /> : <div className="grid aspect-[16/9] place-items-center"><span className="font-display text-8xl italic text-white/12">{project.title.slice(0, 2)}</span></div>}
             </div>
             <div className="prose prose-invert mt-10 max-w-none text-muted-foreground">
@@ -312,8 +315,8 @@ export function ProjectDetailPage() {
             </div>
           </article>
           <aside className="space-y-6">
-            <div className="soft-card rounded-[2rem] p-6">
-              <p className="font-mono text-xs uppercase tracking-[0.22em] text-primary">Details</p>
+            <div className="soft-card rounded-[14px] p-6">
+              <p className="font-label">Details</p>
               <dl className="mt-5 grid gap-4 text-sm">
                 <div>
                   <dt className="text-muted-foreground">Role</dt>
@@ -334,26 +337,26 @@ export function ProjectDetailPage() {
               <div className="mt-6 grid gap-2">
                 {project.repo ? (
                   <a href={project.repo} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" className="w-full rounded-2xl">
+                    <Button variant="outline" className="w-full rounded-[10px]">
                       <Github className="mr-2 size-4" /> Repository
                     </Button>
                   </a>
                 ) : null}
                 {project.link ? (
                   <a href={project.link} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full rounded-2xl">
+                    <Button className="w-full rounded-[10px]">
                       Live link <ArrowUpRight className="ml-2 size-4" />
                     </Button>
                   </a>
                 ) : null}
               </div>
             </div>
-            <div className="soft-card rounded-[2rem] p-6">
-              <p className="font-mono text-xs uppercase tracking-[0.22em] text-primary">Highlights</p>
+            <div className="soft-card rounded-[14px] p-6">
+              <p className="font-label">Highlights</p>
               <ul className="mt-5 grid gap-4">
                 {project.highlights.map((highlight) => (
                   <li key={highlight} className="flex gap-3 text-sm leading-6 text-muted-foreground">
-                    <CheckCircle2 className="mt-1 size-4 shrink-0 text-primary" />
+                    <CheckCircle2 className="mt-1 size-4 shrink-0 text-white/70" />
                     {highlight}
                   </li>
                 ))}
@@ -362,10 +365,10 @@ export function ProjectDetailPage() {
           </aside>
         </div>
         <div className="mt-16 grid gap-4 border-t border-border pt-8 sm:grid-cols-2">
-          <Link href={`/projects/${previous.slug}`} className="soft-card rounded-3xl p-5 text-muted-foreground hover:text-foreground">
+          <Link href={`/projects/${previous.slug}`} className="soft-card rounded-[14px] p-5 text-muted-foreground hover:text-foreground">
             <ArrowLeft className="mb-3 size-4" /> Previous: {previous.title}
           </Link>
-          <Link href={`/projects/${next.slug}`} className="soft-card rounded-3xl p-5 text-right text-muted-foreground hover:text-foreground">
+          <Link href={`/projects/${next.slug}`} className="soft-card rounded-[14px] p-5 text-right text-muted-foreground hover:text-foreground">
             <ArrowRight className="mb-3 ml-auto size-4" /> Next: {next.title}
           </Link>
         </div>
@@ -375,77 +378,133 @@ export function ProjectDetailPage() {
 }
 
 export function BlogIndexPage() {
-  const filters = ["All Posts", "Next.js", "React", "Performance", "Developer Tools", "Terminal", "Neovim", "Workflow", "Mdx", "Tutorial", "Career", "Learning"];
-  const [selectedFilter, setSelectedFilter] = useState("All Posts");
-  const normalizedFilter = selectedFilter.toLowerCase().replace(".", "");
-  const filteredPosts = selectedFilter === "All Posts"
-    ? posts
-    : posts.filter((post) => {
-      const searchable = [post.title, post.excerpt, ...post.tags].join(" ").toLowerCase().replace(".", "");
-      return searchable.includes(normalizedFilter);
-    });
-  const [featured, ...latest] = filteredPosts;
+  const { posts: nativePosts, loading: nativeLoading } = useNativePosts();
+  const { posts: mediumPosts, loading: mediumLoading } = useMediumPosts();
+  const [blogMode, setBlogMode] = useState<"native" | "medium">("native");
+  const [selectedMediumSlug, setSelectedMediumSlug] = useState<string | null>(null);
+  const loading = nativeLoading || mediumLoading;
+
+  const selectedMedium = mediumPosts.find((post) => post.slug === selectedMediumSlug) ?? mediumPosts[0] ?? null;
+
+  useEffect(() => {
+    if (blogMode === "medium" && mediumPosts.length && !selectedMediumSlug) {
+      setSelectedMediumSlug(mediumPosts[0].slug);
+    }
+  }, [blogMode, mediumPosts, selectedMediumSlug]);
 
   return (
     <PageShell>
       <section className="section-frame pb-24 pt-8">
         <div className="text-center">
-          <p className="font-mono text-xs uppercase tracking-[0.28em] text-zinc-500">The pensive</p>
+          <p className="font-label">The pensive</p>
           <h1 className="mt-4 font-display text-5xl leading-tight md:text-7xl">
             Handpicked <span className="gradient-text italic">Insights</span>
           </h1>
-        </div>
-        <div className="mt-12 flex items-center gap-3 overflow-x-auto border-y border-white/[0.08] py-4 text-sm text-muted-foreground">
-          {filters.map((tag) => (
-            <button
-              key={tag}
-              type="button"
-              onClick={() => setSelectedFilter(tag)}
-              className={`shrink-0 rounded-full px-3 py-1 transition-colors hover:text-white ${selectedFilter === tag ? "bg-white/[0.10] text-white" : ""}`}
-            >
-              {tag}
-            </button>
-          ))}
-          <span className="ml-auto shrink-0 rounded-full border border-white/10 px-3 py-1">Search posts</span>
-        </div>
-        {featured ? (
-          <>
-        <p className="mt-8 text-center font-mono text-xs uppercase tracking-[0.28em] text-zinc-500">Featured articles</p>
-        <Link href={`/blog/${featured.slug}`} className="group mt-5 grid gap-6 rounded-[1.5rem] border border-white/[0.08] bg-white/[0.025] p-3 transition-all duration-300 hover:border-white/20 md:grid-cols-[1.1fr_0.9fr] md:p-4">
-          <div className="overflow-hidden rounded-[1.2rem] bg-zinc-950">
-            <img src={featured.imageFallback} alt="" className="aspect-[16/9] w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" />
+          <div className="mx-auto mt-8 flex max-w-md items-center rounded-[10px] border border-dashed border-white/10 bg-white/[0.035] p-1">
+            {[
+              ["native", "ML Blog"],
+              ["medium", "Medium"],
+            ].map(([mode, label]) => (
+              <button
+                key={mode}
+                type="button"
+                onClick={() => setBlogMode(mode as "native" | "medium")}
+                className={`flex-1 rounded-xl px-4 py-2 text-sm transition-colors ${blogMode === mode ? "bg-white/[0.12] text-white" : "text-muted-foreground hover:text-white"}`}
+              >
+                {label}
+              </button>
+            ))}
           </div>
-          <div className="flex flex-col justify-center p-3 md:p-6">
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">Featured / {featured.readingTime} / {featured.date}</p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-4xl">{featured.title}</h2>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">{featured.excerpt}</p>
-            <span className="mt-8 inline-flex items-center gap-2 text-sm text-zinc-200">
-              Read blog post <ArrowUpRight className="size-4" />
-            </span>
-          </div>
-        </Link>
-        <p className="mt-10 text-center font-mono text-xs uppercase tracking-[0.28em] text-zinc-500">Latest articles</p>
-        <div className="mt-5 grid gap-4 md:grid-cols-3">
-          {latest.slice(0, 3).map((post) => (
-          <Link key={post.slug} href={`/blog/${post.slug}`} className="group overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-white/[0.025] transition-all duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.045]">
-            <img src={post.imageFallback} alt="" className="aspect-[16/10] w-full object-cover opacity-85 transition-transform duration-700 group-hover:scale-105" />
-            <div className="p-5">
-              <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">{post.readingTime} / {post.date}</p>
-              <h2 className="mt-3 text-xl font-semibold tracking-tight">{post.title}</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">{post.excerpt}</p>
-              <span className="mt-6 inline-flex items-center gap-2 text-xs text-zinc-400">
-                Read blog post <ArrowUpRight className="size-3.5" />
-              </span>
+        </div>
+
+        <div className="mx-auto mt-8 max-w-4xl border-y border-dashed border-white/[0.10] py-8">
+          {loading ? (
+            <div className="animate-pulse space-y-4">
+              <div className="h-48 rounded-[14px] bg-white/5" />
+              <div className="h-32 rounded-[14px] bg-white/5" />
             </div>
-          </Link>
-        ))}
+          ) : blogMode === "native" ? (
+            <>
+              {nativePosts.length === 0 ? (
+                <p className="text-center text-muted-foreground">ML posts coming soon.</p>
+              ) : (
+                <>
+                  {[nativePosts[0]].filter(Boolean).map((featured) => (
+                    <Link key={featured.slug} href={`/blog/${featured.slug}`} className="group grid gap-6 rounded-[14px] border border-dashed border-white/[0.10] bg-white/[0.025] p-3 transition-all duration-300 hover:border-white/20 md:grid-cols-[1.1fr_0.9fr] md:p-4">
+                      <div className="overflow-hidden rounded-[14px] bg-zinc-950">
+                        <img src={featured.coverImage || featured.imageFallback || "/media/blog-performance-ring.jpg"} alt="" className="aspect-[16/9] w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" />
+                      </div>
+                      <div className="flex flex-col justify-center p-3 md:p-6">
+                        <p className="font-label">Featured / {featured.readTime} / {featured.date}</p>
+                        <h2 className="mt-4 font-editorial text-3xl font-semibold tracking-tight md:text-4xl">{featured.title}</h2>
+                        <p className="mt-4 text-sm leading-7 text-muted-foreground">{featured.excerpt}</p>
+                        <span className="mt-8 inline-flex items-center gap-2 text-sm text-zinc-200">
+                          Read post <ArrowUpRight className="size-4" />
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                  <div className="mt-5 grid gap-4 md:grid-cols-2">
+                    {nativePosts.slice(1).map((post) => (
+                      <Link key={post.slug} href={`/blog/${post.slug}`} className="group overflow-hidden rounded-[14px] border border-dashed border-white/[0.10] bg-white/[0.025] transition-all duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.045]">
+                        <img src={post.coverImage || post.imageFallback || "/media/blog-performance-ring.jpg"} alt="" className="aspect-[16/10] w-full object-cover opacity-85 transition-transform duration-700 group-hover:scale-105" />
+                        <div className="p-5">
+                          <p className="font-label">{post.readTime} / {post.date}</p>
+                          <h2 className="mt-3 font-editorial text-xl font-semibold tracking-tight">{post.title}</h2>
+                          <p className="mt-3 text-sm leading-6 text-muted-foreground">{post.excerpt}</p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+            </>
+          ) : mediumPosts.length === 0 ? (
+            <p className="text-center text-muted-foreground">Medium posts coming soon.</p>
+          ) : (
+            <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+                {mediumPosts.map((post) => (
+                  <button
+                    key={post.slug}
+                    type="button"
+                    onClick={() => setSelectedMediumSlug(post.slug)}
+                    className={`overflow-hidden rounded-[14px] border text-left transition-all duration-300 ${selectedMedium?.slug === post.slug ? "border-white/25 bg-white/[0.06]" : "border-dashed border-white/[0.10] bg-white/[0.025] hover:border-white/20"}`}
+                  >
+                    <img src={post.coverImage || post.imageFallback || "/media/blog-mdx-writing.jpg"} alt="" className="aspect-[16/9] w-full object-cover opacity-90" />
+                    <div className="p-4">
+                      <p className="font-label">{post.readTime} / {post.date}</p>
+                      <h2 className="mt-2 font-editorial text-lg font-semibold tracking-tight">{post.title}</h2>
+                      <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{post.excerpt}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+              {selectedMedium && (
+                <div className="overflow-hidden rounded-[14px] border border-dashed border-white/[0.10] bg-white/[0.025]">
+                  <div className="border-b border-dashed border-white/10 p-4">
+                    <p className="font-label">Medium embed</p>
+                    <h2 className="mt-2 font-editorial text-2xl font-semibold">{selectedMedium.title}</h2>
+                    <a href={selectedMedium.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-white">
+                      Open on Medium <ArrowUpRight className="size-3.5" />
+                    </a>
+                  </div>
+                  <iframe
+                    title={selectedMedium.title}
+                    src={toMediumEmbedUrl(selectedMedium.url)}
+                    className="min-h-[70vh] w-full border-0 bg-white"
+                    loading="lazy"
+                    sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                  />
+                </div>
+              )}
+            </div>
+          )}
         </div>
-          </>
-        ) : (
-          <div className="mt-10 rounded-[1.5rem] border border-white/[0.08] bg-white/[0.025] p-8 text-center text-muted-foreground">
-            No posts match {selectedFilter} yet.
-          </div>
-        )}
+
+        <div className="mx-auto mt-10 max-w-2xl">
+          <MailingListSignup source="blog-index" />
+        </div>
       </section>
     </PageShell>
   );
@@ -453,7 +512,26 @@ export function BlogIndexPage() {
 
 export function BlogPostPage() {
   const [, params] = useRoute("/blog/:slug");
-  const post = posts.find((item) => item.slug === params?.slug);
+  const { post, loading, isMarkdown, staticPost } = useBlogPost(params?.slug);
+
+  if (loading) {
+    return (
+      <PageShell>
+        <article className="container mx-auto px-4 pb-24 pt-8 md:px-6">
+          <div className="max-w-3xl animate-pulse space-y-6">
+            <div className="h-4 w-32 rounded bg-white/10" />
+            <div className="h-16 w-4/5 rounded bg-white/10" />
+            <div className="h-24 w-full rounded bg-white/10" />
+            <div className="space-y-3">
+              <div className="h-4 w-full rounded bg-white/10" />
+              <div className="h-4 w-full rounded bg-white/10" />
+              <div className="h-4 w-3/4 rounded bg-white/10" />
+            </div>
+          </div>
+        </article>
+      </PageShell>
+    );
+  }
 
   if (!post) {
     return (
@@ -463,36 +541,59 @@ export function BlogPostPage() {
     );
   }
 
+  const coverImage =
+    ("coverImage" in post && post.coverImage) ||
+    ("imageFallback" in post ? post.imageFallback : undefined);
+  const readTime = "readTime" in post ? post.readTime : staticPost?.readingTime ?? "5 min read";
+
   return (
     <PageShell>
       <article className="container mx-auto grid gap-10 px-4 pb-24 pt-8 md:px-6 xl:grid-cols-[1fr_18rem]">
         <div>
-          <Link href="/blog" className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary">
+          <Link href="/blog" className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-white">
             <ArrowLeft className="size-4" /> Back to blog
           </Link>
-          <p className="font-mono text-xs uppercase tracking-[0.28em] text-primary">{post.date} / {post.readingTime}</p>
+          <p className="font-label">{post.date} / {readTime}</p>
           <h1 className="mt-5 max-w-4xl font-display text-5xl leading-none md:text-7xl">{post.title}</h1>
           <p className="mt-6 max-w-3xl text-xl leading-8 text-muted-foreground">{post.excerpt}</p>
-          <div className="mt-10 grid gap-7 text-lg leading-9 text-muted-foreground">
-            {post.sections.map((section) => (
-              <p key={section}>{section}</p>
-            ))}
+          {coverImage && (
+            <div className="mt-10 overflow-hidden rounded-[14px] border border-dashed border-white/10">
+              <img src={coverImage} alt="" className="aspect-[16/9] w-full object-cover" />
+            </div>
+          )}
+          {isMarkdown && "content" in post && post.content ? (
+            <div className="mt-10">
+              <MarkdownContent content={post.content} />
+            </div>
+          ) : (
+            <>
+              <div className="mt-10 grid gap-7 text-lg leading-9 text-muted-foreground">
+                {getStaticSections(staticPost).map((section) => (
+                  <p key={section}>{section}</p>
+                ))}
+              </div>
+              {getStaticCode(staticPost) && (
+                <figure className="mt-10 overflow-hidden rounded-[14px] border border-border bg-zinc-950">
+                  <figcaption className="flex items-center justify-between border-b border-white/10 px-4 py-3 font-mono text-xs text-zinc-400">
+                    <span>terminal</span>
+                    <Clipboard className="size-4" />
+                  </figcaption>
+                  <pre className="overflow-x-auto p-5 font-mono text-sm text-zinc-100"><code>{getStaticCode(staticPost)}</code></pre>
+                </figure>
+              )}
+            </>
+          )}
+          <div className="mt-12">
+            <MailingListSignup source="blog-post" />
           </div>
-          <figure className="mt-10 overflow-hidden rounded-[1.5rem] border border-border bg-zinc-950">
-            <figcaption className="flex items-center justify-between border-b border-white/10 px-4 py-3 font-mono text-xs text-zinc-400">
-              <span>terminal</span>
-              <Clipboard className="size-4" />
-            </figcaption>
-            <pre className="overflow-x-auto p-5 font-mono text-sm text-zinc-100"><code>{post.code}</code></pre>
-          </figure>
         </div>
         <aside className="hidden xl:block">
-          <div className="sticky top-28 soft-card rounded-3xl p-5">
-            <p className="font-mono text-xs uppercase tracking-[0.22em] text-primary">On this page</p>
+          <div className="sticky top-28 soft-card rounded-[14px] p-5">
+            <p className="font-label">On this page</p>
             <div className="mt-4 grid gap-3 text-sm text-muted-foreground">
-              <a href="#top" className="hover:text-primary">Intro</a>
-              <span>Code sample</span>
-              <span>Backend pipeline issue #14</span>
+              {post.tags?.map((tag) => (
+                <span key={tag}>{tag}</span>
+              )) ?? <span>Intro</span>}
             </div>
           </div>
         </aside>
@@ -502,26 +603,56 @@ export function BlogPostPage() {
 }
 
 export function GuestbookPage() {
+  const { entries, loading } = useGuestbook();
+  const { handleSubmit, submitting, error, submitted } = useGuestbookForm();
+
   return (
     <PageShell>
-      <PageHeader eyebrow="Guestbook" title="Leave a note for the road." description="The persistent backend and moderation flow are tracked in issue #15; this page is ready to connect once that work lands." />
+      <PageHeader eyebrow="Guestbook" title="Leave a note for the road." description="Sign the guestbook with your name and a short message. Add your email if you want post updates too." />
       <section className="container mx-auto grid gap-8 px-4 pb-24 md:px-6 lg:grid-cols-[0.8fr_1fr]">
-        <div className="soft-card rounded-[2rem] p-6">
-          <MessageSquare className="size-10 text-primary" />
-          <h2 className="mt-5 text-2xl font-semibold">Guestbook backend pending</h2>
-          <p className="mt-3 text-muted-foreground">Until persistence, moderation, and spam controls exist, this page uses static entries and avoids pretending to accept production messages.</p>
-          <Button className="mt-6 rounded-2xl" disabled>Signing opens after backend</Button>
+        <div className="soft-card rounded-[14px] p-6">
+          <MessageSquare className="size-10 text-white/70" />
+          <h2 className="mt-5 text-2xl font-semibold">Sign the guestbook</h2>
+          <p className="mt-3 text-muted-foreground">Share a note, a project idea, or where you found the site.</p>
+          <form onSubmit={handleSubmit} className="mt-6 grid gap-4">
+            <label className="grid gap-2 text-sm">
+              <span>Name</span>
+              <input name="name" required maxLength={80} className="rounded-[10px] border border-dashed border-white/10 bg-white/[0.03] px-4 py-3 outline-none focus:border-white/25" placeholder="Your name" />
+            </label>
+            <label className="grid gap-2 text-sm">
+              <span>Email <span className="text-muted-foreground">(optional — joins the mailing list)</span></span>
+              <input name="email" type="email" maxLength={254} className="rounded-[10px] border border-dashed border-white/10 bg-white/[0.03] px-4 py-3 outline-none focus:border-white/25" placeholder="you@example.com" />
+            </label>
+            <label className="grid gap-2 text-sm">
+              <span>Message</span>
+              <textarea name="message" required maxLength={1000} rows={4} className="rounded-[10px] border border-dashed border-white/10 bg-white/[0.03] px-4 py-3 outline-none focus:border-white/25" placeholder="Your message" />
+            </label>
+            {error && <p className="text-sm text-red-400">{error}</p>}
+            {submitted && <p className="text-sm text-emerald-300">Thanks — your note is live.</p>}
+            <Button type="submit" className="rounded-[10px]" disabled={submitting}>
+              {submitting ? "Sending..." : "Sign guestbook"}
+            </Button>
+          </form>
         </div>
         <div className="grid gap-4">
-          {guestbookEntries.map((entry) => (
-            <div key={entry.name} className="soft-card rounded-[2rem] p-6">
-              <p className="text-lg leading-8 text-muted-foreground">&ldquo;{entry.message}&rdquo;</p>
-              <div className="mt-5 flex items-center justify-between font-mono text-xs uppercase tracking-[0.2em] text-primary">
-                <span>{entry.name}</span>
-                <span>{entry.date}</span>
+          {loading ? (
+            [...Array(2)].map((_, index) => (
+              <div key={index} className="soft-card animate-pulse rounded-[14px] p-6">
+                <div className="h-4 w-full rounded bg-white/10" />
+                <div className="mt-4 h-4 w-2/3 rounded bg-white/10" />
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            entries.map((entry) => (
+              <div key={entry.id} className="soft-card rounded-[14px] p-6">
+                <p className="text-lg leading-8 text-muted-foreground">&ldquo;{entry.message}&rdquo;</p>
+                <div className="mt-5 flex items-center justify-between font-label">
+                  <span>{entry.name}</span>
+                  <span>{entry.createdAt}</span>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </section>
     </PageShell>
@@ -534,13 +665,13 @@ export function LinksPage() {
       <PageHeader eyebrow="Links" title="Everything worth clicking." description="A simple hub for the places, projects, and contact paths that represent my work online." />
       <section className="container mx-auto grid gap-4 px-4 pb-24 md:px-6 md:grid-cols-2">
         {links.map((link) => (
-          <a key={link.title} href={link.href} className="group soft-card rounded-[2rem] p-6" target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}>
+          <a key={link.title} href={link.href} className="group soft-card rounded-[14px] p-6" target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}>
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h2 className="text-2xl font-semibold">{link.title}</h2>
                 <p className="mt-2 text-muted-foreground">{link.description}</p>
               </div>
-              <ArrowUpRight className="size-5 text-muted-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-primary" />
+              <ArrowUpRight className="size-5 text-muted-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-white" />
             </div>
           </a>
         ))}
@@ -561,8 +692,8 @@ export function UsesPage() {
       <section className="container mx-auto px-4 pb-24 md:px-6">
         <div className="mb-12 grid gap-5 md:grid-cols-2">
           {hardware.map((item) => (
-            <div key={item.name} className="group soft-card overflow-hidden rounded-[2rem] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-white/20">
-              <div className="grid aspect-[16/9] place-items-center rounded-[1.5rem] border border-white/[0.10] bg-zinc-950 transition-transform duration-500 group-hover:scale-[1.01]">
+            <div key={item.name} className="group soft-card overflow-hidden rounded-[14px] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-white/20">
+              <div className="grid aspect-[16/9] place-items-center rounded-[14px] border border-white/[0.10] bg-zinc-950 transition-transform duration-500 group-hover:scale-[1.01]">
                 <span className="font-display text-6xl italic text-white/12">{item.name.slice(0, 2)}</span>
               </div>
               <h2 className="mt-6 text-2xl font-semibold">{item.name}</h2>
@@ -572,9 +703,9 @@ export function UsesPage() {
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {uses.map((item) => (
-            <div key={item.name} className="group soft-card rounded-[2rem] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/25">
+            <div key={item.name} className="group soft-card rounded-[14px] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/25">
               <img src={item.icon} alt="" className="size-12 transition-transform duration-300 group-hover:scale-110" />
-              <p className="mt-6 font-mono text-xs uppercase tracking-[0.22em] text-primary">{item.category}</p>
+              <p className="mt-6 font-label">{item.category}</p>
               <h2 className="mt-2 text-2xl font-semibold">{item.name}</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.note}</p>
               <span className="mt-5 inline-flex rounded-full border border-white/10 bg-white/[0.045] px-3 py-1 text-xs text-muted-foreground">
@@ -583,12 +714,12 @@ export function UsesPage() {
             </div>
           ))}
         </div>
-        <div className="mt-12 glass-panel rounded-[2rem] p-8">
-          <p className="font-mono text-xs uppercase tracking-[0.28em] text-primary">Command menu</p>
-          <h2 className="mt-3 text-3xl font-semibold">Keyboard-first when it matters.</h2>
-          <div className="mt-6 rounded-[1.5rem] border border-white/[0.10] bg-zinc-950 p-3">
+        <div className="mt-12 glass-panel rounded-[14px] p-8">
+          <p className="font-label">Command menu</p>
+          <h2 className="mt-3 font-editorial text-3xl font-semibold">Keyboard-first when it matters.</h2>
+          <div className="mt-6 rounded-[14px] border border-white/[0.10] bg-zinc-950 p-3">
             {["Open projects", "Search notes", "Jump to uses", "Email Thabhelo"].map((item) => (
-              <div key={item} className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm text-zinc-300 transition-colors hover:bg-white/[0.06]">
+              <div key={item} className="flex items-center justify-between rounded-[10px] px-4 py-3 text-sm text-zinc-300 transition-colors hover:bg-white/[0.06]">
                 <span>{item}</span>
                 <span className="font-mono text-xs text-zinc-600">⌘K</span>
               </div>
@@ -606,9 +737,9 @@ export function BucketListPage() {
       <PageHeader eyebrow="Bucket list" title="Things I want to build, see, and finish." description="A small public list of ambitions across software, travel, music, teaching, and community." />
       <section className="container mx-auto grid gap-4 px-4 pb-24 md:px-6">
         {bucketList.map((item, index) => (
-          <div key={item.title} className="soft-card flex items-center justify-between gap-4 rounded-[2rem] p-6">
+          <div key={item.title} className="soft-card flex items-center justify-between gap-4 rounded-[14px] p-6">
             <div className="flex items-center gap-5">
-              <span className="font-display text-4xl italic text-primary/70">{String(index + 1).padStart(2, "0")}</span>
+              <span className="font-display text-4xl italic text-white/70">{String(index + 1).padStart(2, "0")}</span>
               <h2 className="text-xl font-semibold">{item.title}</h2>
             </div>
             <span className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1 text-xs text-muted-foreground">{item.status}</span>
@@ -628,11 +759,11 @@ export function ContactPage() {
     <PageShell>
       <section className="section-frame pb-24 pt-8">
         <div className="text-center">
-          <p className="font-mono text-xs uppercase tracking-[0.28em] text-primary">Contact</p>
+          <p className="font-label">Contact</p>
           <h1 className="mx-auto mt-4 max-w-3xl font-display text-5xl leading-tight md:text-7xl">
             Project, Role or <span className="gradient-text italic">Just a Hey?</span>
           </h1>
-          <div className="mx-auto mt-8 flex max-w-md items-center rounded-2xl border border-white/10 bg-white/[0.035] p-1">
+          <div className="mx-auto mt-8 flex max-w-md items-center rounded-[10px] border border-dashed border-white/10 bg-white/[0.035] p-1">
             {[
               ["call", "Book a Call"],
               ["message", "Send Message"],
@@ -648,13 +779,13 @@ export function ContactPage() {
             ))}
           </div>
         </div>
-        <div className="mx-auto mt-8 max-w-4xl border-y border-white/[0.08] py-8">
+        <div className="mx-auto mt-8 max-w-4xl border-y border-dashed border-white/[0.10] py-8">
           {contactMode === "message" ? (
             <div className="mx-auto max-w-xl">
               <ContactForm />
             </div>
           ) : (
-            <div className="grid overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.025] lg:grid-cols-[0.7fr_1.2fr_0.7fr]">
+            <div className="grid overflow-hidden rounded-[14px] border border-white/10 bg-white/[0.025] lg:grid-cols-[0.7fr_1.2fr_0.7fr]">
               <aside className="border-b border-white/10 p-5 lg:border-b-0 lg:border-r">
                 <img src={profile.portrait} alt="" className="size-9 rounded-full object-cover" />
                 <h2 className="mt-4 text-lg font-semibold">{profile.fullName}</h2>
@@ -693,25 +824,25 @@ export function ContactPage() {
           )}
         </div>
         <div className="py-20 text-center">
-          <p className="font-mono text-xs uppercase tracking-[0.28em] text-zinc-500">My site</p>
+          <p className="font-label">My site</p>
           <h2 className="mt-3 font-display text-5xl leading-none md:text-6xl">
             Explore, experiment<br />
             <span className="gradient-text italic">&amp;&amp; say hello</span>
           </h2>
         </div>
         <div className="grid gap-3 md:grid-cols-3">
-          <Link href="/uses" className="soft-card rounded-[1.5rem] p-6 text-center transition-colors hover:border-white/20">
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">Uses</p>
+          <Link href="/uses" className="soft-card rounded-[14px] p-6 text-center transition-colors hover:border-white/20">
+            <p className="font-label">Uses</p>
             <h3 className="mt-3 text-xl font-semibold">Check out my favorite tools</h3>
           </Link>
-          <Link href="/about" className="soft-card rounded-[1.5rem] p-6 text-center transition-colors hover:border-white/20">
-            <img src={profile.portrait} alt="" className="mx-auto mb-4 size-20 rounded-2xl object-cover" />
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">Behind the code</p>
+          <Link href="/about" className="soft-card rounded-[14px] p-6 text-center transition-colors hover:border-white/20">
+            <img src={profile.portrait} alt="" className="mx-auto mb-4 size-20 rounded-[14px] object-cover" />
+            <p className="font-label">Behind the code</p>
             <h3 className="mt-3 text-xl font-semibold">Journey, skills & experience</h3>
           </Link>
-          <Link href="/guestbook" className="soft-card rounded-[1.5rem] p-6 text-center transition-colors hover:border-white/20">
-            <img src="/media/guestbook-journal.jpg" alt="" className="mx-auto mb-4 aspect-[16/9] w-full rounded-2xl object-cover opacity-80" />
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">Guestbook</p>
+          <Link href="/guestbook" className="soft-card rounded-[14px] p-6 text-center transition-colors hover:border-white/20">
+            <img src="/media/guestbook-journal.jpg" alt="" className="mx-auto mb-4 aspect-[16/9] w-full rounded-[14px] object-cover opacity-80" />
+            <p className="font-label">Guestbook</p>
             <h3 className="mt-3 text-xl font-semibold">Let me know you were here</h3>
           </Link>
         </div>
@@ -730,8 +861,8 @@ export function AttributionPage() {
           ["Implementation", "React, Vite, Tailwind CSS, framer-motion, lucide-react, and local typed content modules."],
           ["Backend work", "Blog, guestbook, contact, project content, and SEO/PWA pipelines are tracked as GitHub issues #14-#18."],
         ].map(([title, description]) => (
-          <div key={title} className="soft-card rounded-[2rem] p-6">
-            <Sparkles className="size-8 text-primary" />
+          <div key={title} className="soft-card rounded-[14px] p-6">
+            <Sparkles className="size-8 text-white/70" />
             <h2 className="mt-5 text-xl font-semibold">{title}</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{description}</p>
           </div>
@@ -747,8 +878,8 @@ export function LegalPage({ page }: { page: "terms" | "privacy" }) {
     <PageShell>
       <PageHeader eyebrow="Legal" title={title} description="Plain-language placeholder legal content for the current personal portfolio." />
       <section className="container mx-auto px-4 pb-24 md:px-6">
-        <div className="soft-card max-w-3xl rounded-[2rem] p-8">
-          <Shield className="size-10 text-primary" />
+        <div className="soft-card max-w-3xl rounded-[14px] p-8">
+          <Shield className="size-10 text-white/70" />
           <p className="mt-6 text-lg leading-9 text-muted-foreground">{legalPages[page]}</p>
         </div>
       </section>
@@ -761,11 +892,11 @@ export function RssRedirectPage() {
     <PageShell>
       <PageHeader eyebrow="RSS" title="Feed pipeline pending." description="RSS generation is part of the native blog pipeline tracked in issue #14." />
       <section className="container mx-auto px-4 pb-24 md:px-6">
-        <div className="soft-card max-w-2xl rounded-[2rem] p-8">
-          <Rss className="size-10 text-primary" />
+        <div className="soft-card max-w-2xl rounded-[14px] p-8">
+          <Rss className="size-10 text-white/70" />
           <p className="mt-5 text-muted-foreground">For now, the blog index is available as a static shell.</p>
           <Link href="/blog">
-            <Button className="mt-6 rounded-2xl">
+            <Button className="mt-6 rounded-[10px]">
               <BookOpen className="mr-2 size-4" /> Visit blog
             </Button>
           </Link>
@@ -819,7 +950,7 @@ export function TestimonialsSection() {
   return (
     <section className="section-frame py-20">
       <div className="mb-12 text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.28em] text-primary">Testimonials</p>
+        <p className="font-label">Testimonials</p>
         <h2 className="mt-3 font-display text-5xl leading-tight md:text-6xl">
           Word on the street <span className="gradient-text italic">about me</span>
         </h2>
@@ -832,13 +963,13 @@ export function TestimonialsSection() {
             key={testimonial.name}
             animate={{ x: `${-active * 18}%`, opacity: isActive ? 1 : 0.58, scale: isActive ? 1 : 0.94 }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className={`soft-card min-w-[20rem] rounded-[1.35rem] p-6 md:min-w-[24rem] ${isActive ? "border-white/20 bg-white/[0.055] shadow-[0_0_80px_rgba(124,58,237,0.18)]" : ""}`}
+            className={`soft-card min-w-[20rem] rounded-[14px] p-6 md:min-w-[24rem] ${isActive ? "border-white/20 bg-white/[0.055] shadow-[0_0_80px_rgba(124,58,237,0.18)]" : ""}`}
           >
-            <p className="font-display text-6xl leading-none text-primary/25">&ldquo;</p>
+            <p className="font-display text-6xl leading-none text-white/25">&ldquo;</p>
             <p className="-mt-4 text-sm leading-7 text-muted-foreground">{testimonial.text}</p>
             <div className="mt-6 border-t border-border pt-5">
               <p className="font-semibold">{testimonial.name}</p>
-              <p className="mt-1 text-xs text-primary">{testimonial.company}</p>
+              <p className="mt-1 text-xs text-white/55">{testimonial.company}</p>
               <p className="mt-1 text-xs text-muted-foreground">{testimonial.designation}</p>
             </div>
           </motion.div>

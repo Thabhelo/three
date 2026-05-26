@@ -10,12 +10,9 @@ export default tseslint.config(
     ignores: [
       "dist",
       "node_modules",
-      ".eslintrc.cjs",
-      "babel.config.cjs",
-      "jest.config.cjs",
-      "tailwind.config.js",
       "scripts/**",
       "reference-style-audit/**",
+      "output/**",
     ],
   },
   js.configs.recommended,

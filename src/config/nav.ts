@@ -14,7 +14,6 @@ export const moreLinks = [
     description: "Let me know you were here",
     icon: PenLine,
     featured: true,
-    tone: "from-blue-500/28 via-violet-500/14 to-transparent",
     image: "/media/guestbook-journal.jpg",
   },
   {
@@ -23,7 +22,6 @@ export const moreLinks = [
     description: "Things to do at least once",
     icon: BookOpen,
     featured: true,
-    tone: "from-fuchsia-500/24 via-cyan-500/12 to-transparent",
     image: "/media/bucket-list-adventure.jpg",
   },
   {

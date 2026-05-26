@@ -62,7 +62,7 @@ export default function AnimatedMediaCard({
       whileHover={{ y: -4 }}
       transition={springSmooth}
       className={cn(
-        "group relative overflow-hidden rounded-[1.5rem] border border-white/[0.09] bg-white/[0.03] shadow-xl shadow-black/20 backdrop-blur transition-colors duration-300 hover:border-white/18",
+        "group relative overflow-hidden rounded-[14px] border border-dashed border-white/[0.09] bg-white/[0.03] shadow-border backdrop-blur transition-colors duration-300 hover:border-white/18",
         className,
       )}
     >
@@ -89,7 +89,7 @@ export default function AnimatedMediaCard({
       </div>
       {!overlay && (title || subtitle) ? (
         <figcaption className="absolute inset-x-0 bottom-0 z-10 p-5">
-          {subtitle ? <p className="font-mono text-xs uppercase tracking-[0.2em] text-white/55">{subtitle}</p> : null}
+          {subtitle ? <p className="font-label">{subtitle}</p> : null}
           {title ? <h3 className="mt-2 text-xl font-semibold text-white">{title}</h3> : null}
         </figcaption>
       ) : null}

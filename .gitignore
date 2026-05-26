@@ -31,6 +31,7 @@ dist-ssr
 # Supabase
 .supabase/
 supabase/.env
+.firebase-seed-key.json
 
 # Production and deployment
 .vercel
@@ -41,3 +42,4 @@ supabase/.env
 *.temp
 coverage/
 reference-style-audit/
+output/

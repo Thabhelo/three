@@ -36,7 +36,7 @@ const techRows: TechItem[][] = [
 
 function TechPill({ item }: { item: TechItem }) {
   return (
-    <span className="inline-flex h-7 min-w-max items-center gap-2 rounded-full border border-white/[0.08] bg-zinc-950 px-3 font-mono text-[11px] text-zinc-400 shadow-inner shadow-white/[0.03]">
+    <span className="inline-flex h-7 min-w-max items-center gap-2 rounded-md border border-white/[0.08] bg-zinc-950 px-3 font-mono text-[11px] text-zinc-400 shadow-border">
       {item.icon ? <img src={item.icon} alt="" className="size-3.5" /> : <span className="size-1.5 rounded-full bg-zinc-500" />}
       {item.label}
     </span>
@@ -87,7 +87,7 @@ function BuildTogetherCard() {
   ];
 
   return (
-    <a href="/contact" className="group relative min-h-[260px] overflow-hidden rounded-[1.35rem] border border-[#25262a] bg-[#08090a] p-6 lg:col-span-2">
+    <a href="/contact" className="group relative min-h-[260px] overflow-hidden rounded-[14px] border border-[#25262a] bg-[#08090a] p-6 lg:col-span-2">
       <div className="pointer-events-none absolute left-[-6%] right-[-6%] top-5 flex justify-center opacity-80">
         {[0, 1, 2, 3, 4].map((item) => (
           <span key={item} className="-ml-10 h-28 w-[25%] rounded-full border border-white/[0.065]" />
@@ -96,7 +96,7 @@ function BuildTogetherCard() {
       {people.map((person, index) => (
         <span
           key={person}
-          className={`absolute z-10 grid size-11 scale-75 place-items-center rounded-full border border-white/15 bg-zinc-900 text-xs text-zinc-200 opacity-0 shadow-xl shadow-black/30 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100 ${positions[index]}`}
+          className={`absolute z-10 grid size-11 scale-75 place-items-center rounded-full border border-white/15 bg-zinc-900 text-xs text-zinc-200 opacity-0 shadow-border transition-all duration-500 group-hover:scale-100 group-hover:opacity-100 ${positions[index]}`}
           style={{ transitionDelay: `${index * 60}ms` }}
         >
           {person}
@@ -104,11 +104,11 @@ function BuildTogetherCard() {
       ))}
       <div className="relative z-10 grid h-full place-items-center text-center">
         <div>
-          <div className="mx-auto mb-5 grid size-24 place-items-center rounded-full border border-white/15 bg-zinc-950 shadow-[0_0_50px_rgba(124,92,255,0.2)]">
+          <div className="mx-auto mb-5 grid size-24 place-items-center rounded-full border border-white/15 bg-zinc-950 shadow-[0_0_50px_rgba(255,255,255,0.08)]">
             <img src={profile.portrait} alt="" className="size-20 rounded-full object-cover" />
           </div>
-          <p className="font-mono text-xs uppercase tracking-[0.24em] text-zinc-500">Let&apos;s build together</p>
-          <h2 className="mx-auto mt-3 max-w-lg font-display text-xl text-zinc-100">Clear communication, fast iterations, no surprises</h2>
+          <p className="font-label">Let&apos;s build together</p>
+          <h2 className="mx-auto mt-3 max-w-lg font-editorial text-xl text-zinc-100">Clear communication, fast iterations, no surprises</h2>
         </div>
       </div>
       <span className="absolute right-5 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-white/10 bg-white/[0.055] text-zinc-300 transition-colors group-hover:bg-white/[0.10] group-hover:text-white">
@@ -120,9 +120,9 @@ function BuildTogetherCard() {
 
 function TechStackCard() {
   return (
-    <div className="relative min-h-[260px] overflow-hidden rounded-[1.35rem] border border-[#25262a] bg-[#08090a] p-6">
-      <p className="text-center font-mono text-xs uppercase tracking-[0.24em] text-zinc-500">Tech stack</p>
-      <h2 className="mx-auto mt-3 max-w-xs text-center font-display text-xl text-zinc-100">The stack behind everything I ship</h2>
+    <div className="relative min-h-[260px] overflow-hidden rounded-[14px] border border-[#25262a] bg-[#08090a] p-6">
+      <p className="text-center font-label">Tech stack</p>
+      <h2 className="mx-auto mt-3 max-w-xs text-center font-editorial text-xl text-zinc-100">The stack behind everything I ship</h2>
       <div className="relative mt-8 grid gap-3 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_14%,black_86%,transparent)]">
         <TechRowsLayer />
       </div>
@@ -152,8 +152,8 @@ function TimezoneGlobeCard() {
         mapSamples: 12000,
         mapBrightness: 5,
         baseColor: [0.9, 0.9, 0.9],
-        markerColor: [0.45, 0.55, 1],
-        glowColor: [0.65, 0.72, 1],
+        markerColor: [0.85, 0.85, 0.85],
+        glowColor: [0.75, 0.75, 0.75],
         markers: [
           { location: [33.5186, -86.8104], size: 0.04 },
           { location: [40.7128, -74.006], size: 0.04 },
@@ -199,14 +199,14 @@ function TimezoneGlobeCard() {
 
   return (
     <div
-      className="relative min-h-[260px] overflow-hidden rounded-[1.35rem] border border-[#25262a] bg-[#08090a] p-6 lg:col-span-2"
+      className="relative min-h-[260px] overflow-hidden rounded-[14px] border border-[#25262a] bg-[#08090a] p-6 lg:col-span-2"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
     >
-      <p className="font-mono text-xs uppercase tracking-[0.24em] text-zinc-500">Flexible with timezones</p>
-      <h2 className="mt-3 max-w-sm font-display text-xl text-zinc-100">Based in San Francisco, CA, available globally</h2>
+      <p className="font-label">Flexible with timezones</p>
+      <h2 className="mt-3 max-w-sm font-editorial text-xl text-zinc-100">Based in San Francisco, CA, available globally</h2>
  
       <canvas ref={canvasRef} width={420} height={420} className="absolute bottom-[-210px] left-1/2 size-[420px] -translate-x-1/2 cursor-grab opacity-90 active:cursor-grabbing" />
       {labels.map((label, index) => (
@@ -222,7 +222,7 @@ function UsesCard() {
   const tools = uses.slice(0, 7);
 
   return (
-    <a href="/uses" className="group relative min-h-[260px] overflow-hidden rounded-[1.35rem] border border-[#25262a] bg-[#08090a] p-6">
+    <a href="/uses" className="group relative min-h-[260px] overflow-hidden rounded-[14px] border border-[#25262a] bg-[#08090a] p-6">
       <div className="absolute inset-x-0 top-8 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
         <div className="tech-row-left flex w-max gap-3">
           {[...tools, ...tools, ...tools].map((tool, index) => (
@@ -233,8 +233,8 @@ function UsesCard() {
         </div>
       </div>
       <div className="absolute inset-x-6 bottom-7 text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.24em] text-zinc-500">Uses</p>
-        <h2 className="mt-3 font-display text-xl text-zinc-100">Check out my favorite tools</h2>
+        <p className="font-label">Uses</p>
+        <h2 className="mt-3 font-editorial text-xl text-zinc-100">Check out my favorite tools</h2>
       </div>
     </a>
   );
@@ -243,7 +243,7 @@ function UsesCard() {
 export default function BentoSection() {
   return (
     <section className="section-frame py-16">
-      <div className="relative grid gap-2.5 overflow-hidden rounded-[1.6rem] border border-white/[0.06] bg-[#050505] p-2.5 shadow-2xl shadow-black/30 before:absolute before:inset-y-0 before:left-0 before:w-20 before:bg-[repeating-linear-gradient(135deg,rgba(255,255,255,0.035)_0_1px,transparent_1px_7px)] after:absolute after:inset-y-0 after:right-0 after:w-20 after:bg-[repeating-linear-gradient(135deg,rgba(255,255,255,0.035)_0_1px,transparent_1px_7px)] lg:grid-cols-3">
+      <div className="relative grid gap-2.5 overflow-hidden rounded-[18px] border border-dashed border-white/[0.06] bg-[#050505] p-2.5 shadow-border before:absolute before:inset-y-0 before:left-0 before:w-20 before:bg-[repeating-linear-gradient(135deg,rgba(255,255,255,0.035)_0_1px,transparent_1px_7px)] after:absolute after:inset-y-0 after:right-0 after:w-20 after:bg-[repeating-linear-gradient(135deg,rgba(255,255,255,0.035)_0_1px,transparent_1px_7px)] lg:grid-cols-3">
         <BuildTogetherCard />
         <TechStackCard />
         <TimezoneGlobeCard />

@@ -9,9 +9,9 @@ export default function NotFound() {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <main className="container mx-auto grid min-h-[72vh] place-items-center px-4 pt-28 md:px-6">
-        <div className="glass-panel max-w-2xl rounded-[2rem] p-8 text-center md:p-12">
-          <SearchX className="mx-auto size-12 text-primary" />
-          <p className="mt-6 font-mono text-xs uppercase tracking-[0.28em] text-primary">404</p>
+        <div className="glass-panel max-w-2xl rounded-[14px] p-8 text-center md:p-12">
+          <SearchX className="mx-auto size-12 text-white/70" />
+          <p className="mt-6 font-label">404</p>
           <h1 className="mt-4 font-display text-5xl leading-none md:text-7xl">This page wandered off.</h1>
           <p className="mx-auto mt-5 max-w-md text-muted-foreground">
             The route does not exist yet, or the content has not been wired into the portfolio.

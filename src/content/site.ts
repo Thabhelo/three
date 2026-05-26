@@ -24,13 +24,13 @@ export const profile = {
   fullName: "Thabhelo Duve",
   handle: "thabheloduve",
   role: "Software engineer, ML builder, and open-source tinkerer",
-  location: "Zimbabwe / United States",
+  location: "San Francisco, CA",
   email: "thabhelo@deepubuntu.com",
   resume,
   heroImage,
   portrait: faceImage,
   github: "https://github.com/Thabhelo",
-  blog: "https://medium.com/@thabheloduve",
+  medium: "https://medium.com/@thabheloduve",
   tagline: "Code that feels useful, human, and alive.",
   intro:
     "I build software across machine learning, cloud systems, developer tools, and products for communities that are usually underrepresented in tech.",
@@ -40,7 +40,7 @@ export const profile = {
 
 export const socials = [
   { name: "GitHub", href: profile.github },
-  { name: "Medium", href: profile.blog },
+  { name: "Medium", href: profile.medium },
   { name: "LinkedIn", href: "https://www.linkedin.com/in/thabhelo-duve" },
   { name: "Email", href: `mailto:${profile.email}` },
 ];
@@ -232,7 +232,7 @@ export const experiences = [
   {
     title: "Data Analyst",
     company: "TelOne",
-    location: "Bulawayo, Zimbabwe",
+    location: "Remote",
     date: "Sep 2021 - Aug 2022",
     description: [
       "Automated data collection and reporting workflows with Excel, Power BI, Tableau, and OpenRefine.",
@@ -283,7 +283,8 @@ export const uses = [
 
 export const links = [
   { title: "GitHub", href: profile.github, description: "Open-source projects, experiments, and tools." },
-  { title: "Medium", href: profile.blog, description: "Writing about machine learning, software, and the builder journey." },
+  { title: "Medium", href: profile.medium, description: "Essays on software, career, and the builder journey." },
+  { title: "ML Blog", href: "/blog", description: "Machine learning teaching notes hosted on this site." },
   { title: "Resume", href: profile.resume, description: "A concise overview of my experience and education." },
   { title: "Email", href: `mailto:${profile.email}`, description: "The fastest way to reach me for work or collaborations." },
   { title: "DreamSprint", href: "/dreamsprint", description: "A focused landing page for sprinting from idea to launch." },
@@ -332,7 +333,7 @@ export const posts = [
 export const guestbookEntries = [
   {
     name: "Future collaborator",
-    message: "Guestbook backend is tracked in GitHub issue #15. This shell is ready for real messages.",
+    message: "Excited to see what you ship next. The ML writing series is going to help a lot of people.",
     date: "May 2026",
   },
   {

@@ -49,10 +49,10 @@ function chunkWeeks(days: ContributionDay[]) {
 
 function intensity(count: number) {
   if (count === 0) return "bg-white/[0.045]";
-  if (count < 3) return "bg-cyan-400/25";
-  if (count < 7) return "bg-blue-400/45";
-  if (count < 14) return "bg-violet-400/65";
-  return "bg-fuchsia-300/85";
+  if (count < 3) return "bg-white/[0.12]";
+  if (count < 7) return "bg-white/[0.22]";
+  if (count < 14) return "bg-white/[0.38]";
+  return "bg-white/[0.58]";
 }
 
 async function fetchGitHubStats(username: string): Promise<GitHubState> {
@@ -99,7 +99,7 @@ export default function GitHubContributions({ username }: { username: string }) 
 
   if (loading) {
     return (
-      <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-white/[0.025] p-5 text-sm text-muted-foreground">
+      <div className="mt-8 rounded-[14px] border border-white/10 bg-white/[0.025] p-5 text-sm text-muted-foreground">
         Loading real GitHub contribution data...
       </div>
     );
@@ -107,7 +107,7 @@ export default function GitHubContributions({ username }: { username: string }) 
 
   if (error || !state) {
     return (
-      <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-white/[0.025] p-5">
+      <div className="mt-8 rounded-[14px] border border-white/10 bg-white/[0.025] p-5">
         <p className="text-sm text-muted-foreground">Could not load GitHub stats.</p>
         <Button variant="outline" size="sm" onClick={load} className="mt-4 rounded-full">
           <RefreshCw className="mr-2 size-4" /> Retry
@@ -125,14 +125,14 @@ export default function GitHubContributions({ username }: { username: string }) 
           [state.stars.toLocaleString(), "Repository stars"],
           [state.forks.toLocaleString(), "Repository forks"],
         ].map(([value, label]) => (
-          <div key={label} className="rounded-3xl border border-white/[0.10] bg-white/[0.035] p-5">
+          <div key={label} className="rounded-[14px] border border-dashed border-white/[0.10] bg-white/[0.035] p-5">
             <p className="font-display text-4xl text-zinc-100">{value}</p>
             <p className="mt-2 text-sm text-muted-foreground">{label}</p>
           </div>
         ))}
       </div>
 
-      <div className="mt-6 overflow-x-auto rounded-[1.5rem] border border-white/10 bg-zinc-950/50 p-4">
+      <div className="mt-6 overflow-x-auto rounded-[14px] border border-white/10 bg-zinc-950/50 p-4">
         <div className="mb-3 grid min-w-[760px] grid-cols-6 text-xs text-zinc-600">
           {months.map((month) => <span key={month}>{month}</span>)}
         </div>

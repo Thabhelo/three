@@ -47,7 +47,7 @@ export default function RotatingImageStack({ images }: { images: StackImage[] })
 
   return (
     <div
-      className="relative min-h-[520px] overflow-hidden rounded-[2rem] border border-white/[0.09] bg-white/[0.035] p-5 shadow-2xl shadow-black/30"
+      className="relative min-h-[520px] overflow-hidden rounded-[14px] border border-dashed border-white/[0.09] bg-white/[0.035] p-5 shadow-border"
       onMouseEnter={() => setPaused(true)}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
@@ -67,11 +67,11 @@ export default function RotatingImageStack({ images }: { images: StackImage[] })
               key={image.title}
               layout
               transition={springSmooth}
-              className={`absolute overflow-hidden rounded-[28px] border border-white/[0.12] bg-zinc-950 shadow-2xl shadow-black/45 ${styles[image.position] ?? styles[3]}`}
+              className={`absolute overflow-hidden rounded-[18px] border border-dashed border-white/[0.12] bg-zinc-950 shadow-border ${styles[image.position] ?? styles[3]}`}
             >
               <img src={image.src} alt={image.alt} className="aspect-[4/5] w-full object-cover opacity-90 transition-transform duration-700 hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              {isActive ? <div className="absolute inset-x-0 bottom-0 p-5 font-mono text-xs uppercase tracking-[0.22em] text-white/75">{image.title}</div> : null}
+              {isActive ? <div className="absolute inset-x-0 bottom-0 p-5 font-label text-white/75">{image.title}</div> : null}
             </motion.div>
           );
         })}
