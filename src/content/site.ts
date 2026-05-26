@@ -8,11 +8,9 @@ import {
   figma,
   git,
   github,
-  homenergy,
   javascript,
   nodejs,
   reactjs,
-  skillcon,
   tailwind,
   trafficdensity,
   typescript,
@@ -23,25 +21,25 @@ export const profile = {
   firstName: "Thabhelo",
   fullName: "Thabhelo Duve",
   handle: "thabheloduve",
-  role: "Software engineer, ML builder, and open-source tinkerer",
-  location: "San Francisco, CA",
+  role: "Software engineer building AI systems, public-safety tooling, and ML infrastructure",
+  location: "Pittsburgh, PA",
   email: "thabhelo@deepubuntu.com",
   resume,
   heroImage,
   portrait: faceImage,
   github: "https://github.com/Thabhelo",
   medium: "https://medium.com/@thabheloduve",
-  tagline: "Code that feels useful, human, and alive.",
+  tagline: "I build reliable AI systems from messy real-world data.",
   intro:
-    "I build software across machine learning, cloud systems, developer tools, and products for communities that are usually underrepresented in tech.",
+    "I work across machine learning, cloud systems, developer tools, public-safety software, and autonomous-systems data infrastructure. My projects usually sit where research-grade ideas have to become usable products.",
   shortBio:
-    "CS, Math and Physics. 11x hackathon winner. Former Amazon SDE intern. Currently building DeepUbuntu AV and practical ML systems.",
+    "CS & Math at Talladega College. Ex-SDE @ Amazon, ex-ML Engineering @ Analytical AI, 11x hackathon titles, Top 10% in the National Cyber League, and winner of the Propel Center x Apple Innovation Challenge 2026 with a $17,500 award.",
 };
 
 export const socials = [
   { name: "GitHub", href: profile.github },
   { name: "Medium", href: profile.medium },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/thabhelo-duve" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/thabhelo" },
   { name: "Email", href: `mailto:${profile.email}` },
 ];
 
@@ -74,17 +72,98 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "mesh-public-safety-platform",
+    title: "Mesh Public Safety Platform",
+    eyebrow: "Apple Propel Innovation Challenge Winner",
+    description:
+      "A real-time public-safety interoperability platform for incident awareness, agency coordination, surge prediction, and district-level risk intelligence.",
+    year: "2026",
+    role: "Founder / lead engineer",
+    tags: ["Swift", "SwiftUI", "MapKit", "Public Safety", "AI", "macOS"],
+    link: "https://meshofdata.org",
+    repo: "https://github.com/Thabhelo/mesh-macos",
+    highlights: [
+      "Won the Propel Center x Apple Innovation Challenge 2026 and received a $17,500 award.",
+      "Built a native macOS app with live incident feeds, MapKit overlays, surge alerts, hazard scoring, and a menu-bar companion.",
+      "Designed Mesh around police, fire, EMS, and 911 data interoperability so responders can see operational signals in one place.",
+    ],
+    body: [
+      "Mesh turns fragmented public-safety information into a single operational view for faster coordination during incidents, large events, and citywide surges.",
+      "The macOS app combines real-time dashboards, mapping, trend analysis, and AI-assisted risk signals so agencies can reason from shared context instead of scattered systems.",
+    ],
+  },
+  {
+    slug: "project-genesis",
+    title: "Project Genesis",
+    eyebrow: "Multi-Agent AI Simulation",
+    description:
+      "A self-evolving AI civilization simulator where Gemini-powered agents live, negotiate, build, and govern inside a shared 3D world.",
+    year: "2026",
+    role: "Full-stack AI engineer",
+    tags: ["TypeScript", "React", "Three.js", "Gemini", "Firestore", "Node.js"],
+    repo: "https://github.com/thabhelo/project-genesis",
+    highlights: [
+      "Created a sandbox where five AI agents debate governance, allocate resources, and procedurally generate 3D objects through structured JSON.",
+      "Built a React Three Fiber visualizer that renders agent-created objects and streams the agents' live dialogue.",
+      "Designed the system as a policy and alignment testbed for observing emergent cooperation, conflict, and rule formation in multi-agent systems.",
+    ],
+    body: [
+      "Project Genesis explores what happens when autonomous agents are placed in a shared world with only base personas, communication, memory, and the ability to build.",
+      "The project is part simulation, part AI safety sandbox: every decision, proposal, rule, and world mutation becomes observable for studying emergent behavior.",
+    ],
+  },
+  {
+    slug: "deepubuntu-cowcow",
+    title: "CowCow",
+    eyebrow: "Autonomous Systems Data Infrastructure",
+    description:
+      "An offline-first data collection and quality-control system for turning raw field data into training-ready datasets for autonomous systems and ML teams.",
+    year: "2026",
+    role: "Founder / open-source maintainer",
+    tags: ["Rust", "Python", "FastAPI", "SQLite", "gRPC", "Data Quality"],
+    repo: "https://github.com/deepubuntu/cowcow",
+    highlights: [
+      "Built quality checks for noisy real-world collection workflows, including signal validation, metadata structure, export integrity, and dataset packaging.",
+      "Designed the product to work offline first, then sync when connectivity is available.",
+      "Positioned CowCow as DeepUbuntu's flagship product for robotics, autonomy, and field-data pipelines.",
+    ],
+    body: [
+      "CowCow is built for teams that need usable datasets from messy environments, not just clean lab exports.",
+      "The system focuses on collection discipline: quality checks near the source, structured metadata, repeatable exports, and workflows that still work when the network does not.",
+    ],
+  },
+  {
+    slug: "pytorch-dlrs",
+    title: "pytorch-dlrs",
+    eyebrow: "Open Source ML Library",
+    description:
+      "A PyTorch implementation of the Dynamic Learning Rate Scheduler algorithm with package distribution, documentation, examples, tests, and CI/CD.",
+    year: "2026",
+    role: "Open-source maintainer",
+    tags: ["Python", "PyTorch", "PyPI", "CI/CD", "Testing", "ML"],
+    repo: "https://github.com/Thabhelo/pytorch-dlrs",
+    highlights: [
+      "Converted a research learning-rate scheduling idea into an installable PyPI package.",
+      "Added examples, documentation, tests, and cross-platform CI/CD across Python versions.",
+      "Built the project as reusable ML infrastructure rather than a one-off notebook implementation.",
+    ],
+    body: [
+      "pytorch-dlrs packages a dynamic learning-rate scheduler into a practical PyTorch tool that researchers and engineers can plug into training loops.",
+      "The work emphasizes the boring parts that make research usable: packaging, docs, examples, tests, and compatibility across environments.",
+    ],
+  },
+  {
     slug: "medical-image-segmentation",
     title: "3D Medical Image Segmentation Benchmark",
     eyebrow: "Clinical ML Research",
     description:
-      "A comparative study across 3D deep learning architectures for volumetric CT and MRI tumor segmentation.",
+      "A comparative study of 3D deep learning architectures for volumetric CT and MRI tumor segmentation.",
     year: "2025",
     role: "ML engineer",
     tags: ["Python", "PyTorch", "MONAI", "nnU-Net", "SwinUNETR"],
     highlights: [
       "Benchmarked 3D U-Net, V-Net, nnU-Net, and SwinUNETR across accuracy, latency, and memory tradeoffs.",
-      "Built preprocessing for HU windowing, resampling, normalization, and patch-based training.",
+      "Built preprocessing for HU windowing, resampling, normalization, augmentation, and patch-based training.",
       "Used mixed precision and distributed training to keep experiments reproducible and GPU-efficient.",
     ],
     body: [
@@ -133,78 +212,29 @@ export const projects: Project[] = [
       "The product blends semantic retrieval with focused risk classifiers, making it useful as a review assistant instead of a generic chatbot.",
     ],
   },
-  {
-    slug: "cowcow-cli",
-    title: "CowCow CLI",
-    eyebrow: "Open Source Audio Tooling",
-    description:
-      "An offline-first audio data collection tool with quality control and reward mechanics for distributed datasets.",
-    year: "2025",
-    role: "Open-source maintainer",
-    tags: ["Rust", "FastAPI", "SQLite", "gRPC", "VAD"],
-    repo: "https://github.com/Thabhelo/cowcow",
-    highlights: [
-      "Added SNR analysis, clipping detection, silence detection, and VAD quality checks.",
-      "Designed export pipelines for JSON/WAV datasets and integrity validation.",
-      "Kept collection offline-first so contributors can work with unreliable connectivity.",
-    ],
-    body: [
-      "CowCow is infrastructure for dataset collection in places where connectivity cannot be assumed.",
-      "The CLI is intentionally practical: it checks audio quality early, packages data cleanly, and gives contributors a workflow that does not collapse when the network does.",
-    ],
-  },
-  {
-    slug: "deepubuntu-community-tools",
-    title: "DeepUbuntu Community Tools",
-    eyebrow: "Community Infrastructure",
-    description:
-      "A collection of education, labeling, and content tools for DeepUbuntu programs and applied AI projects.",
-    year: "2025",
-    role: "Software engineer",
-    tags: ["React", "TypeScript", "Cloud", "ML Ops"],
-    image: skillcon,
-    highlights: [
-      "Built workflow tools around learning, labeling, and project coordination.",
-      "Explored offline-first annotation and dataset versioning for supervised ML at scale.",
-      "Connected engineering work to community education and local AI capacity building.",
-    ],
-    body: [
-      "DeepUbuntu work sits at the intersection of education, data, and product systems.",
-      "The tools are designed to reduce operational friction so teams can focus on learning and building instead of fighting process overhead.",
-    ],
-  },
-  {
-    slug: "home-energy-dashboard",
-    title: "Home Energy Dashboard",
-    eyebrow: "Data Visualization",
-    description:
-      "A dashboard concept for interpreting residential energy usage patterns and highlighting efficiency opportunities.",
-    year: "2023",
-    role: "Frontend / data",
-    tags: ["React", "Data Viz", "UX", "Analytics"],
-    image: homenergy,
-    highlights: [
-      "Turned noisy household data into readable trends and action prompts.",
-      "Designed charts around decision-making rather than raw telemetry.",
-      "Used the project to refine dashboard hierarchy and information density.",
-    ],
-    body: [
-      "This project is about making energy consumption legible.",
-      "The interface emphasizes patterns, comparisons, and next actions so users can move from numbers to practical changes.",
-    ],
-  },
 ];
 
 export const experiences = [
   {
-    title: "Software Engineer",
+    title: "Founder / Lead Engineer",
     company: "DeepUbuntu Labs",
     location: "Remote",
     date: "Jan 2025 - Present",
     description: [
-      "Developing DeepUbuntu AV, an autonomous vehicle perception stack with multi-modal sensor fusion across LiDAR, RADAR, RGB, and IMU data.",
-      "Engineering labeling pipelines, offline-first annotation workflows, quality control, and dataset versioning for supervised learning.",
-      "Building synthetic data generation modules for safety-critical edge cases and underrepresented driving conditions.",
+      "Building CowCow, an offline-first field-data and quality-control platform for autonomous systems, robotics, and ML teams.",
+      "Designing ingestion, validation, metadata, export, and dataset-readiness workflows for real-world data collection.",
+      "Developing technical writing, open-source tooling, and ML infrastructure around robustness, data quality, and applied AI systems.",
+    ],
+  },
+  {
+    title: "Founder / Lead Engineer",
+    company: "Mesh",
+    location: "Remote",
+    date: "Feb 2026 - Present",
+    description: [
+      "Built Mesh, a public-safety interoperability platform with a native macOS app, live incident views, MapKit overlays, surge signals, and district-level hazard scoring.",
+      "Won the Propel Center x Apple Innovation Challenge 2026 and received a $17,500 award for the product.",
+      "Developing backend ingestion and API architecture for normalized incident records, data freshness, and operational public-safety intelligence.",
     ],
   },
   {
@@ -264,17 +294,33 @@ export const testimonials = [
 ];
 
 export const capabilities = [
-  { title: "Software Engineering", description: "React, TypeScript, APIs, cloud systems, and product-minded delivery.", icon: web },
-  { title: "Machine Learning", description: "Computer vision, clinical ML, NLP, data pipelines, and deployment tradeoffs.", icon: backend },
-  { title: "Community Building", description: "Teaching, open source, hackathons, and tooling for emerging builders.", icon: creator },
-  { title: "Developer Tooling", description: "CLIs, offline-first workflows, automation, and practical systems design.", icon: github },
+  {
+    title: "AI Product Engineering",
+    description: "Full-stack AI systems, agentic products, RAG pipelines, public demos, and production-minded delivery.",
+    icon: web,
+  },
+  {
+    title: "Machine Learning Infrastructure",
+    description: "Computer vision, medical ML, data quality, evaluation, dataset pipelines, and deployment tradeoffs.",
+    icon: backend,
+  },
+  {
+    title: "Public Safety & Civic Tech",
+    description: "Operational dashboards, interoperability tooling, geospatial interfaces, and real-time risk signals.",
+    icon: creator,
+  },
+  {
+    title: "Developer Tooling",
+    description: "CLIs, offline-first workflows, open-source packages, automation, and practical systems design.",
+    icon: github,
+  },
 ];
 
 export const uses = [
   { name: "React", category: "Frontend", icon: reactjs, note: "Component systems, interaction-heavy UIs, and fast iteration." },
   { name: "TypeScript", category: "Language", icon: typescript, note: "Default for product code and shared data models." },
   { name: "Tailwind CSS", category: "Styling", icon: tailwind, note: "Design systems, motion states, and responsive layout." },
-  { name: "Node.js", category: "Runtime", icon: nodejs, note: "APIs, tooling scripts, and backend glue." },
+  { name: "Node.js", category: "Runtime", icon: nodejs, note: "APIs, agent backends, tooling scripts, and backend glue." },
   { name: "Docker", category: "Infrastructure", icon: docker, note: "Repeatable local environments and deployment packaging." },
   { name: "Git", category: "Workflow", icon: git, note: "Branching, review, release notes, and experiment tracking." },
   { name: "Figma", category: "Design", icon: figma, note: "Sketching product flows before touching code." },
@@ -283,7 +329,10 @@ export const uses = [
 
 export const links = [
   { title: "GitHub", href: profile.github, description: "Open-source projects, experiments, and tools." },
-  { title: "Medium", href: profile.medium, description: "Essays on software, career, and the builder journey." },
+  { title: "Mesh", href: "https://meshofdata.org", description: "Public-safety interoperability platform and Apple Propel Innovation Challenge winning project." },
+  { title: "Project Genesis", href: "https://github.com/thabhelo/project-genesis", description: "Multi-agent AI civilization simulator powered by Gemini and a real-time 3D visualizer." },
+  { title: "CowCow", href: "https://github.com/deepubuntu/cowcow", description: "Offline-first data collection and quality-control tooling for autonomous systems." },
+  { title: "Medium", href: profile.medium, description: "Essays on software, AI systems, and the builder journey." },
   { title: "ML Blog", href: "/blog", description: "Machine learning teaching notes hosted on this site." },
   { title: "Resume", href: profile.resume, description: "A concise overview of my experience and education." },
   { title: "Email", href: `mailto:${profile.email}`, description: "The fastest way to reach me for work or collaborations." },
@@ -291,12 +340,12 @@ export const links = [
 ];
 
 export const bucketList = [
-  { title: "Ship an African autonomous driving benchmark", status: "In progress" },
-  { title: "Publish more open-source ML education material", status: "In progress" },
-  { title: "Build a voice dataset collection network", status: "In progress" },
+  { title: "Ship CowCow as a polished interface, not just a CLI", status: "In progress" },
+  { title: "Turn Mesh into a credible public-safety data platform", status: "In progress" },
+  { title: "Publish more open-source ML infrastructure", status: "In progress" },
+  { title: "Build a stronger research portfolio around robust ML systems", status: "In progress" },
   { title: "Visit 30 countries while writing about builders", status: "Queued" },
   { title: "Record a full music project", status: "Queued" },
-  { title: "Teach 1,000 people practical machine learning", status: "Always" },
 ];
 
 export const posts = [
@@ -315,15 +364,29 @@ export const posts = [
     code: "metrics = evaluate(model, dataset)\nreport_tradeoffs(metrics, latency_ms=142, memory_gb=9.8)",
   },
   {
-    slug: "offline-first-tools-for-real-communities",
-    title: "Offline-First Tools for Real Communities",
-    date: "2026-04-18",
+    slug: "why-i-built-mesh",
+    title: "Why I Built Mesh",
+    date: "2026-05-26",
     excerpt:
-      "Why unreliable connectivity should be a first-class design constraint for dataset tools, education products, and community software.",
-    tags: ["Open Source", "Community", "Tools"],
+      "How fragmented public-safety data became the product problem behind Mesh, and why operational interfaces matter during emergencies.",
+    tags: ["Civic Tech", "Public Safety", "Apple", "Product"],
     readingTime: "4 min read",
     sections: [
-      "If software only works on perfect internet, it excludes many of the people I most want to build for.",
+      "Most emergency-response software problems are not about one missing dashboard. They are about agencies, incidents, maps, updates, and risk signals living in separate places while time is moving.",
+      "Mesh is my attempt to turn that fragmentation into a shared operational picture: incident feeds, map overlays, surge prediction, hazard scoring, and status awareness in a native Mac experience.",
+    ],
+    code: "const signal = normalizeIncident(rawCall)\nconst risk = scoreDistrict(signal, historicalBaseline)",
+  },
+  {
+    slug: "offline-first-tools-for-real-world-data",
+    title: "Offline-First Tools for Real-World Data",
+    date: "2026-04-18",
+    excerpt:
+      "Why unreliable connectivity should be a first-class design constraint for dataset tools, autonomy products, and field-data software.",
+    tags: ["Open Source", "Data", "Autonomous Systems"],
+    readingTime: "4 min read",
+    sections: [
+      "If software only works on perfect internet, it fails exactly where some of the most valuable data is collected.",
       "Offline-first design is not a fallback. It is respect for the environment the product is entering.",
     ],
     code: "cowcow record --offline\ncowcow sync --when-connected",
